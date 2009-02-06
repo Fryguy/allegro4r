@@ -1,6 +1,6 @@
 #
 # Example program (C version) for the Allegro library, by Shawn Hargreaves.
-#   (ruby port by Jason Frey)
+#   (Ruby port by Jason Frey)
 #
 # This is a very simple program showing how to get into graphics
 # mode and draw text onto the screen.
@@ -37,7 +37,7 @@ begin
   acquire_screen
 
   # write some text to the screen with black letters and transparent background
-  textout_centre_ex(screen, font, "Hello, world!", Allegro4r::API.SCREEN_W/2, Allegro4r::API.SCREEN_H/2, makecol(0, 0, 0), -1)
+  textout_centre_ex(screen, font, "Hello, world!", SCREEN_W()/2, SCREEN_H()/2, makecol(0, 0, 0), -1)
 
   # you must always release bitmaps before calling any input functions
   release_screen
