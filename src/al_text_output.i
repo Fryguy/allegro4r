@@ -2,7 +2,7 @@
 #include <winalleg.h>
 #include <ruby.h>
 
-static VALUE al_font(VALUE self)
+static VALUE a4r_font(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   FONT *fnt = font;
@@ -10,7 +10,7 @@ static VALUE al_font(VALUE self)
   return obj;
 }
 
-static VALUE al_textout_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALUE x, VALUE y, VALUE color, VALUE bg)
+static VALUE a4r_textout_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALUE x, VALUE y, VALUE color, VALUE bg)
 {
   BITMAP *b;
   Data_Get_Struct(bmp, BITMAP, b);

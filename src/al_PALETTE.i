@@ -2,24 +2,24 @@
 #include <winalleg.h>
 #include <ruby.h>
 
-static void al_PALETTE_free(void *palette)
+static void a4r_PALETTE_free(void *palette)
 {
   free((PALETTE*)palette);
 }
 
-static VALUE al_PALETTE_alloc(VALUE klass)
+static VALUE a4r_PALETTE_alloc(VALUE klass)
 {
   PALETTE *palette;
-  VALUE obj = Data_Make_Struct(klass, PALETTE, 0, al_PALETTE_free, palette);
+  VALUE obj = Data_Make_Struct(klass, PALETTE, 0, a4r_PALETTE_free, palette);
   return obj;
 }
 
-static VALUE al_PALETTE_initialize_copy(VALUE copy, VALUE orig)
+static VALUE a4r_PALETTE_initialize_copy(VALUE copy, VALUE orig)
 {
   if (copy == orig)
     return copy;
 
-  if (TYPE(orig) != T_DATA || RDATA(orig)->dfree != (RUBY_DATA_FUNC)al_PALETTE_free)
+  if (TYPE(orig) != T_DATA || RDATA(orig)->dfree != (RUBY_DATA_FUNC)a4r_PALETTE_free)
     rb_raise(rb_eTypeError, "wrong argument type");
 
   PALETTE *orig_pal, *copy_pal;
@@ -29,7 +29,7 @@ static VALUE al_PALETTE_initialize_copy(VALUE copy, VALUE orig)
   return copy;
 }
 
-static VALUE al_PALETTE_getter(VALUE self, VALUE index)
+static VALUE a4r_PALETTE_getter(VALUE self, VALUE index)
 {
   // TODO: Index validation && converting to "array" of RGBs
   PALETTE *palette;
@@ -39,7 +39,7 @@ static VALUE al_PALETTE_getter(VALUE self, VALUE index)
   return obj;
 }
 
-static VALUE al_PALETTE_setter(VALUE self, VALUE index, VALUE val)
+static VALUE a4r_PALETTE_setter(VALUE self, VALUE index, VALUE val)
 {
   // TODO: Index validation, val validation && converting to "array" of RGBs
   PALETTE *palette;

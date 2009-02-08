@@ -2,7 +2,7 @@
 #include <winalleg.h>
 #include <ruby.h>
 
-static VALUE al_set_palette(VALUE self, VALUE p)
+static VALUE a4r_set_palette(VALUE self, VALUE p)
 {
   // TODO: Check data type of palette?
   PALETTE *pal;
@@ -11,7 +11,7 @@ static VALUE al_set_palette(VALUE self, VALUE p)
   return Qnil;
 }
 
-static VALUE al_get_palette(VALUE self, VALUE p)
+static VALUE a4r_get_palette(VALUE self, VALUE p)
 {
   // TODO: Check data type of p?
   PALETTE *pal;
@@ -20,7 +20,7 @@ static VALUE al_get_palette(VALUE self, VALUE p)
   return Qnil;
 }
 
-static VALUE al_black_palette(VALUE self)
+static VALUE a4r_black_palette(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   PALETTE *pal = &black_palette;
@@ -28,7 +28,7 @@ static VALUE al_black_palette(VALUE self)
   return obj;
 }
 
-static VALUE al_desktop_palette(VALUE self)
+static VALUE a4r_desktop_palette(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   PALETTE *pal = &desktop_palette;

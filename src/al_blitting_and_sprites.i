@@ -2,7 +2,7 @@
 #include <winalleg.h>
 #include <ruby.h>
 
-static VALUE al_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
+static VALUE a4r_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
 {
   BITMAP *bmp_source, *bmp_dest;
   Data_Get_Struct(source, BITMAP, bmp_source);

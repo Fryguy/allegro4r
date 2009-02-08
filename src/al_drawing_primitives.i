@@ -2,7 +2,7 @@
 #include <winalleg.h>
 #include <ruby.h>
 
-static VALUE al_clear_bitmap(VALUE self, VALUE bitmap)
+static VALUE a4r_clear_bitmap(VALUE self, VALUE bitmap)
 {
   BITMAP *bmp;
   Data_Get_Struct(bitmap, BITMAP, bmp);
@@ -10,7 +10,7 @@ static VALUE al_clear_bitmap(VALUE self, VALUE bitmap)
   return Qnil;
 }
 
-static VALUE al_clear_to_color(VALUE self, VALUE bitmap, VALUE color)
+static VALUE a4r_clear_to_color(VALUE self, VALUE bitmap, VALUE color)
 {
   BITMAP *bmp;
   Data_Get_Struct(bitmap, BITMAP, bmp);
@@ -18,7 +18,7 @@ static VALUE al_clear_to_color(VALUE self, VALUE bitmap, VALUE color)
   return Qnil;
 }
 
-static VALUE al_circle(VALUE self, VALUE bitmap, VALUE x, VALUE y, VALUE radius, VALUE color)
+static VALUE a4r_circle(VALUE self, VALUE bitmap, VALUE x, VALUE y, VALUE radius, VALUE color)
 {
   BITMAP *bmp;
   Data_Get_Struct(bitmap, BITMAP, bmp);
@@ -26,7 +26,7 @@ static VALUE al_circle(VALUE self, VALUE bitmap, VALUE x, VALUE y, VALUE radius,
   return Qnil;
 }
 
-static VALUE al_circlefill(VALUE self, VALUE bitmap, VALUE x, VALUE y, VALUE radius, VALUE color)
+static VALUE a4r_circlefill(VALUE self, VALUE bitmap, VALUE x, VALUE y, VALUE radius, VALUE color)
 {
   BITMAP *bmp;
   Data_Get_Struct(bitmap, BITMAP, bmp);

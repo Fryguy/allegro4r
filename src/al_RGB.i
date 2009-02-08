@@ -2,19 +2,19 @@
 #include <winalleg.h>
 #include <ruby.h>
 
-static void al_RGB_free(void *rgb)
+static void a4r_RGB_free(void *rgb)
 {
   free((RGB*)rgb);
 }
 
-static VALUE al_RGB_alloc(VALUE klass)
+static VALUE a4r_RGB_alloc(VALUE klass)
 {
   RGB *rgb;
-  VALUE obj = Data_Make_Struct(klass, RGB, 0, al_RGB_free, rgb);
+  VALUE obj = Data_Make_Struct(klass, RGB, 0, a4r_RGB_free, rgb);
   return obj;
 }
 
-static VALUE al_RGB_initialize_copy(VALUE copy, VALUE orig)
+static VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
 {
   if (copy == orig)
     return copy;
@@ -22,7 +22,7 @@ static VALUE al_RGB_initialize_copy(VALUE copy, VALUE orig)
   // TODO: Bring back this check.  We do Data_Wrap_Structs in other places,
   //   which is causing this to have two structs with different free methods
 /*
-  if (TYPE(orig) != T_DATA || RDATA(orig)->dfree != (RUBY_DATA_FUNC)al_RGB_free)
+  if (TYPE(orig) != T_DATA || RDATA(orig)->dfree != (RUBY_DATA_FUNC)a4r_RGB_free)
     rb_raise(rb_eTypeError, "wrong argument type");
 */
 
@@ -33,7 +33,7 @@ static VALUE al_RGB_initialize_copy(VALUE copy, VALUE orig)
   return copy;
 }
 
-static VALUE al_RGB_r_get(VALUE self, VALUE val)
+static VALUE a4r_RGB_r_get(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -41,7 +41,7 @@ static VALUE al_RGB_r_get(VALUE self, VALUE val)
   return CHR2FIX(rgb->r);
 }
 
-static VALUE al_RGB_r_set(VALUE self, VALUE val)
+static VALUE a4r_RGB_r_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -50,7 +50,7 @@ static VALUE al_RGB_r_set(VALUE self, VALUE val)
   return val;
 }
 
-static VALUE al_RGB_g_get(VALUE self, VALUE val)
+static VALUE a4r_RGB_g_get(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -58,7 +58,7 @@ static VALUE al_RGB_g_get(VALUE self, VALUE val)
   return CHR2FIX(rgb->g);
 }
 
-static VALUE al_RGB_g_set(VALUE self, VALUE val)
+static VALUE a4r_RGB_g_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -67,7 +67,7 @@ static VALUE al_RGB_g_set(VALUE self, VALUE val)
   return val;
 }
 
-static VALUE al_RGB_b_get(VALUE self, VALUE val)
+static VALUE a4r_RGB_b_get(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -75,7 +75,7 @@ static VALUE al_RGB_b_get(VALUE self, VALUE val)
   return CHR2FIX(rgb->b);
 }
 
-static VALUE al_RGB_b_set(VALUE self, VALUE val)
+static VALUE a4r_RGB_b_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;

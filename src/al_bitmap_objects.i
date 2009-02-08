@@ -2,7 +2,7 @@
 #include <winalleg.h>
 #include <ruby.h>
 
-static VALUE al_screen(VALUE self)
+static VALUE a4r_screen(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   BITMAP *bmp = screen;
@@ -10,19 +10,19 @@ static VALUE al_screen(VALUE self)
   return obj;
 }
 
-static VALUE al_SCREEN_W(VALUE self)
+static VALUE a4r_SCREEN_W(VALUE self)
 {
   // TODO: Convert to hooked or virtual variable?
   return INT2FIX(SCREEN_W);
 }
 
-static VALUE al_SCREEN_H(VALUE self)
+static VALUE a4r_SCREEN_H(VALUE self)
 {
   // TODO: Convert to hooked or virtual variable?
   return INT2FIX(SCREEN_H);
 }
 
-static VALUE al_create_bitmap(VALUE self, VALUE width, VALUE height)
+static VALUE a4r_create_bitmap(VALUE self, VALUE width, VALUE height)
 {
   // TODO: Change to call destroy_bitmap on free?
   BITMAP *bmp = create_bitmap(FIX2INT(width), FIX2INT(height));
@@ -30,7 +30,7 @@ static VALUE al_create_bitmap(VALUE self, VALUE width, VALUE height)
   return obj;
 }
 
-static VALUE al_destroy_bitmap(VALUE self, VALUE bitmap)
+static VALUE a4r_destroy_bitmap(VALUE self, VALUE bitmap)
 {
   BITMAP *bmp;
   Data_Get_Struct(bitmap, BITMAP, bmp);
@@ -38,13 +38,13 @@ static VALUE al_destroy_bitmap(VALUE self, VALUE bitmap)
   return Qnil;
 }
 
-static VALUE al_acquire_screen(VALUE self)
+static VALUE a4r_acquire_screen(VALUE self)
 {
   acquire_screen();
   return Qnil;
 }
 
-static VALUE al_release_screen(VALUE self)
+static VALUE a4r_release_screen(VALUE self)
 {
   release_screen();
   return Qnil;
