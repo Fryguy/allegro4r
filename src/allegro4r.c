@@ -26,20 +26,20 @@ static VALUE cRGB;
 static VALUE cFONT;
 
 // Object definitions for structures and types defined by Allegro
-#include "al_PALETTE.i"
-#include "al_RGB.i"
+#include "a4r_PALETTE.i"
+#include "a4r_RGB.i"
 
 // Ruby methods for routines defined by Allegro
-#include "al_using_allegro.i"
-#include "al_mouse_routines.i"
-#include "al_keyboard_routines.i"
-#include "al_graphic_modes.i"
-#include "al_bitmap_objects.i"
-#include "al_palette_routines.i"
-#include "al_truecolor_pixel_formats.i"
-#include "al_drawing_primitives.i"
-#include "al_blitting_and_sprites.i"
-#include "al_text_output.i"
+#include "a4r_using_allegro.i"
+#include "a4r_mouse_routines.i"
+#include "a4r_keyboard_routines.i"
+#include "a4r_graphic_modes.i"
+#include "a4r_bitmap_objects.i"
+#include "a4r_palette_routines.i"
+#include "a4r_truecolor_pixel_formats.i"
+#include "a4r_drawing_primitives.i"
+#include "a4r_blitting_and_sprites.i"
+#include "a4r_text_output.i"
 
 void Init_allegro4r()
 {
