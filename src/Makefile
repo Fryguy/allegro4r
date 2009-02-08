@@ -49,7 +49,7 @@ RUBY_EXTCONF_H =
 CFLAGS   =  -pipe -O2 -mms-bitfields -march=i686  $(cflags) 
 INCFLAGS = -I. -I. -Ic:/mingw/ruby/lib/ruby/1.8/i386-mingw32 -I.
 DEFS     = 
-CPPFLAGS =  -Ic:/mingw/allegro-mingw-4.2.2//include   
+CPPFLAGS =  -Ic:/mingw/allegro-mingw-4.2.2/include   
 CXXFLAGS = $(CFLAGS) 
 ldflags  = -L. 
 dldflags =  -Wl,--enable-auto-image-base,--enable-auto-import,--export-all
@@ -77,8 +77,8 @@ COPY = cp
 
 preload = 
 
-libpath = . $(libdir) c:/mingw/allegro-mingw-4.2.2//lib
-LIBPATH =  -L. -L$(libdir) -Lc:/mingw/allegro-mingw-4.2.2//lib
+libpath = . $(libdir) c:/mingw/allegro-mingw-4.2.2/lib
+LIBPATH =  -L. -L$(libdir) -Lc:/mingw/allegro-mingw-4.2.2/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log
