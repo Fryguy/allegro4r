@@ -72,5 +72,3 @@ ensure
   # JF - you must ensure allegro_exit is called to prevent Ruby from crashing
   allegro_exit
 end
-
-

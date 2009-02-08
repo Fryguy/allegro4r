@@ -26,6 +26,7 @@ static VALUE cRGB;
 static VALUE cFONT;
 
 // Object definitions for structures and types defined by Allegro
+#include "a4r_BITMAP.i"
 #include "a4r_PALETTE.i"
 #include "a4r_RGB.i"
 
@@ -40,18 +41,16 @@ static VALUE cFONT;
 #include "a4r_drawing_primitives.i"
 #include "a4r_blitting_and_sprites.i"
 #include "a4r_text_output.i"
+#include "a4r_transparency_and_patterned_drawing.i"
 
 void Init_allegro4r()
 {
   modAllegro4r = rb_define_module("Allegro4r");
   modAllegro4r_API = rb_define_module_under(modAllegro4r, "API");
 
-  rb_define_module_function(modAllegro4r_API, "allegro_init", a4r_allegro_init, 0);
-  rb_define_module_function(modAllegro4r_API, "allegro_exit", a4r_allegro_exit, 0);
-  rb_define_module_function(modAllegro4r_API, "allegro_error", a4r_allegro_error, 0);
-  rb_define_module_function(modAllegro4r_API, "allegro_message", a4r_allegro_message, 1);
-
   cBITMAP = rb_define_class_under(modAllegro4r_API, "BITMAP", rb_cObject);
+  rb_define_method(cBITMAP, "h", a4r_BITMAP_h_get, 0);
+  rb_define_method(cBITMAP, "w", a4r_BITMAP_w_get, 0);
 
   cPALETTE = rb_define_class_under(modAllegro4r_API, "PALETTE", rb_cObject);
   rb_define_alloc_func(cPALETTE, a4r_PALETTE_alloc);
@@ -71,6 +70,11 @@ void Init_allegro4r()
 
   cFONT = rb_define_class_under(modAllegro4r_API, "FONT", rb_cObject);
 
+  rb_define_module_function(modAllegro4r_API, "allegro_init", a4r_allegro_init, 0);
+  rb_define_module_function(modAllegro4r_API, "allegro_exit", a4r_allegro_exit, 0);
+  rb_define_module_function(modAllegro4r_API, "allegro_error", a4r_allegro_error, 0);
+  rb_define_module_function(modAllegro4r_API, "allegro_message", a4r_allegro_message, 1);
+
   rb_define_module_function(modAllegro4r_API, "install_mouse", a4r_install_mouse, 0);
   rb_define_module_function(modAllegro4r_API, "show_mouse", a4r_show_mouse, 1);
 
@@ -89,7 +93,11 @@ void Init_allegro4r()
   rb_define_module_function(modAllegro4r_API, "SCREEN_W", a4r_SCREEN_W, 0);
   rb_define_module_function(modAllegro4r_API, "SCREEN_H", a4r_SCREEN_H, 0);
   rb_define_module_function(modAllegro4r_API, "create_bitmap", a4r_create_bitmap, 2);
+  rb_define_module_function(modAllegro4r_API, "create_sub_bitmap", a4r_create_sub_bitmap, 5);
   rb_define_module_function(modAllegro4r_API, "destroy_bitmap", a4r_destroy_bitmap, 1);
+  rb_define_module_function(modAllegro4r_API, "bitmap_mask_color", a4r_bitmap_mask_color, 1);
+  rb_define_module_function(modAllegro4r_API, "acquire_bitmap", a4r_acquire_bitmap, 1);
+  rb_define_module_function(modAllegro4r_API, "release_bitmap", a4r_release_bitmap, 1);
   rb_define_module_function(modAllegro4r_API, "acquire_screen", a4r_acquire_screen, 0);
   rb_define_module_function(modAllegro4r_API, "release_screen", a4r_release_screen, 0);
 
@@ -103,16 +111,31 @@ void Init_allegro4r()
 
   rb_define_module_function(modAllegro4r_API, "clear_bitmap", a4r_clear_bitmap, 1);
   rb_define_module_function(modAllegro4r_API, "clear_to_color", a4r_clear_to_color, 2);
+  rb_define_module_function(modAllegro4r_API, "rectfill", a4r_rectfill, 6);
   rb_define_module_function(modAllegro4r_API, "circle", a4r_circle, 5);
   rb_define_module_function(modAllegro4r_API, "circlefill", a4r_circlefill, 5);
 
   rb_define_module_function(modAllegro4r_API, "blit", a4r_blit, 8);
+  rb_define_module_function(modAllegro4r_API, "masked_blit", a4r_masked_blit, 8);
 
   rb_define_module_function(modAllegro4r_API, "font", a4r_font, 0);
+  rb_define_module_function(modAllegro4r_API, "text_length", a4r_text_length, 2);
+  rb_define_module_function(modAllegro4r_API, "text_height", a4r_text_height, 1);
+  rb_define_module_function(modAllegro4r_API, "textout_ex", a4r_textout_ex, 7);
   rb_define_module_function(modAllegro4r_API, "textout_centre_ex", a4r_textout_centre_ex, 7);
+
+  rb_define_const(modAllegro4r_API, "DRAW_MODE_SOLID", INT2FIX(DRAW_MODE_SOLID));
+  rb_define_const(modAllegro4r_API, "DRAW_MODE_XOR", INT2FIX(DRAW_MODE_XOR));
+  rb_define_const(modAllegro4r_API, "DRAW_MODE_COPY_PATTERN", INT2FIX(DRAW_MODE_COPY_PATTERN));
+  rb_define_const(modAllegro4r_API, "DRAW_MODE_SOLID_PATTERN", INT2FIX(DRAW_MODE_SOLID_PATTERN));
+  rb_define_const(modAllegro4r_API, "DRAW_MODE_MASKED_PATTERN", INT2FIX(DRAW_MODE_MASKED_PATTERN));
+  rb_define_const(modAllegro4r_API, "DRAW_MODE_TRANS", INT2FIX(DRAW_MODE_TRANS));
+  rb_define_module_function(modAllegro4r_API, "drawing_mode", a4r_drawing_mode, 4);
+  rb_define_module_function(modAllegro4r_API, "solid_mode", a4r_solid_mode, 0);
 }
 
 // needed if Allegro is built as a shared library
+
 int main()
 {
   return 0;

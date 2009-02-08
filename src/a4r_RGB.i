@@ -33,9 +33,8 @@ static VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
   return copy;
 }
 
-static VALUE a4r_RGB_r_get(VALUE self, VALUE val)
+static VALUE a4r_RGB_r_get(VALUE self)
 {
-  // TODO: val validation
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
   return CHR2FIX(rgb->r);
@@ -50,9 +49,8 @@ static VALUE a4r_RGB_r_set(VALUE self, VALUE val)
   return val;
 }
 
-static VALUE a4r_RGB_g_get(VALUE self, VALUE val)
+static VALUE a4r_RGB_g_get(VALUE self)
 {
-  // TODO: val validation
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
   return CHR2FIX(rgb->g);
@@ -67,9 +65,8 @@ static VALUE a4r_RGB_g_set(VALUE self, VALUE val)
   return val;
 }
 
-static VALUE a4r_RGB_b_get(VALUE self, VALUE val)
+static VALUE a4r_RGB_b_get(VALUE self)
 {
-  // TODO: val validation
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
   return CHR2FIX(rgb->b);
