@@ -21,6 +21,7 @@ static VALUE modAllegro4r;
 static VALUE modAllegro4r_API;
 static VALUE cBITMAP;
 static VALUE cPALETTE;
+static VALUE cRGB;
 static VALUE cFONT;
 
 // Using Allegro
@@ -51,11 +52,161 @@ static VALUE al_allegro_message(VALUE self, VALUE text)
 
 // Structures and types defined by Allegro
 
+static void al_PALETTE_free(void *palette)
+{
+  free((PALETTE*)palette);
+}
+
+static VALUE al_PALETTE_alloc(VALUE klass)
+{
+  PALETTE *palette;
+  VALUE obj = Data_Make_Struct(klass, PALETTE, 0, al_PALETTE_free, palette);
+  return obj;
+}
+
+static VALUE al_PALETTE_initialize_copy(VALUE copy, VALUE orig)
+{
+  if (copy == orig)
+    return copy;
+
+  if (TYPE(orig) != T_DATA || RDATA(orig)->dfree != (RUBY_DATA_FUNC)al_PALETTE_free)
+    rb_raise(rb_eTypeError, "wrong argument type");
+
+  PALETTE *orig_pal, *copy_pal;
+  Data_Get_Struct(orig, PALETTE, orig_pal);
+  Data_Get_Struct(copy, PALETTE, copy_pal);
+  MEMCPY(copy_pal, orig_pal, PALETTE, 1);
+  return copy;
+}
+
+static VALUE al_PALETTE_getter(VALUE self, VALUE index)
+{
+  // TODO: Index validation && converting to "array" of RGBs
+  PALETTE *palette;
+  Data_Get_Struct(self, PALETTE, palette);
+  RGB *rgb = &((*palette)[FIX2INT(index)]);
+  VALUE obj = Data_Wrap_Struct(cRGB, 0, 0, rgb);
+  return obj;
+}
+
+static VALUE al_PALETTE_setter(VALUE self, VALUE index, VALUE val)
+{
+  // TODO: Index validation, val validation && converting to "array" of RGBs
+  PALETTE *palette;
+  Data_Get_Struct(self, PALETTE, palette);
+  RGB *rgb;
+  Data_Get_Struct(val, RGB, rgb);
+  (*palette)[FIX2INT(index)] = *rgb;
+  return val;
+}
+
+static void al_RGB_free(void *rgb)
+{
+  free((RGB*)rgb);
+}
+
+static VALUE al_RGB_alloc(VALUE klass)
+{
+  RGB *rgb;
+  VALUE obj = Data_Make_Struct(klass, RGB, 0, al_RGB_free, rgb);
+  return obj;
+}
+
+static VALUE al_RGB_initialize_copy(VALUE copy, VALUE orig)
+{
+  if (copy == orig)
+    return copy;
+
+  // TODO: Bring back this check.  We do Data_Wrap_Structs in other places,
+  //   which is causing this to have two structs with different free methods
+/*
+  if (TYPE(orig) != T_DATA || RDATA(orig)->dfree != (RUBY_DATA_FUNC)al_RGB_free)
+    rb_raise(rb_eTypeError, "wrong argument type");
+*/
+
+  RGB *orig_rgb, *copy_rgb;
+  Data_Get_Struct(orig, RGB, orig_rgb);
+  Data_Get_Struct(copy, RGB, copy_rgb);
+  MEMCPY(copy_rgb, orig_rgb, RGB, 1);
+  return copy;
+}
+
+static VALUE al_RGB_r_get(VALUE self, VALUE val)
+{
+  // TODO: val validation
+  RGB *rgb;
+  Data_Get_Struct(self, RGB, rgb);
+  return CHR2FIX(rgb->r);
+}
+
+static VALUE al_RGB_r_set(VALUE self, VALUE val)
+{
+  // TODO: val validation
+  RGB *rgb;
+  Data_Get_Struct(self, RGB, rgb);
+  rgb->r = NUM2CHR(val);
+  return val;
+}
+
+static VALUE al_RGB_g_get(VALUE self, VALUE val)
+{
+  // TODO: val validation
+  RGB *rgb;
+  Data_Get_Struct(self, RGB, rgb);
+  return CHR2FIX(rgb->g);
+}
+
+static VALUE al_RGB_g_set(VALUE self, VALUE val)
+{
+  // TODO: val validation
+  RGB *rgb;
+  Data_Get_Struct(self, RGB, rgb);
+  rgb->g = NUM2CHR(val);
+  return val;
+}
+
+static VALUE al_RGB_b_get(VALUE self, VALUE val)
+{
+  // TODO: val validation
+  RGB *rgb;
+  Data_Get_Struct(self, RGB, rgb);
+  return CHR2FIX(rgb->b);
+}
+
+static VALUE al_RGB_b_set(VALUE self, VALUE val)
+{
+  // TODO: val validation
+  RGB *rgb;
+  Data_Get_Struct(self, RGB, rgb);
+  rgb->b = NUM2CHR(val);
+  return val;
+}
+
+// Mouse routines
+
+static VALUE al_install_mouse(VALUE self)
+{
+  return INT2FIX(install_mouse());
+}
+
+static VALUE al_show_mouse(VALUE self, VALUE bmp)
+{
+  BITMAP *b;
+  Data_Get_Struct(bmp, BITMAP, b);
+  show_mouse(b);
+  return Qnil;
+}
+
 // Keyboard routines
 
 static VALUE al_install_keyboard(VALUE self)
 {
   return INT2FIX(install_keyboard());
+}
+
+static VALUE al_keypressed(VALUE self)
+{
+  return keypressed() ? Qtrue : Qfalse;
 }
 
 static VALUE al_readkey(VALUE self)
@@ -122,13 +273,30 @@ static VALUE al_release_screen(VALUE self)
 
 // Pallette routines
 
-static VALUE al_set_palette(VALUE self, VALUE palette)
+static VALUE al_set_palette(VALUE self, VALUE p)
 {
   // TODO: Check data type of palette?
   PALETTE *pal;
-  Data_Get_Struct(palette, PALETTE, pal);
+  Data_Get_Struct(p, PALETTE, pal);
   set_palette(*pal);
   return Qnil;
+}
+
+static VALUE al_get_palette(VALUE self, VALUE p)
+{
+  // TODO: Check data type of p?
+  PALETTE *pal;
+  Data_Get_Struct(p, PALETTE, pal);
+  get_palette(*pal);
+  return Qnil;
+}
+
+static VALUE al_black_palette(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  PALETTE *pal = &black_palette;
+  VALUE obj = Data_Wrap_Struct(cPALETTE, 0, 0, pal);
+  return obj;
 }
 
 static VALUE al_desktop_palette(VALUE self)
@@ -182,6 +350,14 @@ static VALUE al_circle(VALUE self, VALUE bitmap, VALUE x, VALUE y, VALUE radius,
   return Qnil;
 }
 
+static VALUE al_circlefill(VALUE self, VALUE bitmap, VALUE x, VALUE y, VALUE radius, VALUE color)
+{
+  BITMAP *bmp;
+  Data_Get_Struct(bitmap, BITMAP, bmp);
+  circlefill(bmp, FIX2INT(x), FIX2INT(y), FIX2INT(radius), FIX2INT(color));
+  return Qnil;
+}
+
 // Blitting and sprites
 
 static VALUE al_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
@@ -224,10 +400,30 @@ void Init_allegro4r()
   rb_define_module_function(modAllegro4r_API, "allegro_message", al_allegro_message, 1);
 
   cBITMAP = rb_define_class_under(modAllegro4r_API, "BITMAP", rb_cObject);
+
   cPALETTE = rb_define_class_under(modAllegro4r_API, "PALETTE", rb_cObject);
+  rb_define_alloc_func(cPALETTE, al_PALETTE_alloc);
+  rb_define_method(cPALETTE, "initialize_copy", al_PALETTE_initialize_copy, 1);
+  rb_define_method(cPALETTE, "[]", al_PALETTE_getter, 1);
+  rb_define_method(cPALETTE, "[]=", al_PALETTE_setter, 2);
+
+  cRGB = rb_define_class_under(modAllegro4r_API, "RGB", rb_cObject);
+  rb_define_alloc_func(cRGB, al_RGB_alloc);
+  rb_define_method(cRGB, "initialize_copy", al_RGB_initialize_copy, 1);
+  rb_define_method(cRGB, "r", al_RGB_r_get, 0);
+  rb_define_method(cRGB, "r=", al_RGB_r_set, 1);
+  rb_define_method(cRGB, "g", al_RGB_g_get, 0);
+  rb_define_method(cRGB, "g=", al_RGB_g_set, 1);
+  rb_define_method(cRGB, "b", al_RGB_b_get, 0);
+  rb_define_method(cRGB, "b=", al_RGB_b_set, 1);
+
   cFONT = rb_define_class_under(modAllegro4r_API, "FONT", rb_cObject);
 
+  rb_define_module_function(modAllegro4r_API, "install_mouse", al_install_mouse, 0);
+  rb_define_module_function(modAllegro4r_API, "show_mouse", al_show_mouse, 1);
+
   rb_define_module_function(modAllegro4r_API, "install_keyboard", al_install_keyboard, 0);
+  rb_define_module_function(modAllegro4r_API, "keypressed", al_keypressed, 0);
   rb_define_module_function(modAllegro4r_API, "readkey", al_readkey, 0);
 
   rb_define_const(modAllegro4r_API, "GFX_AUTODETECT", INT2FIX(GFX_AUTODETECT));
@@ -246,7 +442,9 @@ void Init_allegro4r()
   rb_define_module_function(modAllegro4r_API, "release_screen", al_release_screen, 0);
 
   rb_define_module_function(modAllegro4r_API, "set_palette", al_set_palette, 1);
+  rb_define_module_function(modAllegro4r_API, "get_palette", al_get_palette, 1);
   rb_define_module_function(modAllegro4r_API, "desktop_palette", al_desktop_palette, 0);
+  rb_define_module_function(modAllegro4r_API, "black_palette", al_black_palette, 0);
 
   rb_define_module_function(modAllegro4r_API, "makecol", al_makecol, 3);
   rb_define_module_function(modAllegro4r_API, "palette_color", al_palette_color, 0);
@@ -254,6 +452,7 @@ void Init_allegro4r()
   rb_define_module_function(modAllegro4r_API, "clear_bitmap", al_clear_bitmap, 1);
   rb_define_module_function(modAllegro4r_API, "clear_to_color", al_clear_to_color, 2);
   rb_define_module_function(modAllegro4r_API, "circle", al_circle, 5);
+  rb_define_module_function(modAllegro4r_API, "circlefill", al_circlefill, 5);
 
   rb_define_module_function(modAllegro4r_API, "blit", al_blit, 8);
 
