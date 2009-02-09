@@ -16,3 +16,11 @@ static VALUE a4r_AL_RAND(VALUE self)
 {
   return INT2NUM(AL_RAND());
 }
+
+static VALUE a4r_gfx_driver(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  GFX_DRIVER *driver = gfx_driver;
+  VALUE obj = Data_Wrap_Struct(cGFX_DRIVER, 0, 0, driver);
+  return obj;
+}

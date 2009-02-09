@@ -24,16 +24,19 @@ static VALUE cBITMAP;
 static VALUE cPALETTE;
 static VALUE cRGB;
 static VALUE cFONT;
+static VALUE cGFX_DRIVER;
 
 // Object definitions for structures and types defined by Allegro
 #include "a4r_BITMAP.i"
 #include "a4r_PALETTE.i"
 #include "a4r_RGB.i"
+#include "a4r_GFX_DRIVER.i"
 
 // Ruby methods for routines defined by Allegro
 #include "a4r_misc.i"
 #include "a4r_using_allegro.i"
 #include "a4r_mouse_routines.i"
+#include "a4r_timer_routines.i"
 #include "a4r_keyboard_routines.i"
 #include "a4r_graphic_modes.i"
 #include "a4r_bitmap_objects.i"
@@ -72,9 +75,13 @@ void Init_allegro4r()
 
   cFONT = rb_define_class_under(modAllegro4r_API, "FONT", rb_cObject);
 
+  cGFX_DRIVER = rb_define_class_under(modAllegro4r_API, "GFX_DRIVER", rb_cObject);
+  rb_define_method(cGFX_DRIVER, "name", a4r_GFX_DRIVER_name_get, 0);
+
   rb_define_module_function(modAllegro4r_API, "MIN", a4r_MIN, 2);
   rb_define_module_function(modAllegro4r_API, "ABS", a4r_ABS, 1);
   rb_define_module_function(modAllegro4r_API, "AL_RAND", a4r_AL_RAND, 0);
+  rb_define_module_function(modAllegro4r_API, "gfx_driver", a4r_gfx_driver, 0);
 
   rb_define_module_function(modAllegro4r_API, "allegro_init", a4r_allegro_init, 0);
   rb_define_module_function(modAllegro4r_API, "allegro_exit", a4r_allegro_exit, 0);
@@ -83,6 +90,9 @@ void Init_allegro4r()
 
   rb_define_module_function(modAllegro4r_API, "install_mouse", a4r_install_mouse, 0);
   rb_define_module_function(modAllegro4r_API, "show_mouse", a4r_show_mouse, 1);
+
+  rb_define_module_function(modAllegro4r_API, "install_timer", a4r_install_timer, 0);
+  rb_define_module_function(modAllegro4r_API, "retrace_count", a4r_retrace_count, 0);
 
   rb_define_module_function(modAllegro4r_API, "install_keyboard", a4r_install_keyboard, 0);
   rb_define_module_function(modAllegro4r_API, "keypressed", a4r_keypressed, 0);
@@ -132,6 +142,7 @@ void Init_allegro4r()
   rb_define_module_function(modAllegro4r_API, "text_height", a4r_text_height, 1);
   rb_define_module_function(modAllegro4r_API, "textout_ex", a4r_textout_ex, 7);
   rb_define_module_function(modAllegro4r_API, "textout_centre_ex", a4r_textout_centre_ex, 7);
+  rb_define_module_function(modAllegro4r_API, "textprintf_ex", a4r_textprintf_ex, 7);
 
   rb_define_const(modAllegro4r_API, "DRAW_MODE_SOLID", INT2FIX(DRAW_MODE_SOLID));
   rb_define_const(modAllegro4r_API, "DRAW_MODE_XOR", INT2FIX(DRAW_MODE_XOR));

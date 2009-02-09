@@ -43,3 +43,14 @@ static VALUE a4r_textout_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALU
   textout_centre_ex(b, fnt, StringValuePtr(s), FIX2INT(x), FIX2INT(y), FIX2INT(color), FIX2INT(bg));
   return Qnil;
 }
+
+static VALUE a4r_textprintf_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, VALUE y, VALUE color, VALUE bg, VALUE fmt)
+{
+  // TODO: Make this actually work like printf with arbitrary number of parameters
+  BITMAP *b;
+  Data_Get_Struct(bmp, BITMAP, b);
+  FONT *fnt;
+  Data_Get_Struct(f, FONT, fnt);
+  textprintf_ex(b, fnt, FIX2INT(x), FIX2INT(y), FIX2INT(color), FIX2INT(bg), StringValuePtr(fmt));
+  return Qnil;
+}
