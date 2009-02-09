@@ -16,3 +16,9 @@ static VALUE a4r_readkey(VALUE self)
 {
   return INT2FIX(readkey());
 }
+
+static VALUE a4r_clear_keybuf(VALUE self)
+{
+  clear_keybuf();
+  return Qnil;
+}

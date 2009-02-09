@@ -18,6 +18,21 @@ static VALUE a4r_clear_to_color(VALUE self, VALUE bitmap, VALUE color)
   return Qnil;
 }
 
+static VALUE a4r_putpixel(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE color)
+{
+  BITMAP *bitmap;
+  Data_Get_Struct(bmp, BITMAP, bitmap);
+  putpixel(bitmap, FIX2INT(x), FIX2INT(y), FIX2INT(color));
+  return Qnil;
+}
+
+static VALUE a4r_getpixel(VALUE self, VALUE bmp, VALUE x, VALUE y)
+{
+  BITMAP *bitmap;
+  Data_Get_Struct(bmp, BITMAP, bitmap);
+  return INT2FIX(getpixel(bitmap, FIX2INT(x), FIX2INT(y)));
+}
+
 static VALUE a4r_rectfill(VALUE self, VALUE bmp, VALUE x1, VALUE y1, VALUE x2, VALUE y2, VALUE color)
 {
   BITMAP *bitmap;

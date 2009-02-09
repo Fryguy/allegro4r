@@ -31,6 +31,7 @@ static VALUE cFONT;
 #include "a4r_RGB.i"
 
 // Ruby methods for routines defined by Allegro
+#include "a4r_misc.i"
 #include "a4r_using_allegro.i"
 #include "a4r_mouse_routines.i"
 #include "a4r_keyboard_routines.i"
@@ -42,6 +43,7 @@ static VALUE cFONT;
 #include "a4r_blitting_and_sprites.i"
 #include "a4r_text_output.i"
 #include "a4r_transparency_and_patterned_drawing.i"
+#include "a4r_direct_access_to_video_memory.i"
 
 void Init_allegro4r()
 {
@@ -70,6 +72,10 @@ void Init_allegro4r()
 
   cFONT = rb_define_class_under(modAllegro4r_API, "FONT", rb_cObject);
 
+  rb_define_module_function(modAllegro4r_API, "MIN", a4r_MIN, 2);
+  rb_define_module_function(modAllegro4r_API, "ABS", a4r_ABS, 1);
+  rb_define_module_function(modAllegro4r_API, "AL_RAND", a4r_AL_RAND, 0);
+
   rb_define_module_function(modAllegro4r_API, "allegro_init", a4r_allegro_init, 0);
   rb_define_module_function(modAllegro4r_API, "allegro_exit", a4r_allegro_exit, 0);
   rb_define_module_function(modAllegro4r_API, "allegro_error", a4r_allegro_error, 0);
@@ -81,6 +87,7 @@ void Init_allegro4r()
   rb_define_module_function(modAllegro4r_API, "install_keyboard", a4r_install_keyboard, 0);
   rb_define_module_function(modAllegro4r_API, "keypressed", a4r_keypressed, 0);
   rb_define_module_function(modAllegro4r_API, "readkey", a4r_readkey, 0);
+  rb_define_module_function(modAllegro4r_API, "clear_keybuf", a4r_clear_keybuf, 0);
 
   rb_define_const(modAllegro4r_API, "GFX_AUTODETECT", INT2FIX(GFX_AUTODETECT));
   rb_define_const(modAllegro4r_API, "GFX_AUTODETECT_FULLSCREEN", INT2FIX(GFX_AUTODETECT_FULLSCREEN));
@@ -111,6 +118,8 @@ void Init_allegro4r()
 
   rb_define_module_function(modAllegro4r_API, "clear_bitmap", a4r_clear_bitmap, 1);
   rb_define_module_function(modAllegro4r_API, "clear_to_color", a4r_clear_to_color, 2);
+  rb_define_module_function(modAllegro4r_API, "putpixel", a4r_putpixel, 4);
+  rb_define_module_function(modAllegro4r_API, "getpixel", a4r_getpixel, 3);
   rb_define_module_function(modAllegro4r_API, "rectfill", a4r_rectfill, 6);
   rb_define_module_function(modAllegro4r_API, "circle", a4r_circle, 5);
   rb_define_module_function(modAllegro4r_API, "circlefill", a4r_circlefill, 5);
@@ -132,6 +141,16 @@ void Init_allegro4r()
   rb_define_const(modAllegro4r_API, "DRAW_MODE_TRANS", INT2FIX(DRAW_MODE_TRANS));
   rb_define_module_function(modAllegro4r_API, "drawing_mode", a4r_drawing_mode, 4);
   rb_define_module_function(modAllegro4r_API, "solid_mode", a4r_solid_mode, 0);
+
+  rb_define_module_function(modAllegro4r_API, "bmp_select", a4r_bmp_select, 1);
+  rb_define_module_function(modAllegro4r_API, "bmp_read8", a4r_bmp_read8, 1);
+  rb_define_module_function(modAllegro4r_API, "bmp_read32", a4r_bmp_read32, 1);
+  rb_define_module_function(modAllegro4r_API, "bmp_write8", a4r_bmp_write8, 2);
+  rb_define_module_function(modAllegro4r_API, "bmp_write32", a4r_bmp_write32, 2);
+  rb_define_module_function(modAllegro4r_API, "bmp_write_line", a4r_bmp_write_line, 2);
+  rb_define_module_function(modAllegro4r_API, "bmp_read_line", a4r_bmp_read_line, 2);
+  rb_define_module_function(modAllegro4r_API, "bmp_unwrite_line", a4r_bmp_unwrite_line, 1);
+
 }
 
 // needed if Allegro is built as a shared library
