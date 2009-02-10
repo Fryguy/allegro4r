@@ -47,6 +47,7 @@ static VALUE cGFX_DRIVER;
 #include "a4r_text_output.i"
 #include "a4r_transparency_and_patterned_drawing.i"
 #include "a4r_direct_access_to_video_memory.i"
+#include "a4r_fixed_point_math_routines.i"
 
 void Init_allegro4r()
 {
@@ -164,10 +165,14 @@ void Init_allegro4r()
   rb_define_module_function(modAllegro4r_API, "bmp_read_line", a4r_bmp_read_line, 2);
   rb_define_module_function(modAllegro4r_API, "bmp_unwrite_line", a4r_bmp_unwrite_line, 1);
 
+  rb_define_module_function(modAllegro4r_API, "itofix", a4r_itofix, 1);
+  rb_define_module_function(modAllegro4r_API, "ftofix", a4r_ftofix, 1);
+  rb_define_module_function(modAllegro4r_API, "fixtof", a4r_fixtof, 1);
+  rb_define_module_function(modAllegro4r_API, "fixmul", a4r_fixmul, 2);
+  rb_define_module_function(modAllegro4r_API, "fixsqrt", a4r_fixsqrt, 1);
 }
 
 // needed if Allegro is built as a shared library
-
 int main()
 {
   return 0;
