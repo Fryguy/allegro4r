@@ -12,23 +12,23 @@ static VALUE a4r_bmp_select(VALUE self, VALUE bmp)
 
 static VALUE a4r_bmp_read8(VALUE self, VALUE addr)
 {
-  return CHR2FIX(bmp_read8(NUM2ULONG(addr)));
+  return rb_str_new((char*)&(bmp_read8(NUM2ULONG(addr))), sizeof(uint8_t));
 }
 
 static VALUE a4r_bmp_read32(VALUE self, VALUE addr)
 {
-  return UINT2NUM(bmp_read32(NUM2ULONG(addr)));
+  return rb_str_new((char*)&(bmp_read32(NUM2ULONG(addr))), sizeof(uint32_t));
 }
 
 static VALUE a4r_bmp_write8(VALUE self, VALUE addr, VALUE c)
 {
-  bmp_write8(NUM2ULONG(addr), (uint8_t)NUM2CHR(c));
+  bmp_write8(NUM2ULONG(addr), *((uint8_t*)StringValuePtr(c)));
   return Qnil;
 }
 
 static VALUE a4r_bmp_write32(VALUE self, VALUE addr, VALUE c)
 {
-  bmp_write32(NUM2ULONG(addr), (uint32_t)NUM2ULONG(c));
+  bmp_write32(NUM2ULONG(addr), *((uint32_t*)StringValuePtr(c)));
   return Qnil;
 }
 

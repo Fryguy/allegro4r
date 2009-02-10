@@ -60,7 +60,7 @@ begin
   end
 
   begin
-    $temp = Array.new(SCREEN_W(), 0)
+    $temp = "\0" * SCREEN_W()
   rescue NoMemoryError
     set_gfx_mode(GFX_TEXT, 0, 0, 0, 0)
     allegro_message("Not enough memory? This is a joke right!?!\n")
@@ -151,7 +151,7 @@ begin
 
       # write line with farptr functions
       (0...SCREEN_W()).each do |x|
-        bmp_write8(address + x, $temp[x])
+        bmp_write8(address + x, $temp[x,1])
       end
     end
 
@@ -178,8 +178,7 @@ begin
 
       # read line in 32 bit chunks
       (0...SCREEN_W()).step(4) do |x|    # JF - sizeof(uint32_t)
-        z = bmp_read32(address + x)
-        $temp[x...x + 4] = [z >> 24 & 0xFF, z >> 16 & 0xFF, z >> 8 & 0xFF, z & 0xFF]
+        $temp[x...x + 4] = bmp_read32(address + x)
       end
 
       # adjust it
@@ -192,8 +191,7 @@ begin
 
       # write line in 32 bit chunks
       (0...SCREEN_W()).step(4) do |x|    # JF - sizeof(uint32_t)
-        z = ($temp[x] << 24) + ($temp[x + 1] << 16) + ($temp[x + 2] << 8) + $temp[x + 3]
-        bmp_write32(address + x, z)
+        bmp_write32(address + x, $temp[x...x + 4])
       end
     end
 
