@@ -39,6 +39,16 @@ static VALUE a4r_create_sub_bitmap(VALUE self, VALUE parent, VALUE x, VALUE y, V
   return obj;
 }
 
+static VALUE a4r_create_video_bitmap(VALUE self, VALUE width, VALUE height)
+{
+  // TODO: Change to call destroy_bitmap on free?
+  BITMAP *bmp = create_video_bitmap(FIX2INT(width), FIX2INT(height));
+  if (!bmp)
+    return Qnil;
+  VALUE obj = Data_Wrap_Struct(cBITMAP, 0, 0, bmp);
+  return obj;
+}
+
 static VALUE a4r_destroy_bitmap(VALUE self, VALUE bitmap)
 {
   BITMAP *bmp;

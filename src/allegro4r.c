@@ -105,12 +105,14 @@ void Init_allegro4r()
   rb_define_const(modAllegro4r_API, "GFX_SAFE", INT2NUM(GFX_SAFE));
   rb_define_const(modAllegro4r_API, "GFX_TEXT", INT2FIX(GFX_TEXT));
   rb_define_module_function(modAllegro4r_API, "set_gfx_mode", a4r_set_gfx_mode, 5);
+  rb_define_module_function(modAllegro4r_API, "show_video_bitmap", a4r_show_video_bitmap, 1);
 
   rb_define_module_function(modAllegro4r_API, "screen", a4r_screen, 0);
   rb_define_module_function(modAllegro4r_API, "SCREEN_W", a4r_SCREEN_W, 0);
   rb_define_module_function(modAllegro4r_API, "SCREEN_H", a4r_SCREEN_H, 0);
   rb_define_module_function(modAllegro4r_API, "create_bitmap", a4r_create_bitmap, 2);
   rb_define_module_function(modAllegro4r_API, "create_sub_bitmap", a4r_create_sub_bitmap, 5);
+  rb_define_module_function(modAllegro4r_API, "create_video_bitmap", a4r_create_video_bitmap, 2);
   rb_define_module_function(modAllegro4r_API, "destroy_bitmap", a4r_destroy_bitmap, 1);
   rb_define_module_function(modAllegro4r_API, "bitmap_mask_color", a4r_bitmap_mask_color, 1);
   rb_define_module_function(modAllegro4r_API, "acquire_bitmap", a4r_acquire_bitmap, 1);
