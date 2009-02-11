@@ -10,6 +10,14 @@ static VALUE a4r_font(VALUE self)
   return obj;
 }
 
+static VALUE a4r_font_set(VALUE self, VALUE f)
+{
+  FONT *fnt;
+  Data_Get_Struct(f, FONT, fnt);
+  font = fnt;
+  return f;
+}
+
 static VALUE a4r_text_length(VALUE self, VALUE f, VALUE str)
 {
   FONT *fnt;

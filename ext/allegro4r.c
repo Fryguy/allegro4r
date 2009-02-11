@@ -44,6 +44,7 @@ static VALUE cGFX_DRIVER;
 #include "a4r_truecolor_pixel_formats.i"
 #include "a4r_drawing_primitives.i"
 #include "a4r_blitting_and_sprites.i"
+#include "a4r_fonts.i"
 #include "a4r_text_output.i"
 #include "a4r_transparency_and_patterned_drawing.i"
 #include "a4r_direct_access_to_video_memory.i"
@@ -140,7 +141,13 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "blit", a4r_blit, 8);
   rb_define_module_function(mAllegro4r_API, "masked_blit", a4r_masked_blit, 8);
 
+  rb_define_module_function(mAllegro4r_API, "load_font", a4r_load_font, 3);
+  rb_define_module_function(mAllegro4r_API, "destroy_font", a4r_destroy_font, 1);
+  rb_define_module_function(mAllegro4r_API, "extract_font_range", a4r_extract_font_range, 3);
+  rb_define_module_function(mAllegro4r_API, "merge_fonts", a4r_merge_fonts, 2);
+
   rb_define_module_function(mAllegro4r_API, "font", a4r_font, 0);
+  rb_define_module_function(mAllegro4r_API, "font=", a4r_font_set, 1);
   rb_define_module_function(mAllegro4r_API, "text_length", a4r_text_length, 2);
   rb_define_module_function(mAllegro4r_API, "text_height", a4r_text_height, 1);
   rb_define_module_function(mAllegro4r_API, "textout_ex", a4r_textout_ex, 7);
