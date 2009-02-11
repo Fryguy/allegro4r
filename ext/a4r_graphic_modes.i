@@ -13,3 +13,9 @@ static VALUE a4r_show_video_bitmap(VALUE self, VALUE bitmap)
   Data_Get_Struct(bitmap, BITMAP, bmp);
   return INT2FIX(show_video_bitmap(bmp));
 }
+
+static VALUE a4r_vsync(VALUE self)
+{
+  vsync();
+  return Qnil;
+}

@@ -20,17 +20,21 @@
 // Allegro4r modules and classes
 static VALUE mAllegro4r;
 static VALUE mAllegro4r_API;
+
 static VALUE cBITMAP;
 static VALUE cPALETTE;
 static VALUE cRGB;
 static VALUE cFONT;
+
 static VALUE cGFX_DRIVER;
+static VALUE cMOUSE_DRIVER;
 
 // Object definitions for structures and types defined by Allegro
 #include "a4r_BITMAP.i"
 #include "a4r_PALETTE.i"
 #include "a4r_RGB.i"
 #include "a4r_GFX_DRIVER.i"
+#include "a4r_MOUSE_DRIVER.i"
 
 // Ruby methods for routines defined by Allegro
 #include "a4r_misc.i"
@@ -80,10 +84,14 @@ void Init_allegro4r()
   cGFX_DRIVER = rb_define_class_under(mAllegro4r_API, "GFX_DRIVER", rb_cObject);
   rb_define_method(cGFX_DRIVER, "name", a4r_GFX_DRIVER_name_get, 0);
 
+  cMOUSE_DRIVER = rb_define_class_under(mAllegro4r_API, "MOUSE_DRIVER", rb_cObject);
+  rb_define_method(cMOUSE_DRIVER, "name", a4r_MOUSE_DRIVER_name_get, 0);
+
   rb_define_module_function(mAllegro4r_API, "MIN", a4r_MIN, 2);
   rb_define_module_function(mAllegro4r_API, "ABS", a4r_ABS, 1);
   rb_define_module_function(mAllegro4r_API, "AL_RAND", a4r_AL_RAND, 0);
   rb_define_module_function(mAllegro4r_API, "gfx_driver", a4r_gfx_driver, 0);
+  rb_define_module_function(mAllegro4r_API, "mouse_driver", a4r_mouse_driver, 0);
 
   rb_define_module_function(mAllegro4r_API, "allegro_init", a4r_allegro_init, 0);
   rb_define_module_function(mAllegro4r_API, "allegro_exit", a4r_allegro_exit, 0);
@@ -91,7 +99,16 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "allegro_message", a4r_allegro_message, 1);
 
   rb_define_module_function(mAllegro4r_API, "install_mouse", a4r_install_mouse, 0);
+  rb_define_module_function(mAllegro4r_API, "poll_mouse", a4r_poll_mouse, 0);
+  rb_define_module_function(mAllegro4r_API, "mouse_x", a4r_mouse_x, 0);
+  rb_define_module_function(mAllegro4r_API, "mouse_y", a4r_mouse_y, 0);
+  rb_define_module_function(mAllegro4r_API, "mouse_z", a4r_mouse_z, 0);
+  rb_define_module_function(mAllegro4r_API, "mouse_w", a4r_mouse_w, 0);
+  rb_define_module_function(mAllegro4r_API, "mouse_b", a4r_mouse_b, 0);
   rb_define_module_function(mAllegro4r_API, "show_mouse", a4r_show_mouse, 1);
+  rb_define_module_function(mAllegro4r_API, "get_mouse_mickeys", a4r_get_mouse_mickeys, -1);
+  rb_define_module_function(mAllegro4r_API, "set_mouse_sprite", a4r_set_mouse_sprite, 1);
+  rb_define_module_function(mAllegro4r_API, "set_mouse_sprite_focus", a4r_set_mouse_sprite_focus, 2);
 
   rb_define_module_function(mAllegro4r_API, "install_timer", a4r_install_timer, 0);
   rb_define_module_function(mAllegro4r_API, "retrace_count", a4r_retrace_count, 0);
@@ -108,6 +125,7 @@ void Init_allegro4r()
   rb_define_const(mAllegro4r_API, "GFX_TEXT", INT2FIX(GFX_TEXT));
   rb_define_module_function(mAllegro4r_API, "set_gfx_mode", a4r_set_gfx_mode, 5);
   rb_define_module_function(mAllegro4r_API, "show_video_bitmap", a4r_show_video_bitmap, 1);
+  rb_define_module_function(mAllegro4r_API, "vsync", a4r_vsync, 0);
 
   rb_define_module_function(mAllegro4r_API, "screen", a4r_screen, 0);
   rb_define_module_function(mAllegro4r_API, "SCREEN_W", a4r_SCREEN_W, 0);
@@ -153,6 +171,8 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "textout_ex", a4r_textout_ex, 7);
   rb_define_module_function(mAllegro4r_API, "textout_centre_ex", a4r_textout_centre_ex, 7);
   rb_define_module_function(mAllegro4r_API, "textprintf_ex", a4r_textprintf_ex, 7);
+  rb_define_module_function(mAllegro4r_API, "textprintf_centre_ex", a4r_textprintf_centre_ex, 7);
+  rb_define_module_function(mAllegro4r_API, "textprintf_right_ex", a4r_textprintf_right_ex, 7);
 
   rb_define_const(mAllegro4r_API, "DRAW_MODE_SOLID", INT2FIX(DRAW_MODE_SOLID));
   rb_define_const(mAllegro4r_API, "DRAW_MODE_XOR", INT2FIX(DRAW_MODE_XOR));

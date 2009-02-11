@@ -24,3 +24,11 @@ static VALUE a4r_gfx_driver(VALUE self)
   VALUE obj = Data_Wrap_Struct(cGFX_DRIVER, 0, 0, driver);
   return obj;
 }
+
+static VALUE a4r_mouse_driver(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  MOUSE_DRIVER *driver = mouse_driver;
+  VALUE obj = Data_Wrap_Struct(cMOUSE_DRIVER, 0, 0, driver);
+  return obj;
+}
