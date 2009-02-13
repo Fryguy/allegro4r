@@ -1,8 +1,6 @@
-#include <allegro.h>
-#include <winalleg.h>
-#include <ruby.h>
+#include "allegro4r.h"
 
-static VALUE a4r_set_palette(VALUE self, VALUE p)
+VALUE a4r_set_palette(VALUE self, VALUE p)
 {
   // TODO: Check data type of palette?
   PALETTE *pal;
@@ -11,7 +9,7 @@ static VALUE a4r_set_palette(VALUE self, VALUE p)
   return Qnil;
 }
 
-static VALUE a4r_get_palette(VALUE self, VALUE p)
+VALUE a4r_get_palette(VALUE self, VALUE p)
 {
   // TODO: Check data type of p?
   PALETTE *pal;
@@ -20,7 +18,7 @@ static VALUE a4r_get_palette(VALUE self, VALUE p)
   return Qnil;
 }
 
-static VALUE a4r_black_palette(VALUE self)
+VALUE a4r_black_palette(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   PALETTE *pal = &black_palette;
@@ -28,7 +26,7 @@ static VALUE a4r_black_palette(VALUE self)
   return obj;
 }
 
-static VALUE a4r_desktop_palette(VALUE self)
+VALUE a4r_desktop_palette(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   PALETTE *pal = &desktop_palette;

@@ -13,46 +13,11 @@
  *      By Jason Frey.
  */
 
-#include <allegro.h>
-#include <winalleg.h>
-#include <ruby.h>
+#include "allegro4r.h"
 
-// Allegro4r modules and classes
-static VALUE mAllegro4r;
-static VALUE mAllegro4r_API;
-
-static VALUE cBITMAP;
-static VALUE cPALETTE;
-static VALUE cRGB;
-static VALUE cFONT;
-
-static VALUE cGFX_DRIVER;
-static VALUE cMOUSE_DRIVER;
-
-// Object definitions for structures and types defined by Allegro
-#include "a4r_BITMAP.i"
-#include "a4r_PALETTE.i"
-#include "a4r_RGB.i"
-#include "a4r_GFX_DRIVER.i"
-#include "a4r_MOUSE_DRIVER.i"
-
-// Ruby methods for routines defined by Allegro
-#include "a4r_misc.i"
-#include "a4r_using_allegro.i"
-#include "a4r_mouse_routines.i"
-#include "a4r_timer_routines.i"
-#include "a4r_keyboard_routines.i"
-#include "a4r_graphic_modes.i"
-#include "a4r_bitmap_objects.i"
-#include "a4r_palette_routines.i"
-#include "a4r_truecolor_pixel_formats.i"
-#include "a4r_drawing_primitives.i"
-#include "a4r_blitting_and_sprites.i"
-#include "a4r_fonts.i"
-#include "a4r_text_output.i"
-#include "a4r_transparency_and_patterned_drawing.i"
-#include "a4r_direct_access_to_video_memory.i"
-#include "a4r_fixed_point_math_routines.i"
+VALUE mAllegro4r;
+VALUE mAllegro4r_API;
+VALUE cFONT;
 
 void Init_allegro4r()
 {

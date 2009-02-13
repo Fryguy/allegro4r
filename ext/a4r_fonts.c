@@ -1,8 +1,6 @@
-#include <allegro.h>
-#include <winalleg.h>
-#include <ruby.h>
+#include "allegro4r.h"
 
-static VALUE a4r_load_font(VALUE self, VALUE filename, VALUE pal, VALUE param)
+VALUE a4r_load_font(VALUE self, VALUE filename, VALUE pal, VALUE param)
 {
   PALETTE *palette;
   RGB *rgb;
@@ -28,7 +26,7 @@ static VALUE a4r_load_font(VALUE self, VALUE filename, VALUE pal, VALUE param)
   return obj;
 }
 
-static VALUE a4r_destroy_font(VALUE self, VALUE f)
+VALUE a4r_destroy_font(VALUE self, VALUE f)
 {
   FONT *font;
   Data_Get_Struct(f, FONT, font);
@@ -36,7 +34,7 @@ static VALUE a4r_destroy_font(VALUE self, VALUE f)
   return Qnil;
 }
 
-static VALUE a4r_extract_font_range(VALUE self, VALUE f, VALUE begin, VALUE end)
+VALUE a4r_extract_font_range(VALUE self, VALUE f, VALUE begin, VALUE end)
 {
   FONT *from, *to;
   Data_Get_Struct(f, FONT, from);
@@ -45,7 +43,7 @@ static VALUE a4r_extract_font_range(VALUE self, VALUE f, VALUE begin, VALUE end)
   return obj;
 }
 
-static VALUE a4r_merge_fonts(VALUE self, VALUE f1, VALUE f2)
+VALUE a4r_merge_fonts(VALUE self, VALUE f1, VALUE f2)
 {
   FONT *font1, *font2, *ret;
   Data_Get_Struct(f1, FONT, font1);

@@ -1,20 +1,20 @@
-#include <allegro.h>
-#include <winalleg.h>
-#include <ruby.h>
+#include "allegro4r.h"
 
-static void a4r_RGB_free(void *rgb)
+VALUE cRGB;
+
+void a4r_RGB_free(void *rgb)
 {
   free((RGB*)rgb);
 }
 
-static VALUE a4r_RGB_alloc(VALUE klass)
+VALUE a4r_RGB_alloc(VALUE klass)
 {
   RGB *rgb;
   VALUE obj = Data_Make_Struct(klass, RGB, 0, a4r_RGB_free, rgb);
   return obj;
 }
 
-static VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
+VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
 {
   if (copy == orig)
     return copy;
@@ -33,14 +33,14 @@ static VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
   return copy;
 }
 
-static VALUE a4r_RGB_r_get(VALUE self)
+VALUE a4r_RGB_r_get(VALUE self)
 {
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
   return CHR2FIX(rgb->r);
 }
 
-static VALUE a4r_RGB_r_set(VALUE self, VALUE val)
+VALUE a4r_RGB_r_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -49,14 +49,14 @@ static VALUE a4r_RGB_r_set(VALUE self, VALUE val)
   return val;
 }
 
-static VALUE a4r_RGB_g_get(VALUE self)
+VALUE a4r_RGB_g_get(VALUE self)
 {
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
   return CHR2FIX(rgb->g);
 }
 
-static VALUE a4r_RGB_g_set(VALUE self, VALUE val)
+VALUE a4r_RGB_g_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -65,14 +65,14 @@ static VALUE a4r_RGB_g_set(VALUE self, VALUE val)
   return val;
 }
 
-static VALUE a4r_RGB_b_get(VALUE self)
+VALUE a4r_RGB_b_get(VALUE self)
 {
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
   return CHR2FIX(rgb->b);
 }
 
-static VALUE a4r_RGB_b_set(VALUE self, VALUE val)
+VALUE a4r_RGB_b_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;

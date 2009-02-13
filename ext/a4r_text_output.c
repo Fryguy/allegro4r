@@ -1,8 +1,6 @@
-#include <allegro.h>
-#include <winalleg.h>
-#include <ruby.h>
+#include "allegro4r.h"
 
-static VALUE a4r_font(VALUE self)
+VALUE a4r_font(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   FONT *fnt = font;
@@ -10,7 +8,7 @@ static VALUE a4r_font(VALUE self)
   return obj;
 }
 
-static VALUE a4r_font_set(VALUE self, VALUE f)
+VALUE a4r_font_set(VALUE self, VALUE f)
 {
   FONT *fnt;
   Data_Get_Struct(f, FONT, fnt);
@@ -18,21 +16,21 @@ static VALUE a4r_font_set(VALUE self, VALUE f)
   return f;
 }
 
-static VALUE a4r_text_length(VALUE self, VALUE f, VALUE str)
+VALUE a4r_text_length(VALUE self, VALUE f, VALUE str)
 {
   FONT *fnt;
   Data_Get_Struct(f, FONT, fnt);
   return INT2FIX(text_length(fnt, StringValuePtr(str)));
 }
 
-static VALUE a4r_text_height(VALUE self, VALUE f)
+VALUE a4r_text_height(VALUE self, VALUE f)
 {
   FONT *fnt;
   Data_Get_Struct(f, FONT, fnt);
   return INT2FIX(text_height(fnt));
 }
 
-static VALUE a4r_textout_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALUE x, VALUE y, VALUE color, VALUE bg)
+VALUE a4r_textout_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALUE x, VALUE y, VALUE color, VALUE bg)
 {
   BITMAP *b;
   Data_Get_Struct(bmp, BITMAP, b);
@@ -42,7 +40,7 @@ static VALUE a4r_textout_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALUE x, VA
   return Qnil;
 }
 
-static VALUE a4r_textout_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALUE x, VALUE y, VALUE color, VALUE bg)
+VALUE a4r_textout_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALUE x, VALUE y, VALUE color, VALUE bg)
 {
   BITMAP *b;
   Data_Get_Struct(bmp, BITMAP, b);
@@ -52,7 +50,7 @@ static VALUE a4r_textout_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE s, VALU
   return Qnil;
 }
 
-static VALUE a4r_textprintf_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, VALUE y, VALUE color, VALUE bg, VALUE fmt)
+VALUE a4r_textprintf_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, VALUE y, VALUE color, VALUE bg, VALUE fmt)
 {
   // TODO: Make this actually work like printf with arbitrary number of parameters
   BITMAP *b;
@@ -63,7 +61,7 @@ static VALUE a4r_textprintf_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, VALUE y,
   return Qnil;
 }
 
-static VALUE a4r_textprintf_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, VALUE y, VALUE color, VALUE bg, VALUE fmt)
+VALUE a4r_textprintf_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, VALUE y, VALUE color, VALUE bg, VALUE fmt)
 {
   // TODO: Make this actually work like printf with arbitrary number of parameters
   BITMAP *b;
@@ -74,7 +72,7 @@ static VALUE a4r_textprintf_centre_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, V
   return Qnil;
 }
 
-static VALUE a4r_textprintf_right_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, VALUE y, VALUE color, VALUE bg, VALUE fmt)
+VALUE a4r_textprintf_right_ex(VALUE self, VALUE bmp, VALUE f, VALUE x, VALUE y, VALUE color, VALUE bg, VALUE fmt)
 {
   // TODO: Make this actually work like printf with arbitrary number of parameters
   BITMAP *b;

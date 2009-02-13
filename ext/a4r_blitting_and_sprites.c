@@ -1,8 +1,6 @@
-#include <allegro.h>
-#include <winalleg.h>
-#include <ruby.h>
+#include "allegro4r.h"
 
-static VALUE a4r_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
+VALUE a4r_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
 {
   BITMAP *bmp_source, *bmp_dest;
   Data_Get_Struct(source, BITMAP, bmp_source);
@@ -11,7 +9,7 @@ static VALUE a4r_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALU
   return Qnil;
 }
 
-static VALUE a4r_masked_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
+VALUE a4r_masked_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
 {
   BITMAP *bmp_source, *bmp_dest;
   Data_Get_Struct(source, BITMAP, bmp_source);
