@@ -7,6 +7,7 @@
 # cycling the palette.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

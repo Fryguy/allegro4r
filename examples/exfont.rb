@@ -5,6 +5,7 @@
 # This is a very simple program showing how to load and manipulate fonts.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

@@ -5,6 +5,7 @@
 # This program demonstrates the use of patterned drawing and sub-bitmaps.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

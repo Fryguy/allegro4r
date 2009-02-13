@@ -9,6 +9,7 @@
 # the user exclusively via the allegro_message() function.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

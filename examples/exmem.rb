@@ -7,6 +7,7 @@
 # and then blits lots of copies of it onto the screen.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

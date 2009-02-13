@@ -7,6 +7,7 @@
 # redrawing directly to the screen, then with a double buffer.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

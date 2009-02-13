@@ -6,6 +6,7 @@
 # mode and draw text onto the screen.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

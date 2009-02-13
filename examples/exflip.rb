@@ -6,6 +6,7 @@
 # double buffer and then using page flips.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

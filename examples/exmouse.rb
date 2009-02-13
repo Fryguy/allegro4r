@@ -13,6 +13,7 @@
 # cursor over the printed text message.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 

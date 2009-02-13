@@ -8,6 +8,7 @@
 # time, and finally using block memory copy operations.
 #
 
+require 'rubygems'
 require 'allegro4r'
 include Allegro4r::API
 
