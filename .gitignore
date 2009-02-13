@@ -1,0 +1,5 @@
+pkg/*
+doc/*
+ext/*.o
+ext/*.so
+ext/Makefile
