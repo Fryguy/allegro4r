@@ -1,12 +1,22 @@
 #include "allegro4r.h"
 
+/*
+ * Document-class: Allegro4r::API::RGB
+ *   unsigned char r, g, b
+ *
+ * Palette entry. It contains an additional field for the purpose of padding but
+ * you should not usually care about it. Read chapter "Palette routines" for a
+ * description on how to obtain/use this structure.
+ */
 VALUE cRGB;
+
 
 void a4r_RGB_free(void *rgb)
 {
   free((RGB*)rgb);
 }
 
+/* :nodoc: */
 VALUE a4r_RGB_alloc(VALUE klass)
 {
   RGB *rgb;
@@ -14,6 +24,7 @@ VALUE a4r_RGB_alloc(VALUE klass)
   return obj;
 }
 
+/* :nodoc: */
 VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
 {
   if (copy == orig)
@@ -33,6 +44,12 @@ VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
   return copy;
 }
 
+/*
+ * call-seq:
+ *   rgb.r -> int
+ *
+ * Returns the red value of the RGB.
+ */
 VALUE a4r_RGB_r_get(VALUE self)
 {
   RGB *rgb;
@@ -40,6 +57,12 @@ VALUE a4r_RGB_r_get(VALUE self)
   return CHR2FIX(rgb->r);
 }
 
+/*
+ * call-seq:
+ *   rgb.r = int -> int
+ *
+ * Sets the red value of the RGB.  The value must be in the range 0-255.
+ */
 VALUE a4r_RGB_r_set(VALUE self, VALUE val)
 {
   // TODO: val validation
@@ -49,6 +72,12 @@ VALUE a4r_RGB_r_set(VALUE self, VALUE val)
   return val;
 }
 
+/*
+ * call-seq:
+ *   rgb.g -> int
+ *
+ * Returns the green value of the RGB.
+ */
 VALUE a4r_RGB_g_get(VALUE self)
 {
   RGB *rgb;
@@ -56,6 +85,12 @@ VALUE a4r_RGB_g_get(VALUE self)
   return CHR2FIX(rgb->g);
 }
 
+/*
+ * call-seq:
+ *   rgb.g = int -> int
+ *
+ * Sets the green value of the RGB.  The value must be in the range 0-255.
+ */
 VALUE a4r_RGB_g_set(VALUE self, VALUE val)
 {
   // TODO: val validation
@@ -65,6 +100,12 @@ VALUE a4r_RGB_g_set(VALUE self, VALUE val)
   return val;
 }
 
+/*
+ * call-seq:
+ *   rgb.b -> int
+ *
+ * Returns the blue value of the RGB.
+ */
 VALUE a4r_RGB_b_get(VALUE self)
 {
   RGB *rgb;
@@ -72,6 +113,12 @@ VALUE a4r_RGB_b_get(VALUE self)
   return CHR2FIX(rgb->b);
 }
 
+/*
+ * call-seq:
+ *   rgb.b = int -> int
+ *
+ * Sets the blue value of the RGB.  The value must be in the range 0-255.
+ */
 VALUE a4r_RGB_b_set(VALUE self, VALUE val)
 {
   // TODO: val validation

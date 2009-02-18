@@ -1,5 +1,10 @@
 #include "allegro4r.h"
 
+/*
+ * Document-class: Allegro4r::API::PALETTE
+ *
+ * Allegro palettes are arrays of PAL_SIZE RGB entries.
+ */
 VALUE cPALETTE;
 
 void a4r_PALETTE_free(void *palette)
@@ -7,6 +12,7 @@ void a4r_PALETTE_free(void *palette)
   free((PALETTE*)palette);
 }
 
+/* :nodoc: */
 VALUE a4r_PALETTE_alloc(VALUE klass)
 {
   PALETTE *palette;
@@ -14,6 +20,7 @@ VALUE a4r_PALETTE_alloc(VALUE klass)
   return obj;
 }
 
+/* :nodoc: */
 VALUE a4r_PALETTE_initialize_copy(VALUE copy, VALUE orig)
 {
   if (copy == orig)
@@ -29,6 +36,12 @@ VALUE a4r_PALETTE_initialize_copy(VALUE copy, VALUE orig)
   return copy;
 }
 
+/*
+ * call-seq:
+ *   palette[index] -> an_rgb
+ *
+ * Returns the RGB element at the specified index.
+ */
 VALUE a4r_PALETTE_getter(VALUE self, VALUE index)
 {
   // TODO: Index validation && converting to "array" of RGBs
@@ -39,6 +52,12 @@ VALUE a4r_PALETTE_getter(VALUE self, VALUE index)
   return obj;
 }
 
+/*
+ * call-seq:
+ *   palette[index] = an_rgb -> an_rgb
+ *
+ * Sets the element at index to the specified RGB element.
+ */
 VALUE a4r_PALETTE_setter(VALUE self, VALUE index, VALUE val)
 {
   // TODO: Index validation, val validation && converting to "array" of RGBs
