@@ -69,11 +69,15 @@ void Init_allegro4r()
   cMOUSE_DRIVER = rb_define_class_under(mAllegro4r_API, "MOUSE_DRIVER", rb_cObject); // in a4r_MOUSE_DRIVER.c
   rb_define_method(cMOUSE_DRIVER, "name", a4r_MOUSE_DRIVER_name_get, 0); // in a4r_MOUSE_DRIVER.c
 
+  cTIMER_DRIVER = rb_define_class_under(mAllegro4r_API, "TIMER_DRIVER", rb_cObject); // in a4r_TIMER_DRIVER.c
+  rb_define_method(cTIMER_DRIVER, "name", a4r_TIMER_DRIVER_name_get, 0); // in a4r_TIMER_DRIVER.c
+
   rb_define_module_function(mAllegro4r_API, "MIN", a4r_MIN, 2); // in a4r_misc.c
   rb_define_module_function(mAllegro4r_API, "ABS", a4r_ABS, 1); // in a4r_misc.c
   rb_define_module_function(mAllegro4r_API, "AL_RAND", a4r_AL_RAND, 0); // in a4r_misc.c
   rb_define_module_function(mAllegro4r_API, "gfx_driver", a4r_gfx_driver, 0); // in a4r_misc.c
   rb_define_module_function(mAllegro4r_API, "mouse_driver", a4r_mouse_driver, 0); // in a4r_misc.c
+  rb_define_module_function(mAllegro4r_API, "timer_driver", a4r_timer_driver, 0); // in a4r_misc.c
 
   rb_define_module_function(mAllegro4r_API, "allegro_init", a4r_allegro_init, 0); // in a4r_using_allegro.c
   rb_define_module_function(mAllegro4r_API, "allegro_exit", a4r_allegro_exit, 0); // in a4r_using_allegro.c
@@ -93,18 +97,28 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "set_mouse_sprite_focus", a4r_set_mouse_sprite_focus, 2); // in a4r_mouse_routines.c
 
   rb_define_module_function(mAllegro4r_API, "install_timer", a4r_install_timer, 0); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "install_int", a4r_install_int, 2); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "install_int_ex", a4r_install_int_ex, 2); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "LOCK_VARIABLE", a4r_LOCK_VARIABLE, 1); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "LOCK_FUNCTION", a4r_LOCK_FUNCTION, 1); // in a4r_timer_routines.c
   rb_define_module_function(mAllegro4r_API, "retrace_count", a4r_retrace_count, 0); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "rest", a4r_rest, 1); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "SECS_TO_TIMER", a4r_SECS_TO_TIMER, 1); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "MSEC_TO_TIMER", a4r_MSEC_TO_TIMER, 1); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "BPS_TO_TIMER", a4r_BPS_TO_TIMER, 1); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "BPM_TO_TIMER", a4r_BPM_TO_TIMER, 1); // in a4r_timer_routines.c
+
+  timer_counter_names = rb_hash_new();
+  rb_global_variable(&timer_counter_names);
+  LOCK_VARIABLE(timer_counters)
+  LOCK_FUNCTION(timer_counter_incr)
+  rb_define_module_function(mAllegro4r_API, "timer_counter_get", a4r_timer_counter_get, 1); // in a4r_timer_routines.c
 
   rb_define_module_function(mAllegro4r_API, "install_keyboard", a4r_install_keyboard, 0); // in a4r_keyboard_routines.c
   rb_define_module_function(mAllegro4r_API, "keypressed", a4r_keypressed, 0); // in a4r_keyboard_routines.c
   rb_define_module_function(mAllegro4r_API, "readkey", a4r_readkey, 0); // in a4r_keyboard_routines.c
   rb_define_module_function(mAllegro4r_API, "clear_keybuf", a4r_clear_keybuf, 0); // in a4r_keyboard_routines.c
 
-  rb_define_const(mAllegro4r_API, "GFX_AUTODETECT", INT2FIX(GFX_AUTODETECT)); // in a4r_graphics_modes.c
-  rb_define_const(mAllegro4r_API, "GFX_AUTODETECT_FULLSCREEN", INT2FIX(GFX_AUTODETECT_FULLSCREEN)); // in a4r_graphics_modes.c
-  rb_define_const(mAllegro4r_API, "GFX_AUTODETECT_WINDOWED", INT2FIX(GFX_AUTODETECT_WINDOWED)); // in a4r_graphics_modes.c
-  rb_define_const(mAllegro4r_API, "GFX_SAFE", INT2NUM(GFX_SAFE)); // in a4r_graphics_modes.c
-  rb_define_const(mAllegro4r_API, "GFX_TEXT", INT2FIX(GFX_TEXT)); // in a4r_graphics_modes.c
   rb_define_module_function(mAllegro4r_API, "set_gfx_mode", a4r_set_gfx_mode, 5); // in a4r_graphics_modes.c
   rb_define_module_function(mAllegro4r_API, "show_video_bitmap", a4r_show_video_bitmap, 1); // in a4r_graphics_modes.c
   rb_define_module_function(mAllegro4r_API, "vsync", a4r_vsync, 0); // in a4r_graphics_modes.c
@@ -156,12 +170,6 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "textprintf_centre_ex", a4r_textprintf_centre_ex, 7); // in a4r_text_output.c
   rb_define_module_function(mAllegro4r_API, "textprintf_right_ex", a4r_textprintf_right_ex, 7); // in a4r_text_output.c
 
-  rb_define_const(mAllegro4r_API, "DRAW_MODE_SOLID", INT2FIX(DRAW_MODE_SOLID)); // in a4r_transparency_and_patterned_drawing.c
-  rb_define_const(mAllegro4r_API, "DRAW_MODE_XOR", INT2FIX(DRAW_MODE_XOR)); // in a4r_transparency_and_patterned_drawing.c
-  rb_define_const(mAllegro4r_API, "DRAW_MODE_COPY_PATTERN", INT2FIX(DRAW_MODE_COPY_PATTERN)); // in a4r_transparency_and_patterned_drawing.c
-  rb_define_const(mAllegro4r_API, "DRAW_MODE_SOLID_PATTERN", INT2FIX(DRAW_MODE_SOLID_PATTERN)); // in a4r_transparency_and_patterned_drawing.c
-  rb_define_const(mAllegro4r_API, "DRAW_MODE_MASKED_PATTERN", INT2FIX(DRAW_MODE_MASKED_PATTERN)); // in a4r_transparency_and_patterned_drawing.c
-  rb_define_const(mAllegro4r_API, "DRAW_MODE_TRANS", INT2FIX(DRAW_MODE_TRANS)); // in a4r_transparency_and_patterned_drawing.c
   rb_define_module_function(mAllegro4r_API, "drawing_mode", a4r_drawing_mode, 4); // in a4r_transparency_and_patterned_drawing.c
   rb_define_module_function(mAllegro4r_API, "solid_mode", a4r_solid_mode, 0); // in a4r_transparency_and_patterned_drawing.c
 
@@ -179,6 +187,49 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "fixtof", a4r_fixtof, 1); // in a4r_fixed_point_math_routines.c
   rb_define_module_function(mAllegro4r_API, "fixmul", a4r_fixmul, 2); // in a4r_fixed_point_math_routines.c
   rb_define_module_function(mAllegro4r_API, "fixsqrt", a4r_fixsqrt, 1); // in a4r_fixed_point_math_routines.c
+
+  /*
+   * GFX_AUTODETECT: Allegro will try to set the specified resolution with the
+   * current color depth in fullscreen mode. Failing that, it will try to repeat
+   * the same operation in windowed mode.
+   */
+  rb_define_const(mAllegro4r_API, "GFX_AUTODETECT", INT2FIX(GFX_AUTODETECT));
+  /*
+   * GFX_AUTODETECT_FULLSCREEN: Allegro will try to set the specified resolution
+   * with the current color depth in fullscreen mode.
+   */
+  rb_define_const(mAllegro4r_API, "GFX_AUTODETECT_FULLSCREEN", INT2FIX(GFX_AUTODETECT_FULLSCREEN));
+  /*
+   * GFX_AUTODETECT_WINDOWED: Allegro will try to set the specified resolution
+   * with the current color depth in a windowed mode.
+   */
+  rb_define_const(mAllegro4r_API, "GFX_AUTODETECT_WINDOWED", INT2FIX(GFX_AUTODETECT_WINDOWED));
+  /*
+   * GFX_SAFE: Allegro will try to set the specified resolution. Failing that,
+   * it will fall back upon whatever mode is known to be reliable on the current
+   * platform. If it absolutely cannot set any graphics mode at all, there's no
+   * possible video output on the machine.
+   */
+  rb_define_const(mAllegro4r_API, "GFX_SAFE", INT2NUM(GFX_SAFE));
+  /*
+   * GFX_TEXT: Closes any previously opened graphics mode, and in those
+   * environments that have text modes, sets one previously used or the closest
+   * match to that (usually 80x25).
+   */
+  rb_define_const(mAllegro4r_API, "GFX_TEXT", INT2FIX(GFX_TEXT));
+
+  /* DRAW_MODE_SOLID: The default, solid color drawing */
+  rb_define_const(mAllegro4r_API, "DRAW_MODE_SOLID", INT2FIX(DRAW_MODE_SOLID));
+  /* DRAW_MODE_XOR: Exclusive-or drawing */
+  rb_define_const(mAllegro4r_API, "DRAW_MODE_XOR", INT2FIX(DRAW_MODE_XOR));
+  /* DRAW_MODE_COPY_PATTERN: Multicolored pattern fill */
+  rb_define_const(mAllegro4r_API, "DRAW_MODE_COPY_PATTERN", INT2FIX(DRAW_MODE_COPY_PATTERN));
+  /* DRAW_MODE_SOLID_PATTERN: Single color pattern fill */
+  rb_define_const(mAllegro4r_API, "DRAW_MODE_SOLID_PATTERN", INT2FIX(DRAW_MODE_SOLID_PATTERN));
+  /* DRAW_MODE_MASKED_PATTERN: Masked pattern fill */
+  rb_define_const(mAllegro4r_API, "DRAW_MODE_MASKED_PATTERN", INT2FIX(DRAW_MODE_MASKED_PATTERN));
+  /* DRAW_MODE_TRANS: Translucent color blending */
+  rb_define_const(mAllegro4r_API, "DRAW_MODE_TRANS", INT2FIX(DRAW_MODE_TRANS));
 }
 
 // needed if Allegro is built as a shared library

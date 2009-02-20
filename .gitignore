@@ -3,3 +3,5 @@ doc/*
 ext/*.o
 ext/*.so
 ext/Makefile
+manual/*
+Manifest.txt

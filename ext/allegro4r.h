@@ -63,6 +63,8 @@ extern VALUE a4r_GFX_DRIVER_name_get(VALUE self);
 //   MOUSE_DRIVER
 extern VALUE a4r_MOUSE_DRIVER_name_get(VALUE self);
 
+//   TIMER_DRIVER
+extern VALUE a4r_TIMER_DRIVER_name_get(VALUE self);
 
 // Ruby methods for routines defined by Allegro
 
@@ -72,6 +74,7 @@ extern VALUE a4r_ABS(VALUE self, VALUE x);
 extern VALUE a4r_AL_RAND(VALUE self);
 extern VALUE a4r_gfx_driver(VALUE self);
 extern VALUE a4r_mouse_driver(VALUE self);
+extern VALUE a4r_timer_driver(VALUE self);
 
 //   Using Allegro
 extern VALUE a4r_allegro_init(VALUE self);
@@ -94,7 +97,16 @@ extern VALUE a4r_set_mouse_sprite_focus(VALUE self, VALUE x, VALUE y);
 
 //   Timer routines
 extern VALUE a4r_install_timer(VALUE self);
+extern VALUE a4r_install_int(VALUE self, VALUE proc, VALUE speed);
+extern VALUE a4r_install_int_ex(VALUE self, VALUE proc, VALUE speed);
+extern VALUE a4r_LOCK_VARIABLE(VALUE self, VALUE variable_name);
+extern VALUE a4r_LOCK_FUNCTION(VALUE self, VALUE function_name);
 extern VALUE a4r_retrace_count(VALUE self);
+extern VALUE a4r_rest(VALUE self, VALUE time);
+extern VALUE a4r_SECS_TO_TIMER(VALUE self, VALUE secs);
+extern VALUE a4r_MSEC_TO_TIMER(VALUE self, VALUE msec);
+extern VALUE a4r_BPS_TO_TIMER(VALUE self, VALUE bps);
+extern VALUE a4r_BPM_TO_TIMER(VALUE self, VALUE bpm);
 
 //   Keyboard routines
 extern VALUE a4r_install_keyboard(VALUE self);
@@ -181,5 +193,16 @@ extern VALUE a4r_ftofix(VALUE self, VALUE x);
 extern VALUE a4r_fixtof(VALUE self, VALUE x);
 extern VALUE a4r_fixmul(VALUE self, VALUE x, VALUE y);
 extern VALUE a4r_fixsqrt(VALUE self, VALUE x);
+
+
+// Predefined timer interrupt routines
+#define MAX_TIMER_COUNTERS 10
+extern volatile int timer_counters[MAX_TIMER_COUNTERS];
+extern VALUE timer_counter_names;
+
+extern void timer_counter_incr(void *param);
+extern VALUE find_timer_counter(VALUE name);
+extern VALUE find_free_timer_counter();
+extern VALUE a4r_timer_counter_get(VALUE self, VALUE name);
 
 #endif //__ALLEGRO4R_H__

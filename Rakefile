@@ -201,8 +201,7 @@ task :clean => :clobber_pkg
 spec_win = spec.clone
 spec_win.platform = Gem::Platform.new("i386-mswin32_60")
 spec_win.extensions = []
-spec_win.files = FileList["ext/allegro4r.so", "examples/**/*", "Manifest.txt"]
-spec_win.extra_rdoc_files = FileList["README.txt", "History.txt"].to_a
+spec_win.files += ["ext/allegro4r.so"]
 
 # Windows build tasks
 gem_package_tasks(spec_win, :desc_title => "Windows", :task_suffix => "win", :build_depends => [:create_win])
@@ -263,3 +262,5 @@ task :uninstall do
 end
 
 task :default => :build_all
+
+task :rebuild_for_dev => [:uninstall, :build_win, :install]

@@ -61,3 +61,17 @@ VALUE a4r_mouse_driver(VALUE self)
   VALUE obj = Data_Wrap_Struct(cMOUSE_DRIVER, 0, 0, driver);
   return obj;
 }
+
+/*
+ * call-seq:
+ *   timer_driver -> timer_driver
+ *
+ * Global reference to the timer driver.
+ */
+VALUE a4r_timer_driver(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  TIMER_DRIVER *driver = timer_driver;
+  VALUE obj = Data_Wrap_Struct(cTIMER_DRIVER, 0, 0, driver);
+  return obj;
+}
