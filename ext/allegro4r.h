@@ -20,6 +20,8 @@
 #include <winalleg.h>
 #include <ruby.h>
 
+extern ID CALL_ID;
+
 // Allegro4r modules and classes
 extern VALUE mAllegro4r;
 extern VALUE mAllegro4r_API;
@@ -32,6 +34,7 @@ extern VALUE cFONT;
 extern VALUE cGFX_DRIVER;
 extern VALUE cMOUSE_DRIVER;
 extern VALUE cTIMER_DRIVER;
+extern VALUE cKEYBOARD_DRIVER;
 
 // Method definitions for structures and types defined by Allegro
 
@@ -66,6 +69,9 @@ extern VALUE a4r_MOUSE_DRIVER_name_get(VALUE self);
 //   TIMER_DRIVER
 extern VALUE a4r_TIMER_DRIVER_name_get(VALUE self);
 
+//   KEYBOARD_DRIVER
+extern VALUE a4r_KEYBOARD_DRIVER_name_get(VALUE self);
+
 // Ruby methods for routines defined by Allegro
 
 //   Misc
@@ -75,12 +81,17 @@ extern VALUE a4r_AL_RAND(VALUE self);
 extern VALUE a4r_gfx_driver(VALUE self);
 extern VALUE a4r_mouse_driver(VALUE self);
 extern VALUE a4r_timer_driver(VALUE self);
+extern VALUE a4r_keyboard_driver(VALUE self);
 
 //   Using Allegro
 extern VALUE a4r_allegro_init(VALUE self);
 extern VALUE a4r_allegro_exit(VALUE self);
 extern VALUE a4r_allegro_error(VALUE self);
 extern VALUE a4r_allegro_message(VALUE self, VALUE text);
+
+//   Unicode routines
+extern VALUE a4r_usprintf(VALUE self, VALUE format);
+extern VALUE a4r_ustrzncpy(VALUE self, VALUE src, VALUE n);
 
 //   Mouse routines
 extern VALUE a4r_install_mouse(VALUE self);
@@ -108,11 +119,33 @@ extern VALUE a4r_MSEC_TO_TIMER(VALUE self, VALUE msec);
 extern VALUE a4r_BPS_TO_TIMER(VALUE self, VALUE bps);
 extern VALUE a4r_BPM_TO_TIMER(VALUE self, VALUE bpm);
 
+//     Predefined timer interrupt routines
+#define MAX_TIMER_COUNTERS 10
+extern volatile int timer_counters[MAX_TIMER_COUNTERS];
+extern VALUE timer_counter_names;
+
+extern void timer_counter_incr(void *param);
+extern VALUE find_timer_counter(VALUE name);
+extern VALUE find_free_timer_counter();
+extern VALUE a4r_timer_counter_get(VALUE self, VALUE name);
+
 //   Keyboard routines
 extern VALUE a4r_install_keyboard(VALUE self);
+extern VALUE a4r_key(VALUE self);
+extern VALUE a4r_key_shifts(VALUE self);
 extern VALUE a4r_keypressed(VALUE self);
 extern VALUE a4r_readkey(VALUE self);
+extern VALUE a4r_ureadkey(VALUE self, VALUE scancode);
+extern VALUE a4r_scancode_to_name(VALUE self, VALUE scancode);
+extern VALUE a4r_keyboard_callback_set(VALUE self, VALUE proc);
+extern VALUE a4r_keyboard_lowlevel_callback_set(VALUE self, VALUE proc);
 extern VALUE a4r_clear_keybuf(VALUE self);
+
+// Predefined keyboard callback routines
+extern VALUE keyboard_callback_proc;
+extern VALUE keyboard_lowlevel_callback_proc;
+extern int keyboard_callback_method(int key);
+extern void keyboard_lowlevel_callback_method(int scancode);
 
 //   Graphics modes
 extern VALUE a4r_set_gfx_mode(VALUE self, VALUE card, VALUE w, VALUE h, VALUE v_w, VALUE v_h);
@@ -193,16 +226,5 @@ extern VALUE a4r_ftofix(VALUE self, VALUE x);
 extern VALUE a4r_fixtof(VALUE self, VALUE x);
 extern VALUE a4r_fixmul(VALUE self, VALUE x, VALUE y);
 extern VALUE a4r_fixsqrt(VALUE self, VALUE x);
-
-
-// Predefined timer interrupt routines
-#define MAX_TIMER_COUNTERS 10
-extern volatile int timer_counters[MAX_TIMER_COUNTERS];
-extern VALUE timer_counter_names;
-
-extern void timer_counter_incr(void *param);
-extern VALUE find_timer_counter(VALUE name);
-extern VALUE find_free_timer_counter();
-extern VALUE a4r_timer_counter_get(VALUE self, VALUE name);
 
 #endif //__ALLEGRO4R_H__

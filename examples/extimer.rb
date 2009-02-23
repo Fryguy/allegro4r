@@ -81,9 +81,7 @@ begin
     y = timer_counter_get(:inc_y)
     z = timer_counter_get(:inc_z)
 
-    acquire_screen
     textprintf_centre_ex(screen, font, SCREEN_W()/2, 176, makecol(0, 0, 0), makecol(255, 255, 255), "x=%d, y=%d, z=%d" % [x, y, z])
-    release_screen
   end
 ensure
   # JF - you must ensure allegro_exit is called to prevent Ruby from crashing

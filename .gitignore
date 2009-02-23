@@ -3,5 +3,7 @@ doc/*
 ext/*.o
 ext/*.so
 ext/Makefile
+ext/mkmf.log
 manual/*
 Manifest.txt
+TODO.txt

@@ -75,3 +75,17 @@ VALUE a4r_timer_driver(VALUE self)
   VALUE obj = Data_Wrap_Struct(cTIMER_DRIVER, 0, 0, driver);
   return obj;
 }
+
+/*
+ * call-seq:
+ *   keyboard_driver -> keyboard_driver
+ *
+ * Global reference to the keyboard driver.
+ */
+VALUE a4r_keyboard_driver(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  KEYBOARD_DRIVER *driver = keyboard_driver;
+  VALUE obj = Data_Wrap_Struct(cKEYBOARD_DRIVER, 0, 0, driver);
+  return obj;
+}
