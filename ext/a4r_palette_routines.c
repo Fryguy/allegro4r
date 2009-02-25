@@ -43,6 +43,25 @@ VALUE a4r_get_palette(VALUE self, VALUE p)
 
 /*
  * call-seq:
+ *   default_palette -> pal
+ *
+ * The default IBM BIOS palette. This will be automatically selected whenever
+ * you set a new graphics mode. The palette contains 16 basic colors plus many
+ * gradients between them. If you want to see the values, you can write a small
+ * Allegro program which saves a screenshot with this palette, or open the
+ * grabber tool provided with Allegro and create a new palette object, which
+ * will use this palette by default.
+ */
+VALUE a4r_default_palette(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  PALETTE *pal = &default_palette;
+  VALUE obj = Data_Wrap_Struct(cPALETTE, 0, 0, pal);
+  return obj;
+}
+
+/*
+ * call-seq:
  *   black_palette -> pal
  *
  * A palette containing solid black colors, used by the fade routines.

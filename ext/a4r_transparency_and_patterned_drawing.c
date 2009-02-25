@@ -65,7 +65,10 @@
 VALUE a4r_drawing_mode(VALUE self, VALUE mode, VALUE pattern, VALUE x_anchor, VALUE y_anchor)
 {
   BITMAP *bitmap;
-  Data_Get_Struct(pattern, BITMAP, bitmap);
+  if (pattern == Qnil)
+    bitmap = NULL;
+  else
+    Data_Get_Struct(pattern, BITMAP, bitmap);
   drawing_mode(FIX2INT(mode), bitmap, FIX2INT(x_anchor), FIX2INT(y_anchor));
   return Qnil;
 }

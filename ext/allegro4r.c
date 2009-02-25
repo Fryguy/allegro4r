@@ -49,6 +49,29 @@ void Init_allegro4r()
   rb_define_method(cBITMAP, "h", a4r_BITMAP_h_get, 0); // in a4r_BITMAP.c
   rb_define_method(cBITMAP, "w", a4r_BITMAP_w_get, 0); // in a4r_BITMAP.c
 
+  cJOYSTICK_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_INFO", rb_cObject); // in a4r_JOYSTICK_INFO.c
+  rb_define_method(cJOYSTICK_INFO, "flags", a4r_JOYSTICK_INFO_flags, 0); // in a4r_JOYSTICK_INFO.c
+  rb_define_method(cJOYSTICK_INFO, "num_sticks", a4r_JOYSTICK_INFO_num_sticks, 0); // in a4r_JOYSTICK_INFO.c
+  rb_define_method(cJOYSTICK_INFO, "num_buttons", a4r_JOYSTICK_INFO_num_buttons, 0); // in a4r_JOYSTICK_INFO.c
+  rb_define_method(cJOYSTICK_INFO, "stick", a4r_JOYSTICK_INFO_stick, 0); // in a4r_JOYSTICK_INFO.c
+  rb_define_method(cJOYSTICK_INFO, "button", a4r_JOYSTICK_INFO_button, 0); // in a4r_JOYSTICK_INFO.c
+
+  cJOYSTICK_BUTTON_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_BUTTON_INFO", rb_cObject); // in a4r_JOYSTICK_BUTTON_INFO.c
+  rb_define_method(cJOYSTICK_BUTTON_INFO, "b", a4r_JOYSTICK_BUTTON_INFO_b, 0); // in a4r_JOYSTICK_BUTTON_INFO.c
+  rb_define_method(cJOYSTICK_BUTTON_INFO, "name", a4r_JOYSTICK_BUTTON_INFO_name, 0); // in a4r_JOYSTICK_BUTTON_INFO.c
+
+  cJOYSTICK_STICK_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_STICK_INFO", rb_cObject); // in a4r_JOYSTICK_STICK_INFO.c
+  rb_define_method(cJOYSTICK_STICK_INFO, "flags", a4r_JOYSTICK_STICK_INFO_flags, 0); // in a4r_JOYSTICK_STICK_INFO.c
+  rb_define_method(cJOYSTICK_STICK_INFO, "num_axis", a4r_JOYSTICK_STICK_INFO_num_axis, 0); // in a4r_JOYSTICK_STICK_INFO.c
+  rb_define_method(cJOYSTICK_STICK_INFO, "axis", a4r_JOYSTICK_STICK_INFO_axis, 0); // in a4r_JOYSTICK_STICK_INFO.c
+  rb_define_method(cJOYSTICK_STICK_INFO, "name", a4r_JOYSTICK_STICK_INFO_name, 0); // in a4r_JOYSTICK_STICK_INFO.c
+
+  cJOYSTICK_AXIS_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_AXIS_INFO", rb_cObject); // in a4r_JOYSTICK_AXIS_INFO.c
+  rb_define_method(cJOYSTICK_AXIS_INFO, "pos", a4r_JOYSTICK_AXIS_INFO_pos, 0); // in a4r_JOYSTICK_AXIS_INFO.c
+  rb_define_method(cJOYSTICK_AXIS_INFO, "d1", a4r_JOYSTICK_AXIS_INFO_d1, 0); // in a4r_JOYSTICK_AXIS_INFO.c
+  rb_define_method(cJOYSTICK_AXIS_INFO, "d2", a4r_JOYSTICK_AXIS_INFO_d2, 0); // in a4r_JOYSTICK_AXIS_INFO.c
+  rb_define_method(cJOYSTICK_AXIS_INFO, "name", a4r_JOYSTICK_AXIS_INFO_name, 0); // in a4r_JOYSTICK_AXIS_INFO.c
+
   cPALETTE = rb_define_class_under(mAllegro4r_API, "PALETTE", rb_cObject); // in a4r_PALETTE.c
   rb_define_alloc_func(cPALETTE, a4r_PALETTE_alloc); // in a4r_PALETTE.c
   rb_define_method(cPALETTE, "initialize_copy", a4r_PALETTE_initialize_copy, 1); // in a4r_PALETTE.c
@@ -78,7 +101,10 @@ void Init_allegro4r()
 
   cKEYBOARD_DRIVER = rb_define_class_under(mAllegro4r_API, "KEYBOARD_DRIVER", rb_cObject); // in a4r_KEYBOARD_DRIVER.c
   rb_define_method(cKEYBOARD_DRIVER, "name", a4r_KEYBOARD_DRIVER_name_get, 0); // in a4r_KEYBOARD_DRIVER.c
-  
+
+  cJOYSTICK_DRIVER = rb_define_class_under(mAllegro4r_API, "JOYSTICK_DRIVER", rb_cObject); // in a4r_JOYSTICK_DRIVER.c
+  rb_define_method(cJOYSTICK_DRIVER, "name", a4r_JOYSTICK_DRIVER_name_get, 0); // in a4r_JOYSTICK_DRIVER.c
+
   rb_define_module_function(mAllegro4r_API, "MIN", a4r_MIN, 2); // in a4r_misc.c
   rb_define_module_function(mAllegro4r_API, "ABS", a4r_ABS, 1); // in a4r_misc.c
   rb_define_module_function(mAllegro4r_API, "AL_RAND", a4r_AL_RAND, 0); // in a4r_misc.c
@@ -86,6 +112,7 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "mouse_driver", a4r_mouse_driver, 0); // in a4r_misc.c
   rb_define_module_function(mAllegro4r_API, "timer_driver", a4r_timer_driver, 0); // in a4r_misc.c
   rb_define_module_function(mAllegro4r_API, "keyboard_driver", a4r_keyboard_driver, 0); // in a4r_misc.c
+  rb_define_module_function(mAllegro4r_API, "joystick_driver", a4r_joystick_driver, 0); // in a4r_misc.c
 
   rb_define_module_function(mAllegro4r_API, "allegro_init", a4r_allegro_init, 0); // in a4r_using_allegro.c
   rb_define_module_function(mAllegro4r_API, "allegro_exit", a4r_allegro_exit, 0); // in a4r_using_allegro.c
@@ -143,6 +170,13 @@ void Init_allegro4r()
   LOCK_FUNCTION(keyboard_callback_method)
   LOCK_FUNCTION(keyboard_lowlevel_callback_method)
 
+  rb_define_module_function(mAllegro4r_API, "install_joystick", a4r_install_joystick, 1); // in a4r_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "poll_joystick", a4r_poll_joystick, 0); // in a4r_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "num_joysticks", a4r_num_joysticks, 0); // in a4r_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "joy", a4r_joy, 0); // in a4r_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "calibrate_joystick_name", a4r_calibrate_joystick_name, 1); // in a4r_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "calibrate_joystick", a4r_calibrate_joystick, 1); // in a4r_joystick_routines.c
+
   rb_define_module_function(mAllegro4r_API, "set_gfx_mode", a4r_set_gfx_mode, 5); // in a4r_graphics_modes.c
   rb_define_module_function(mAllegro4r_API, "show_video_bitmap", a4r_show_video_bitmap, 1); // in a4r_graphics_modes.c
   rb_define_module_function(mAllegro4r_API, "vsync", a4r_vsync, 0); // in a4r_graphics_modes.c
@@ -162,8 +196,9 @@ void Init_allegro4r()
 
   rb_define_module_function(mAllegro4r_API, "set_palette", a4r_set_palette, 1); // in a4r_palette_routines.c
   rb_define_module_function(mAllegro4r_API, "get_palette", a4r_get_palette, 1); // in a4r_palette_routines.c
-  rb_define_module_function(mAllegro4r_API, "desktop_palette", a4r_desktop_palette, 0); // in a4r_palette_routines.c
+  rb_define_module_function(mAllegro4r_API, "default_palette", a4r_default_palette, 0); // in a4r_palette_routines.c
   rb_define_module_function(mAllegro4r_API, "black_palette", a4r_black_palette, 0); // in a4r_palette_routines.c
+  rb_define_module_function(mAllegro4r_API, "desktop_palette", a4r_desktop_palette, 0); // in a4r_palette_routines.c
 
   rb_define_module_function(mAllegro4r_API, "makecol", a4r_makecol, 3); // in a4r_truecolor_pixel_formats.c
   rb_define_module_function(mAllegro4r_API, "palette_color", a4r_palette_color, 0); // in a4r_truecolor_pixel_formats.c
@@ -541,6 +576,45 @@ void Init_allegro4r()
   rb_define_const(mAllegro4r_API, "KEY_CAPSLOCK", INT2FIX(KEY_CAPSLOCK));
   /* KEY_MAX: */
   rb_define_const(mAllegro4r_API, "KEY_MAX", INT2FIX(KEY_MAX));
+
+  /* JOY_TYPE_AUTODETECT: */
+  rb_define_const(mAllegro4r_API, "JOY_TYPE_AUTODETECT", INT2FIX(JOY_TYPE_AUTODETECT));
+  /* JOY_TYPE_NONE: */
+  rb_define_const(mAllegro4r_API, "JOY_TYPE_NONE", INT2FIX(JOY_TYPE_NONE));
+
+  /* JOYFLAG_DIGITAL: This control is currently providing digital input. */
+  rb_define_const(mAllegro4r_API, "JOYFLAG_DIGITAL", INT2FIX(JOYFLAG_DIGITAL));
+  /* JOYFLAG_ANALOGUE: This control is currently providing analogue input. */
+  rb_define_const(mAllegro4r_API, "JOYFLAG_ANALOGUE", INT2FIX(JOYFLAG_ANALOGUE));
+  /*
+   * JOYFLAG_CALIB_DIGITAL: This control will be capable of providing digital
+   * input once it has been calibrated, but is not doing this at the moment.
+   */
+  rb_define_const(mAllegro4r_API, "JOYFLAG_CALIB_DIGITAL", INT2FIX(JOYFLAG_CALIB_DIGITAL));
+  /* 
+   * JOYFLAG_CALIB_ANALOGUE: This control will be capable of providing analogue
+   * input once it has been calibrated, but is not doing this at the moment.
+   */
+  rb_define_const(mAllegro4r_API, "JOYFLAG_CALIB_ANALOGUE", INT2FIX(JOYFLAG_CALIB_ANALOGUE));
+  /*
+   * JOYFLAG_CALIBRATE: Indicates that this control needs to be calibrated. Many
+   * devices require multiple calibration steps, so you should call the
+   * calibrate_joystick function from a loop until this flag is cleared.
+   */
+  rb_define_const(mAllegro4r_API, "JOYFLAG_CALIBRATE", INT2FIX(JOYFLAG_CALIBRATE));
+  /* 
+   * JOYFLAG_SIGNED: Indicates that the analogue axis position is in signed
+   * format, ranging from -128 to 128. This is the case for all 2d directional
+   * controls.
+   */
+  rb_define_const(mAllegro4r_API, "JOYFLAG_SIGNED", INT2FIX(JOYFLAG_SIGNED));
+  /* 
+   * JOYFLAG_UNSIGNED: Indicates that the analogue axis position is in unsigned
+   * format, ranging from 0 to 255. This is the case for all 1d throttle
+   * controls.
+   */
+  rb_define_const(mAllegro4r_API, "JOYFLAG_UNSIGNED", INT2FIX(JOYFLAG_UNSIGNED));
+
 }
 
 // needed if Allegro is built as a shared library

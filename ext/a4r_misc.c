@@ -89,3 +89,17 @@ VALUE a4r_keyboard_driver(VALUE self)
   VALUE obj = Data_Wrap_Struct(cKEYBOARD_DRIVER, 0, 0, driver);
   return obj;
 }
+
+/*
+ * call-seq:
+ *   joystick_driver -> joystick_driver
+ *
+ * Global reference to the joystick driver.
+ */
+VALUE a4r_joystick_driver(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  JOYSTICK_DRIVER *driver = joystick_driver;
+  VALUE obj = Data_Wrap_Struct(cJOYSTICK_DRIVER, 0, 0, driver);
+  return obj;
+}

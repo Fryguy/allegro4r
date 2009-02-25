@@ -27,6 +27,10 @@ extern VALUE mAllegro4r;
 extern VALUE mAllegro4r_API;
 
 extern VALUE cBITMAP;
+extern VALUE cJOYSTICK_INFO;
+extern VALUE cJOYSTICK_BUTTON_INFO;
+extern VALUE cJOYSTICK_STICK_INFO;
+extern VALUE cJOYSTICK_AXIS_INFO;
 extern VALUE cPALETTE;
 extern VALUE cRGB;
 extern VALUE cFONT;
@@ -35,12 +39,36 @@ extern VALUE cGFX_DRIVER;
 extern VALUE cMOUSE_DRIVER;
 extern VALUE cTIMER_DRIVER;
 extern VALUE cKEYBOARD_DRIVER;
+extern VALUE cJOYSTICK_DRIVER;
 
 // Method definitions for structures and types defined by Allegro
 
 //   BITMAP
 extern VALUE a4r_BITMAP_h_get(VALUE self);
 extern VALUE a4r_BITMAP_w_get(VALUE self);
+
+//   JOYSTICK_INFO
+extern VALUE a4r_JOYSTICK_INFO_flags(VALUE self);
+extern VALUE a4r_JOYSTICK_INFO_num_sticks(VALUE self);
+extern VALUE a4r_JOYSTICK_INFO_num_buttons(VALUE self);
+extern VALUE a4r_JOYSTICK_INFO_stick(VALUE self);
+extern VALUE a4r_JOYSTICK_INFO_button(VALUE self);
+
+//   JOYSTICK_BUTTON_INFO
+extern VALUE a4r_JOYSTICK_BUTTON_INFO_b(VALUE self);
+extern VALUE a4r_JOYSTICK_BUTTON_INFO_name(VALUE self);
+
+//   JOYSTICK_STICK_INFO
+extern VALUE a4r_JOYSTICK_STICK_INFO_flags(VALUE self);
+extern VALUE a4r_JOYSTICK_STICK_INFO_num_axis(VALUE self);
+extern VALUE a4r_JOYSTICK_STICK_INFO_axis(VALUE self);
+extern VALUE a4r_JOYSTICK_STICK_INFO_name(VALUE self);
+
+//   JOYSTICK_AXIS_INFO
+extern VALUE a4r_JOYSTICK_AXIS_INFO_pos(VALUE self);
+extern VALUE a4r_JOYSTICK_AXIS_INFO_d1(VALUE self);
+extern VALUE a4r_JOYSTICK_AXIS_INFO_d2(VALUE self);
+extern VALUE a4r_JOYSTICK_AXIS_INFO_name(VALUE self);
 
 //   PALETTE
 extern void a4r_PALETTE_free(void *palette);
@@ -72,6 +100,9 @@ extern VALUE a4r_TIMER_DRIVER_name_get(VALUE self);
 //   KEYBOARD_DRIVER
 extern VALUE a4r_KEYBOARD_DRIVER_name_get(VALUE self);
 
+//   JOYSTICK_DRIVER
+extern VALUE a4r_JOYSTICK_DRIVER_name_get(VALUE self);
+
 // Ruby methods for routines defined by Allegro
 
 //   Misc
@@ -82,6 +113,7 @@ extern VALUE a4r_gfx_driver(VALUE self);
 extern VALUE a4r_mouse_driver(VALUE self);
 extern VALUE a4r_timer_driver(VALUE self);
 extern VALUE a4r_keyboard_driver(VALUE self);
+extern VALUE a4r_joystick_driver(VALUE self);
 
 //   Using Allegro
 extern VALUE a4r_allegro_init(VALUE self);
@@ -147,6 +179,14 @@ extern VALUE keyboard_lowlevel_callback_proc;
 extern int keyboard_callback_method(int key);
 extern void keyboard_lowlevel_callback_method(int scancode);
 
+//   Joystick routines
+extern VALUE a4r_install_joystick(VALUE self, VALUE type);
+extern VALUE a4r_poll_joystick(VALUE self);
+extern VALUE a4r_num_joysticks(VALUE self);
+extern VALUE a4r_joy(VALUE self);
+extern VALUE a4r_calibrate_joystick_name(VALUE self, VALUE n);
+extern VALUE a4r_calibrate_joystick(VALUE self, VALUE n);
+
 //   Graphics modes
 extern VALUE a4r_set_gfx_mode(VALUE self, VALUE card, VALUE w, VALUE h, VALUE v_w, VALUE v_h);
 extern VALUE a4r_show_video_bitmap(VALUE self, VALUE bitmap);
@@ -169,6 +209,7 @@ extern VALUE a4r_release_screen(VALUE self);
 //   Palette routines
 extern VALUE a4r_set_palette(VALUE self, VALUE p);
 extern VALUE a4r_get_palette(VALUE self, VALUE p);
+extern VALUE a4r_default_palette(VALUE self);
 extern VALUE a4r_black_palette(VALUE self);
 extern VALUE a4r_desktop_palette(VALUE self);
 
