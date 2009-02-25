@@ -17,7 +17,11 @@
 #define __ALLEGRO4R_H__
 
 #include <allegro.h>
+
+#if defined _WIN32 || defined __CYGWIN__
 #include <winalleg.h>
+#endif
+
 #include <ruby.h>
 
 extern ID CALL_ID;

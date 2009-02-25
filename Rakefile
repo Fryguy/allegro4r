@@ -183,7 +183,7 @@ spec = Gem::Specification.new do |s|
   s.requirements = ["Allegro 4.2.2 (http://alleg.sourceforge.net/)"]
 
   s.extensions = ["ext/extconf.rb"]
-  s.files = FileList["ext/*.{c,i,rb}", "examples/**/*", "Manifest.txt"].to_a
+  s.files = FileList["ext/*.{c,h,rb}", "examples/**/*", "Manifest.txt"].to_a
   s.require_paths = ["ext"]
 
   s.has_rdoc = true
