@@ -7,7 +7,7 @@
  * Macro which initialises the Allegro library. This is the same thing as
  * calling install_allegro(SYSTEM_AUTODETECT, &errno, atexit).
  */
-VALUE a4r_allegro_init(VALUE self)
+VALUE a4r_API_allegro_init(VALUE self)
 {
   return INT2FIX(allegro_init());
 }
@@ -28,7 +28,7 @@ VALUE a4r_allegro_init(VALUE self)
  * write the destructor code in another method which you can manually call
  * before your program exits, avoiding this problem.
  */
-VALUE a4r_allegro_exit(VALUE self)
+VALUE a4r_API_allegro_exit(VALUE self)
 {
   allegro_exit();
   return Qnil;
@@ -53,7 +53,7 @@ VALUE a4r_allegro_exit(VALUE self)
  *       abort_on_error("Error calling some function!")
  *     end
  */
-VALUE a4r_allegro_error(VALUE self)
+VALUE a4r_API_allegro_error(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   return rb_str_new2(allegro_error);
@@ -82,7 +82,7 @@ VALUE a4r_allegro_error(VALUE self)
  *     exit 2
  *   end
  */
-VALUE a4r_allegro_message(VALUE self, VALUE text)
+VALUE a4r_API_allegro_message(VALUE self, VALUE text)
 {
   // TODO: Allow parameter possing a lo printf for direct API consistency or force string only?
   allegro_message(StringValuePtr(text));

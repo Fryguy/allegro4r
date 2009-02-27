@@ -22,7 +22,7 @@
  * signature returns a string containing the dest.  The returned string will
  * have null characters appended as per the description above.
  */
-VALUE a4r_ustrzncpy(VALUE self, VALUE src, VALUE n)
+VALUE a4r_API_ustrzncpy(VALUE self, VALUE src, VALUE n)
 {
   int size = FIX2INT(n) + 1;
   char *dest = ALLOC_N(char, size);
@@ -47,7 +47,7 @@ VALUE a4r_ustrzncpy(VALUE self, VALUE src, VALUE n)
  * *** The Ruby method differs from the Allegro method. The Allegro signature
  * takes a dest but the Ruby signature returns a string containing the dest.
  */
-VALUE a4r_usprintf(VALUE self, VALUE format)
+VALUE a4r_API_usprintf(VALUE self, VALUE format)
 {
   return format;
 }

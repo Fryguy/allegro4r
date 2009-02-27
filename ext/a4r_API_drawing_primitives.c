@@ -6,7 +6,7 @@
  *
  * Clears the bitmap to color 0.
  */
-VALUE a4r_clear_bitmap(VALUE self, VALUE bitmap)
+VALUE a4r_API_clear_bitmap(VALUE self, VALUE bitmap)
 {
   BITMAP *bmp;
   Data_Get_Struct(bitmap, BITMAP, bmp);
@@ -22,7 +22,7 @@ VALUE a4r_clear_bitmap(VALUE self, VALUE bitmap)
  *   # Clear the screen to red.
  *   clear_to_color(bmp, makecol(255, 0, 0))
  */
-VALUE a4r_clear_to_color(VALUE self, VALUE bitmap, VALUE color)
+VALUE a4r_API_clear_to_color(VALUE self, VALUE bitmap, VALUE color)
 {
   BITMAP *bmp;
   Data_Get_Struct(bitmap, BITMAP, bmp);
@@ -38,7 +38,7 @@ VALUE a4r_clear_to_color(VALUE self, VALUE bitmap, VALUE color)
  * drawing mode and the bitmap's clipping rectangle. Example:
  *   putpixel(screen, 10, 30, some_color)
  */
-VALUE a4r_putpixel(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE color)
+VALUE a4r_API_putpixel(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE color)
 {
   BITMAP *bitmap;
   Data_Get_Struct(bmp, BITMAP, bitmap);
@@ -64,7 +64,7 @@ VALUE a4r_putpixel(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE color)
  * To extract the individual color components, use the getr / getg / getb /
  * geta family of functions.
  */
-VALUE a4r_getpixel(VALUE self, VALUE bmp, VALUE x, VALUE y)
+VALUE a4r_API_getpixel(VALUE self, VALUE bmp, VALUE x, VALUE y)
 {
   BITMAP *bitmap;
   Data_Get_Struct(bmp, BITMAP, bitmap);
@@ -77,7 +77,7 @@ VALUE a4r_getpixel(VALUE self, VALUE bmp, VALUE x, VALUE y)
  *
  * Draws a solid, filled rectangle with the two points as its opposite corners.
  */
-VALUE a4r_rectfill(VALUE self, VALUE bmp, VALUE x1, VALUE y1, VALUE x2, VALUE y2, VALUE color)
+VALUE a4r_API_rectfill(VALUE self, VALUE bmp, VALUE x1, VALUE y1, VALUE x2, VALUE y2, VALUE color)
 {
   BITMAP *bitmap;
   Data_Get_Struct(bmp, BITMAP, bitmap);
@@ -91,7 +91,7 @@ VALUE a4r_rectfill(VALUE self, VALUE bmp, VALUE x1, VALUE y1, VALUE x2, VALUE y2
  *
  * Draws a circle with the specified centre and radius.
  */
-VALUE a4r_circle(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE radius, VALUE color)
+VALUE a4r_API_circle(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE radius, VALUE color)
 {
   BITMAP *bitmap;
   Data_Get_Struct(bmp, BITMAP, bitmap);
@@ -105,7 +105,7 @@ VALUE a4r_circle(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE radius, VALUE co
  *
  * Draws a filled circle with the specified centre and radius. 
  */
-VALUE a4r_circlefill(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE radius, VALUE color)
+VALUE a4r_API_circlefill(VALUE self, VALUE bmp, VALUE x, VALUE y, VALUE radius, VALUE color)
 {
   BITMAP *bitmap;
   Data_Get_Struct(bmp, BITMAP, bitmap);

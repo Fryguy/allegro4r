@@ -29,7 +29,7 @@
  * you may decide not to check the return value as this function is very
  * unlikely to fail).
  */
-VALUE a4r_install_keyboard(VALUE self)
+VALUE a4r_API_install_keyboard(VALUE self)
 {
   return INT2FIX(install_keyboard());
 }
@@ -85,7 +85,7 @@ VALUE a4r_install_keyboard(VALUE self)
  * this reason, Allegro pretends the pause key is a 'state' key, which is the
  * only way to make it usable.
  */
-VALUE a4r_key(VALUE self)
+VALUE a4r_API_key(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   //       make [] access directly without array conversion?
@@ -130,7 +130,7 @@ VALUE a4r_key(VALUE self)
  *     end
  *   end
  */
-VALUE a4r_key_shifts(VALUE self)
+VALUE a4r_API_key_shifts(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   return INT2FIX(key_shifts);
@@ -149,7 +149,7 @@ VALUE a4r_key_shifts(VALUE self)
  *   end
  *   # So he skipped our title screen.
  */
-VALUE a4r_keypressed(VALUE self)
+VALUE a4r_API_keypressed(VALUE self)
 {
   return keypressed() ? Qtrue : Qfalse;
 }
@@ -189,7 +189,7 @@ VALUE a4r_keypressed(VALUE self)
  * This function cannot return character values greater than 255. If you need to
  * read Unicode input, use ureadkey instead.
  */
-VALUE a4r_readkey(VALUE self)
+VALUE a4r_API_readkey(VALUE self)
 {
   return INT2FIX(readkey());
 }
@@ -225,7 +225,7 @@ VALUE a4r_readkey(VALUE self)
  * boolean.  If false or nil, the method returns only the read key, otherwise it
  * returns an array containing the read key and the scancode.
  */
-VALUE a4r_ureadkey(VALUE self, VALUE scancode)
+VALUE a4r_API_ureadkey(VALUE self, VALUE scancode)
 {
   int s;
   int *s_p = NULL;
@@ -254,7 +254,7 @@ VALUE a4r_ureadkey(VALUE self, VALUE scancode)
  *   keyname = scancode_to_name(scancode)
  *   allegro_message("You pressed the %s key." % keyname)
  */
-VALUE a4r_scancode_to_name(VALUE self, VALUE scancode)
+VALUE a4r_API_scancode_to_name(VALUE self, VALUE scancode)
 {
   return rb_str_new2(scancode_to_name(FIX2INT(scancode)));
 }
@@ -284,7 +284,7 @@ VALUE a4r_scancode_to_name(VALUE self, VALUE scancode)
  * Note that this callback will be ignored if you also set the unicode keyboard
  * callback.
  */
-VALUE a4r_keyboard_callback_set(VALUE self, VALUE proc)
+VALUE a4r_API_keyboard_callback_set(VALUE self, VALUE proc)
 {
   // TODO: Validate proc and maybe check for 0 in the keyboard_callback_method?
   // TODO: hooked variable?
@@ -339,7 +339,7 @@ VALUE a4r_keyboard_callback_set(VALUE self, VALUE proc)
  *       end
  *     end
  */
-VALUE a4r_keyboard_lowlevel_callback_set(VALUE self, VALUE proc)
+VALUE a4r_API_keyboard_lowlevel_callback_set(VALUE self, VALUE proc)
 {
   // TODO: Validate proc and maybe check for 0 in the keyboard_lowlevel_callback_method?
   // TODO: hooked variable?
@@ -359,7 +359,7 @@ VALUE a4r_keyboard_lowlevel_callback_set(VALUE self, VALUE proc)
  * before reading keys to avoid previously buffered keys to be returned by calls
  * to readkey or ureadkey.
  */
-VALUE a4r_clear_keybuf(VALUE self)
+VALUE a4r_API_clear_keybuf(VALUE self)
 {
   clear_keybuf();
   return Qnil;

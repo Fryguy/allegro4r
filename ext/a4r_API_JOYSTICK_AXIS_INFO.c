@@ -1,22 +1,12 @@
 #include "allegro4r.h"
 
 /*
- * Document-class: Allegro4r::API::JOYSTICK_AXIS_INFO
- *
- * Stores the contents of joystick axis information.
- *
- * Read chapter "Joystick routines" for a description on how to obtain/use this
- * structure.
- */
-VALUE cJOYSTICK_AXIS_INFO;
-
-/*
  * call-seq:
  *   jai.pos -> int
  *
  * Analogue axis position
  */
-VALUE a4r_JOYSTICK_AXIS_INFO_pos(VALUE self)
+VALUE a4r_API_JOYSTICK_AXIS_INFO_pos(VALUE self)
 {
   JOYSTICK_AXIS_INFO *jai;
   Data_Get_Struct(self, JOYSTICK_AXIS_INFO, jai);
@@ -29,7 +19,7 @@ VALUE a4r_JOYSTICK_AXIS_INFO_pos(VALUE self)
  *
  * Digital axis position
  */
-VALUE a4r_JOYSTICK_AXIS_INFO_d1(VALUE self)
+VALUE a4r_API_JOYSTICK_AXIS_INFO_d1(VALUE self)
 {
   JOYSTICK_AXIS_INFO *jai;
   Data_Get_Struct(self, JOYSTICK_AXIS_INFO, jai);
@@ -42,7 +32,7 @@ VALUE a4r_JOYSTICK_AXIS_INFO_d1(VALUE self)
  *
  * Digital axis position
  */
-VALUE a4r_JOYSTICK_AXIS_INFO_d2(VALUE self)
+VALUE a4r_API_JOYSTICK_AXIS_INFO_d2(VALUE self)
 {
   JOYSTICK_AXIS_INFO *jai;
   Data_Get_Struct(self, JOYSTICK_AXIS_INFO, jai);
@@ -55,7 +45,7 @@ VALUE a4r_JOYSTICK_AXIS_INFO_d2(VALUE self)
  *
  * Description of this axis
  */
-VALUE a4r_JOYSTICK_AXIS_INFO_name(VALUE self)
+VALUE a4r_API_JOYSTICK_AXIS_INFO_name(VALUE self)
 {
   JOYSTICK_AXIS_INFO *jai;
   Data_Get_Struct(self, JOYSTICK_AXIS_INFO, jai);

@@ -13,7 +13,7 @@
  *
  * Return value: Returns the requested RGB triplet in the current color depth.
  */
-VALUE a4r_makecol(VALUE self, VALUE r, VALUE g, VALUE b)
+VALUE a4r_API_makecol(VALUE self, VALUE r, VALUE g, VALUE b)
 {
   return INT2FIX(makecol(FIX2INT(r), FIX2INT(g), FIX2INT(b)));
 }
@@ -33,7 +33,7 @@ VALUE a4r_makecol(VALUE self, VALUE r, VALUE g, VALUE b)
  *   # Put a pixel with the color 2 (green) of the palette
  *   putpixel(screen, 100, 100, palette_color[2])
  */
-VALUE a4r_palette_color(VALUE self)
+VALUE a4r_API_palette_color(VALUE self)
 {
   // TODO: Cache the array, and only update if changed, or use hooked variable?
   VALUE ary = rb_ary_new2(PAL_SIZE);

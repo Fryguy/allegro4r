@@ -24,7 +24,7 @@
  * calibrate_joystick functions to measure the exact range of the inputs: see
  * below.
  */
-VALUE a4r_install_joystick(VALUE self, VALUE type)
+VALUE a4r_API_install_joystick(VALUE self, VALUE type)
 {
   return INT2FIX(install_joystick(FIX2INT(type)));
 }
@@ -54,7 +54,7 @@ VALUE a4r_install_joystick(VALUE self, VALUE type)
  * Return value: Returns zero on success or a negative number on failure
  * (usually because no joystick driver was installed).
  */
-VALUE a4r_poll_joystick(VALUE self)
+VALUE a4r_API_poll_joystick(VALUE self)
 {
   return INT2FIX(poll_joystick());
 }
@@ -66,7 +66,7 @@ VALUE a4r_poll_joystick(VALUE self)
  * Global variable containing the number of active joystick devices. The current
  * drivers support a maximum of eight controllers.
  */
-VALUE a4r_num_joysticks(VALUE self)
+VALUE a4r_API_num_joysticks(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   return INT2FIX(num_joysticks);
@@ -80,7 +80,7 @@ VALUE a4r_num_joysticks(VALUE self)
  * poll_joystick function. Only the first num_joysticks elements will contain
  * meaningful information. Joystick info is described by the JOYSTICK_INFO
  * class.
- * 
+ *
  * The button status is stored in the JOYSTICK_BUTTON_INFO class.
  *
  * You may wish to display the button names as part of an input configuration
@@ -149,13 +149,13 @@ VALUE a4r_num_joysticks(VALUE self)
  * "analogue", there are some aliases h that will allow you to write "analog"
  * instead.
  */
-VALUE a4r_joy(VALUE self)
+VALUE a4r_API_joy(VALUE self)
 {
   VALUE ret = rb_ary_new2(num_joysticks);
   long x;
   for (x = 0; x < num_joysticks; x++)
   {
-    VALUE obj = Data_Wrap_Struct(cJOYSTICK_INFO, 0, 0, &(joy[x]));
+    VALUE obj = Data_Wrap_Struct(cAPI_JOYSTICK_INFO, 0, 0, &(joy[x]));
     rb_ary_store(ret, x, obj);
   }
 
@@ -172,7 +172,7 @@ VALUE a4r_joy(VALUE self)
  * that will be done on the specified joystick, or nil if no more calibration is
  * required.
  */
-VALUE a4r_calibrate_joystick_name(VALUE self, VALUE n)
+VALUE a4r_API_calibrate_joystick_name(VALUE self, VALUE n)
 {
   const char *s = calibrate_joystick_name(FIX2INT(n));
   if (s == NULL)
@@ -207,7 +207,7 @@ VALUE a4r_calibrate_joystick_name(VALUE self, VALUE n)
  * Return value: Returns zero on success, non-zero if the calibration could not
  * be performed successfully.
  */
-VALUE a4r_calibrate_joystick(VALUE self, VALUE n)
+VALUE a4r_API_calibrate_joystick(VALUE self, VALUE n)
 {
   return INT2FIX(calibrate_joystick(FIX2INT(n)));
 }

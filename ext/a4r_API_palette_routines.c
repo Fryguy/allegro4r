@@ -13,7 +13,7 @@
  *   abort_on_error("Couldn't load bitmap!") if bmp.nil?
  *   set_palette(palette)
  */
-VALUE a4r_set_palette(VALUE self, VALUE p)
+VALUE a4r_API_set_palette(VALUE self, VALUE p)
 {
   // TODO: Check data type of palette? Also, allow array of 256 RGBs
   PALETTE *pal;
@@ -32,7 +32,7 @@ VALUE a4r_set_palette(VALUE self, VALUE p)
  *   ...
  *   get_palette(pal)
  */
-VALUE a4r_get_palette(VALUE self, VALUE p)
+VALUE a4r_API_get_palette(VALUE self, VALUE p)
 {
   // TODO: Check data type of p?
   PALETTE *pal;
@@ -52,11 +52,11 @@ VALUE a4r_get_palette(VALUE self, VALUE p)
  * grabber tool provided with Allegro and create a new palette object, which
  * will use this palette by default.
  */
-VALUE a4r_default_palette(VALUE self)
+VALUE a4r_API_default_palette(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   PALETTE *pal = &default_palette;
-  VALUE obj = Data_Wrap_Struct(cPALETTE, 0, 0, pal);
+  VALUE obj = Data_Wrap_Struct(cAPI_PALETTE, 0, 0, pal);
   return obj;
 }
 
@@ -66,11 +66,11 @@ VALUE a4r_default_palette(VALUE self)
  *
  * A palette containing solid black colors, used by the fade routines.
  */
-VALUE a4r_black_palette(VALUE self)
+VALUE a4r_API_black_palette(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   PALETTE *pal = &black_palette;
-  VALUE obj = Data_Wrap_Struct(cPALETTE, 0, 0, pal);
+  VALUE obj = Data_Wrap_Struct(cAPI_PALETTE, 0, 0, pal);
   return obj;
 }
 
@@ -103,10 +103,10 @@ VALUE a4r_black_palette(VALUE self)
  *    14     Light cyan     31  63  63
  *    15     Black           0   0   0
  */
-VALUE a4r_desktop_palette(VALUE self)
+VALUE a4r_API_desktop_palette(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   PALETTE *pal = &desktop_palette;
-  VALUE obj = Data_Wrap_Struct(cPALETTE, 0, 0, pal);
+  VALUE obj = Data_Wrap_Struct(cAPI_PALETTE, 0, 0, pal);
   return obj;
 }

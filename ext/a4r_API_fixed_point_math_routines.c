@@ -18,7 +18,7 @@
  * Return value: Returns the value of the integer converted to fixed point
  * ignoring overflows.
  */
-VALUE a4r_itofix(VALUE self, VALUE x)
+VALUE a4r_API_itofix(VALUE self, VALUE x)
 {
   return LONG2NUM(itofix(FIX2INT(x)));
 }
@@ -39,7 +39,7 @@ VALUE a4r_itofix(VALUE self, VALUE x)
  * Return value: Returns the value of the floating point value converted to
  * fixed point clamping overflows (and setting 'errno').
  */
-VALUE a4r_ftofix(VALUE self, VALUE x)
+VALUE a4r_API_ftofix(VALUE self, VALUE x)
 {
   return LONG2NUM(ftofix(NUM2DBL(x)));
 }
@@ -54,7 +54,7 @@ VALUE a4r_ftofix(VALUE self, VALUE x)
  *   # This will put 16.66666 into 'result'.
  *   result = fixtof(itofix(100) / 6)
  */
-VALUE a4r_fixtof(VALUE self, VALUE x)
+VALUE a4r_API_fixtof(VALUE self, VALUE x)
 {
   return rb_float_new(fixtof(NUM2LONG(x)));
 }
@@ -80,7 +80,7 @@ VALUE a4r_fixtof(VALUE self, VALUE x)
  * Return value: Returns the clamped result of multiplying 'x' by 'y', setting
  * 'errno' to ERANGE if there was an overflow.
  */
-VALUE a4r_fixmul(VALUE self, VALUE x, VALUE y)
+VALUE a4r_API_fixmul(VALUE self, VALUE x, VALUE y)
 {
   return rb_float_new(fixmul(NUM2LONG(x), NUM2LONG(y)));
 }
@@ -92,7 +92,7 @@ VALUE a4r_fixmul(VALUE self, VALUE x, VALUE y)
  * This finds out the non negative square root of 'x'. If 'x' is negative,
  * 'errno' is set to EDOM and the function returns zero.
  */
-VALUE a4r_fixsqrt(VALUE self, VALUE x)
+VALUE a4r_API_fixsqrt(VALUE self, VALUE x)
 {
   return rb_float_new(fixsqrt(NUM2LONG(x)));
 }

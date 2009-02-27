@@ -31,7 +31,7 @@
  * responsible for destroying the font when you are finished with it to avoid
  * memory leaks.
  */
-VALUE a4r_load_font(VALUE self, VALUE filename, VALUE pal, VALUE param)
+VALUE a4r_API_load_font(VALUE self, VALUE filename, VALUE pal, VALUE param)
 {
   PALETTE *palette;
   RGB *rgb;
@@ -53,7 +53,7 @@ VALUE a4r_load_font(VALUE self, VALUE filename, VALUE pal, VALUE param)
   if (font == NULL)
     return Qnil;
 
-  VALUE obj = Data_Wrap_Struct(cFONT, 0, 0, font);
+  VALUE obj = Data_Wrap_Struct(cAPI_FONT, 0, 0, font);
   return obj;
 }
 
@@ -66,7 +66,7 @@ VALUE a4r_load_font(VALUE self, VALUE filename, VALUE pal, VALUE param)
  * should use this only on fonts you have loaded manually after you are done
  * with them, to prevent memory leaks in your program.
  */
-VALUE a4r_destroy_font(VALUE self, VALUE f)
+VALUE a4r_API_destroy_font(VALUE self, VALUE f)
 {
   FONT *font;
   Data_Get_Struct(f, FONT, font);
@@ -95,14 +95,14 @@ VALUE a4r_destroy_font(VALUE self, VALUE f)
  * responsible for destroying the font when you are finished with it to avoid
  * memory leaks.
  */
-VALUE a4r_extract_font_range(VALUE self, VALUE f, VALUE begin, VALUE end)
+VALUE a4r_API_extract_font_range(VALUE self, VALUE f, VALUE begin, VALUE end)
 {
   FONT *from, *to;
   Data_Get_Struct(f, FONT, from);
   to = extract_font_range(from, FIX2INT(begin), FIX2INT(end));
   if (to == NULL)
     return Qnil;
-  VALUE obj = Data_Wrap_Struct(cFONT, 0, 0, to);
+  VALUE obj = Data_Wrap_Struct(cAPI_FONT, 0, 0, to);
   return obj;
 }
 
@@ -134,7 +134,7 @@ VALUE a4r_extract_font_range(VALUE self, VALUE f, VALUE begin, VALUE end)
  * responsible for destroying the font when you are finished with it to avoid
  * memory leaks.
  */
-VALUE a4r_merge_fonts(VALUE self, VALUE f1, VALUE f2)
+VALUE a4r_API_merge_fonts(VALUE self, VALUE f1, VALUE f2)
 {
   FONT *font1, *font2, *ret;
   Data_Get_Struct(f1, FONT, font1);
@@ -142,6 +142,6 @@ VALUE a4r_merge_fonts(VALUE self, VALUE f1, VALUE f2)
   ret = merge_fonts(font1, font2);
   if (ret == NULL)
     return Qnil;
-  VALUE obj = Data_Wrap_Struct(cFONT, 0, 0, ret);
+  VALUE obj = Data_Wrap_Struct(cAPI_FONT, 0, 0, ret);
   return obj;
 }

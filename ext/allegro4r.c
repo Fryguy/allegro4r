@@ -32,11 +32,133 @@ VALUE mAllegro4r;
 VALUE mAllegro4r_API;
 
 /*
+ * Document-class: Allegro4r::API::BITMAP
+ *
+ * Stores the contents of a bitmap.
+ *
+ *   int w, h               - size of the bitmap in pixels
+ *   int clip               - non-zero if clipping is turned on
+ *   int cl, cr, ct, cb     - clip rectangle left, right, top,
+ *                             and bottom
+ *   unsigned char *line[]  - pointers to the start of each line
+ *
+ * There is some other stuff in the structure as well, but it is liable to
+ * change and you shouldn't use anything except the above. The 'w' and 'h'
+ * fields can be used to obtain the size of an existing bitmap:
+ *
+ *   bmp = load_bitmap("file.bmp", pal)
+ *   allegro_message("Bitmap size: (%dx%d)\n" % [bmp.w, bmp.h])
+ *
+ * The clipping rectangle is inclusive on the left and top (0 allows drawing to
+ * position 0) but exclusive on the right and bottom (10 allows drawing to
+ * position 9, but not to 10). Note this is not the same format as that of the
+ * clipping API, which takes inclusive coordinates for all four corners. All the
+ * values of this structure should be regarded as read-only, with the exception
+ * of the line field, whose access is described in depth in the "Direct access
+ * to video memory" section of the manual. If you want to modify the clipping
+ * region, please refrain from changing this structure. Use set_clip_rect
+ * instead.
+ */
+VALUE cAPI_BITMAP;
+
+/*
+ * Document-class: Allegro4r::API::JOYSTICK_INFO
+ *
+ * Stores the contents of joystick information.
+ *
+ * Read chapter "Joystick routines" for a description on how to obtain/use this
+ * structure.
+ */
+VALUE cAPI_JOYSTICK_INFO;
+
+/*
+ * Document-class: Allegro4r::API::JOYSTICK_BUTTON_INFO
+ *
+ * Stores the contents of joystick button information.
+ *
+ * Read chapter "Joystick routines" for a description on how to obtain/use this
+ * structure.
+ */
+VALUE cAPI_JOYSTICK_BUTTON_INFO;
+
+/*
+ * Document-class: Allegro4r::API::JOYSTICK_STICK_INFO
+ *
+ * Stores the contents of joystick stick information.
+ *
+ * Read chapter "Joystick routines" for a description on how to obtain/use this
+ * structure.
+ */
+VALUE cAPI_JOYSTICK_STICK_INFO;
+
+/*
+ * Document-class: Allegro4r::API::JOYSTICK_AXIS_INFO
+ *
+ * Stores the contents of joystick axis information.
+ *
+ * Read chapter "Joystick routines" for a description on how to obtain/use this
+ * structure.
+ */
+VALUE cAPI_JOYSTICK_AXIS_INFO;
+
+/*
+ * Document-class: Allegro4r::API::PALETTE
+ *
+ * Allegro palettes are arrays of PAL_SIZE RGB entries.
+ */
+VALUE cAPI_PALETTE;
+
+/*
+ * Document-class: Allegro4r::API::RGB
+ *   unsigned char r, g, b
+ *
+ * Palette entry. It contains an additional field for the purpose of padding but
+ * you should not usually care about it. Read chapter "Palette routines" for a
+ * description on how to obtain/use this structure.
+ */
+VALUE cAPI_RGB;
+
+/*
  * Document-class: Allegro4r::API::FONT
  *
  * The Allegro4r::API::FONT class.
  */
-VALUE cFONT;
+VALUE cAPI_FONT;
+
+/*
+ * Document-class: Allegro4r::API::GFX_DRIVER
+ *
+ * Stores the contents of the graphics driver.
+ */
+VALUE cAPI_GFX_DRIVER;
+
+/*
+ * Document-class: Allegro4r::API::TIMER_DRIVER
+ *
+ * Stores the contents of the timer driver.
+ */
+VALUE cAPI_TIMER_DRIVER;
+
+/*
+ * Document-class: Allegro4r::API::MOUSE_DRIVER
+ *
+ * Stores the contents of the mouse driver.
+ */
+VALUE cAPI_MOUSE_DRIVER;
+
+/*
+ * Document-class: Allegro4r::API::KEYBOARD_DRIVER
+ *
+ * Stores the contents of the keyboard driver.
+ */
+VALUE cAPI_KEYBOARD_DRIVER;
+
+/*
+ * Document-class: Allegro4r::API::JOYSTICK_DRIVER
+ *
+ * Stores the contents of the joystick driver.
+ */
+VALUE cAPI_JOYSTICK_DRIVER;
 
 void Init_allegro4r()
 {
@@ -45,123 +167,123 @@ void Init_allegro4r()
   mAllegro4r = rb_define_module("Allegro4r");
   mAllegro4r_API = rb_define_module_under(mAllegro4r, "API");
 
-  cBITMAP = rb_define_class_under(mAllegro4r_API, "BITMAP", rb_cObject); // in a4r_BITMAP.c
-  rb_define_method(cBITMAP, "h", a4r_BITMAP_h_get, 0); // in a4r_BITMAP.c
-  rb_define_method(cBITMAP, "w", a4r_BITMAP_w_get, 0); // in a4r_BITMAP.c
+  cAPI_BITMAP = rb_define_class_under(mAllegro4r_API, "BITMAP", rb_cObject); // in a4r_API_BITMAP.c
+  rb_define_method(cAPI_BITMAP, "h", a4r_API_BITMAP_h_get, 0); // in a4r_API_BITMAP.c
+  rb_define_method(cAPI_BITMAP, "w", a4r_API_BITMAP_w_get, 0); // in a4r_API_BITMAP.c
 
-  cJOYSTICK_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_INFO", rb_cObject); // in a4r_JOYSTICK_INFO.c
-  rb_define_method(cJOYSTICK_INFO, "flags", a4r_JOYSTICK_INFO_flags, 0); // in a4r_JOYSTICK_INFO.c
-  rb_define_method(cJOYSTICK_INFO, "num_sticks", a4r_JOYSTICK_INFO_num_sticks, 0); // in a4r_JOYSTICK_INFO.c
-  rb_define_method(cJOYSTICK_INFO, "num_buttons", a4r_JOYSTICK_INFO_num_buttons, 0); // in a4r_JOYSTICK_INFO.c
-  rb_define_method(cJOYSTICK_INFO, "stick", a4r_JOYSTICK_INFO_stick, 0); // in a4r_JOYSTICK_INFO.c
-  rb_define_method(cJOYSTICK_INFO, "button", a4r_JOYSTICK_INFO_button, 0); // in a4r_JOYSTICK_INFO.c
+  cAPI_JOYSTICK_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_INFO", rb_cObject); // in a4r_API_JOYSTICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_INFO, "flags", a4r_API_JOYSTICK_INFO_flags, 0); // in a4r_API_JOYSTICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_INFO, "num_sticks", a4r_API_JOYSTICK_INFO_num_sticks, 0); // in a4r_API_JOYSTICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_INFO, "num_buttons", a4r_API_JOYSTICK_INFO_num_buttons, 0); // in a4r_API_JOYSTICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_INFO, "stick", a4r_API_JOYSTICK_INFO_stick, 0); // in a4r_API_JOYSTICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_INFO, "button", a4r_API_JOYSTICK_INFO_button, 0); // in a4r_API_JOYSTICK_INFO.c
 
-  cJOYSTICK_BUTTON_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_BUTTON_INFO", rb_cObject); // in a4r_JOYSTICK_BUTTON_INFO.c
-  rb_define_method(cJOYSTICK_BUTTON_INFO, "b", a4r_JOYSTICK_BUTTON_INFO_b, 0); // in a4r_JOYSTICK_BUTTON_INFO.c
-  rb_define_method(cJOYSTICK_BUTTON_INFO, "name", a4r_JOYSTICK_BUTTON_INFO_name, 0); // in a4r_JOYSTICK_BUTTON_INFO.c
+  cAPI_JOYSTICK_BUTTON_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_BUTTON_INFO", rb_cObject); // in a4r_API_JOYSTICK_BUTTON_INFO.c
+  rb_define_method(cAPI_JOYSTICK_BUTTON_INFO, "b", a4r_API_JOYSTICK_BUTTON_INFO_b, 0); // in a4r_API_JOYSTICK_BUTTON_INFO.c
+  rb_define_method(cAPI_JOYSTICK_BUTTON_INFO, "name", a4r_API_JOYSTICK_BUTTON_INFO_name, 0); // in a4r_API_JOYSTICK_BUTTON_INFO.c
 
-  cJOYSTICK_STICK_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_STICK_INFO", rb_cObject); // in a4r_JOYSTICK_STICK_INFO.c
-  rb_define_method(cJOYSTICK_STICK_INFO, "flags", a4r_JOYSTICK_STICK_INFO_flags, 0); // in a4r_JOYSTICK_STICK_INFO.c
-  rb_define_method(cJOYSTICK_STICK_INFO, "num_axis", a4r_JOYSTICK_STICK_INFO_num_axis, 0); // in a4r_JOYSTICK_STICK_INFO.c
-  rb_define_method(cJOYSTICK_STICK_INFO, "axis", a4r_JOYSTICK_STICK_INFO_axis, 0); // in a4r_JOYSTICK_STICK_INFO.c
-  rb_define_method(cJOYSTICK_STICK_INFO, "name", a4r_JOYSTICK_STICK_INFO_name, 0); // in a4r_JOYSTICK_STICK_INFO.c
+  cAPI_JOYSTICK_STICK_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_STICK_INFO", rb_cObject); // in a4r_API_JOYSTICK_STICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_STICK_INFO, "flags", a4r_API_JOYSTICK_STICK_INFO_flags, 0); // in a4r_API_JOYSTICK_STICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_STICK_INFO, "num_axis", a4r_API_JOYSTICK_STICK_INFO_num_axis, 0); // in a4r_API_JOYSTICK_STICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_STICK_INFO, "axis", a4r_API_JOYSTICK_STICK_INFO_axis, 0); // in a4r_API_JOYSTICK_STICK_INFO.c
+  rb_define_method(cAPI_JOYSTICK_STICK_INFO, "name", a4r_API_JOYSTICK_STICK_INFO_name, 0); // in a4r_API_JOYSTICK_STICK_INFO.c
 
-  cJOYSTICK_AXIS_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_AXIS_INFO", rb_cObject); // in a4r_JOYSTICK_AXIS_INFO.c
-  rb_define_method(cJOYSTICK_AXIS_INFO, "pos", a4r_JOYSTICK_AXIS_INFO_pos, 0); // in a4r_JOYSTICK_AXIS_INFO.c
-  rb_define_method(cJOYSTICK_AXIS_INFO, "d1", a4r_JOYSTICK_AXIS_INFO_d1, 0); // in a4r_JOYSTICK_AXIS_INFO.c
-  rb_define_method(cJOYSTICK_AXIS_INFO, "d2", a4r_JOYSTICK_AXIS_INFO_d2, 0); // in a4r_JOYSTICK_AXIS_INFO.c
-  rb_define_method(cJOYSTICK_AXIS_INFO, "name", a4r_JOYSTICK_AXIS_INFO_name, 0); // in a4r_JOYSTICK_AXIS_INFO.c
+  cAPI_JOYSTICK_AXIS_INFO = rb_define_class_under(mAllegro4r_API, "JOYSTICK_AXIS_INFO", rb_cObject); // in a4r_API_JOYSTICK_AXIS_INFO.c
+  rb_define_method(cAPI_JOYSTICK_AXIS_INFO, "pos", a4r_API_JOYSTICK_AXIS_INFO_pos, 0); // in a4r_API_JOYSTICK_AXIS_INFO.c
+  rb_define_method(cAPI_JOYSTICK_AXIS_INFO, "d1", a4r_API_JOYSTICK_AXIS_INFO_d1, 0); // in a4r_API_JOYSTICK_AXIS_INFO.c
+  rb_define_method(cAPI_JOYSTICK_AXIS_INFO, "d2", a4r_API_JOYSTICK_AXIS_INFO_d2, 0); // in a4r_API_JOYSTICK_AXIS_INFO.c
+  rb_define_method(cAPI_JOYSTICK_AXIS_INFO, "name", a4r_API_JOYSTICK_AXIS_INFO_name, 0); // in a4r_API_JOYSTICK_AXIS_INFO.c
 
-  cPALETTE = rb_define_class_under(mAllegro4r_API, "PALETTE", rb_cObject); // in a4r_PALETTE.c
-  rb_define_alloc_func(cPALETTE, a4r_PALETTE_alloc); // in a4r_PALETTE.c
-  rb_define_method(cPALETTE, "initialize_copy", a4r_PALETTE_initialize_copy, 1); // in a4r_PALETTE.c
-  rb_define_method(cPALETTE, "[]", a4r_PALETTE_getter, 1); // in a4r_PALETTE.c
-  rb_define_method(cPALETTE, "[]=", a4r_PALETTE_setter, 2); // in a4r_PALETTE.c
+  cAPI_PALETTE = rb_define_class_under(mAllegro4r_API, "PALETTE", rb_cObject); // in a4r_API_PALETTE.c
+  rb_define_alloc_func(cAPI_PALETTE, a4r_API_PALETTE_alloc); // in a4r_API_PALETTE.c
+  rb_define_method(cAPI_PALETTE, "initialize_copy", a4r_API_PALETTE_initialize_copy, 1); // in a4r_API_PALETTE.c
+  rb_define_method(cAPI_PALETTE, "[]", a4r_API_PALETTE_getter, 1); // in a4r_API_PALETTE.c
+  rb_define_method(cAPI_PALETTE, "[]=", a4r_API_PALETTE_setter, 2); // in a4r_API_PALETTE.c
 
-  cRGB = rb_define_class_under(mAllegro4r_API, "RGB", rb_cObject); // in a4r_RGB.c
-  rb_define_alloc_func(cRGB, a4r_RGB_alloc); // in a4r_RGB.c
-  rb_define_method(cRGB, "initialize_copy", a4r_RGB_initialize_copy, 1); // in a4r_RGB.c
-  rb_define_method(cRGB, "r", a4r_RGB_r_get, 0); // in a4r_RGB.c
-  rb_define_method(cRGB, "r=", a4r_RGB_r_set, 1); // in a4r_RGB.c
-  rb_define_method(cRGB, "g", a4r_RGB_g_get, 0); // in a4r_RGB.c
-  rb_define_method(cRGB, "g=", a4r_RGB_g_set, 1); // in a4r_RGB.c
-  rb_define_method(cRGB, "b", a4r_RGB_b_get, 0); // in a4r_RGB.c
-  rb_define_method(cRGB, "b=", a4r_RGB_b_set, 1); // in a4r_RGB.c
+  cAPI_RGB = rb_define_class_under(mAllegro4r_API, "RGB", rb_cObject); // in a4r_API_RGB.c
+  rb_define_alloc_func(cAPI_RGB, a4r_API_RGB_alloc); // in a4r_API_RGB.c
+  rb_define_method(cAPI_RGB, "initialize_copy", a4r_API_RGB_initialize_copy, 1); // in a4r_API_RGB.c
+  rb_define_method(cAPI_RGB, "r", a4r_API_RGB_r_get, 0); // in a4r_API_RGB.c
+  rb_define_method(cAPI_RGB, "r=", a4r_API_RGB_r_set, 1); // in a4r_API_RGB.c
+  rb_define_method(cAPI_RGB, "g", a4r_API_RGB_g_get, 0); // in a4r_API_RGB.c
+  rb_define_method(cAPI_RGB, "g=", a4r_API_RGB_g_set, 1); // in a4r_API_RGB.c
+  rb_define_method(cAPI_RGB, "b", a4r_API_RGB_b_get, 0); // in a4r_API_RGB.c
+  rb_define_method(cAPI_RGB, "b=", a4r_API_RGB_b_set, 1); // in a4r_API_RGB.c
 
-  cFONT = rb_define_class_under(mAllegro4r_API, "FONT", rb_cObject);
+  cAPI_FONT = rb_define_class_under(mAllegro4r_API, "FONT", rb_cObject);
 
-  cGFX_DRIVER = rb_define_class_under(mAllegro4r_API, "GFX_DRIVER", rb_cObject); // in a4r_GFX_DRIVER.c
-  rb_define_method(cGFX_DRIVER, "name", a4r_GFX_DRIVER_name_get, 0); // in a4r_GFX_DRIVER.c
+  cAPI_GFX_DRIVER = rb_define_class_under(mAllegro4r_API, "GFX_DRIVER", rb_cObject); // in a4r_API_GFX_DRIVER.c
+  rb_define_method(cAPI_GFX_DRIVER, "name", a4r_API_GFX_DRIVER_name_get, 0); // in a4r_API_GFX_DRIVER.c
 
-  cMOUSE_DRIVER = rb_define_class_under(mAllegro4r_API, "MOUSE_DRIVER", rb_cObject); // in a4r_MOUSE_DRIVER.c
-  rb_define_method(cMOUSE_DRIVER, "name", a4r_MOUSE_DRIVER_name_get, 0); // in a4r_MOUSE_DRIVER.c
+  cAPI_MOUSE_DRIVER = rb_define_class_under(mAllegro4r_API, "MOUSE_DRIVER", rb_cObject); // in a4r_API_MOUSE_DRIVER.c
+  rb_define_method(cAPI_MOUSE_DRIVER, "name", a4r_API_MOUSE_DRIVER_name_get, 0); // in a4r_API_MOUSE_DRIVER.c
 
-  cTIMER_DRIVER = rb_define_class_under(mAllegro4r_API, "TIMER_DRIVER", rb_cObject); // in a4r_TIMER_DRIVER.c
-  rb_define_method(cTIMER_DRIVER, "name", a4r_TIMER_DRIVER_name_get, 0); // in a4r_TIMER_DRIVER.c
+  cAPI_TIMER_DRIVER = rb_define_class_under(mAllegro4r_API, "TIMER_DRIVER", rb_cObject); // in a4r_API_TIMER_DRIVER.c
+  rb_define_method(cAPI_TIMER_DRIVER, "name", a4r_API_TIMER_DRIVER_name_get, 0); // in a4r_API_TIMER_DRIVER.c
 
-  cKEYBOARD_DRIVER = rb_define_class_under(mAllegro4r_API, "KEYBOARD_DRIVER", rb_cObject); // in a4r_KEYBOARD_DRIVER.c
-  rb_define_method(cKEYBOARD_DRIVER, "name", a4r_KEYBOARD_DRIVER_name_get, 0); // in a4r_KEYBOARD_DRIVER.c
+  cAPI_KEYBOARD_DRIVER = rb_define_class_under(mAllegro4r_API, "KEYBOARD_DRIVER", rb_cObject); // in a4r_API_KEYBOARD_DRIVER.c
+  rb_define_method(cAPI_KEYBOARD_DRIVER, "name", a4r_API_KEYBOARD_DRIVER_name_get, 0); // in a4r_API_KEYBOARD_DRIVER.c
 
-  cJOYSTICK_DRIVER = rb_define_class_under(mAllegro4r_API, "JOYSTICK_DRIVER", rb_cObject); // in a4r_JOYSTICK_DRIVER.c
-  rb_define_method(cJOYSTICK_DRIVER, "name", a4r_JOYSTICK_DRIVER_name_get, 0); // in a4r_JOYSTICK_DRIVER.c
+  cAPI_JOYSTICK_DRIVER = rb_define_class_under(mAllegro4r_API, "JOYSTICK_DRIVER", rb_cObject); // in a4r_API_JOYSTICK_DRIVER.c
+  rb_define_method(cAPI_JOYSTICK_DRIVER, "name", a4r_API_JOYSTICK_DRIVER_name_get, 0); // in a4r_API_JOYSTICK_DRIVER.c
 
-  rb_define_module_function(mAllegro4r_API, "MIN", a4r_MIN, 2); // in a4r_misc.c
-  rb_define_module_function(mAllegro4r_API, "ABS", a4r_ABS, 1); // in a4r_misc.c
-  rb_define_module_function(mAllegro4r_API, "AL_RAND", a4r_AL_RAND, 0); // in a4r_misc.c
-  rb_define_module_function(mAllegro4r_API, "gfx_driver", a4r_gfx_driver, 0); // in a4r_misc.c
-  rb_define_module_function(mAllegro4r_API, "mouse_driver", a4r_mouse_driver, 0); // in a4r_misc.c
-  rb_define_module_function(mAllegro4r_API, "timer_driver", a4r_timer_driver, 0); // in a4r_misc.c
-  rb_define_module_function(mAllegro4r_API, "keyboard_driver", a4r_keyboard_driver, 0); // in a4r_misc.c
-  rb_define_module_function(mAllegro4r_API, "joystick_driver", a4r_joystick_driver, 0); // in a4r_misc.c
+  rb_define_module_function(mAllegro4r_API, "MIN", a4r_API_MIN, 2); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "ABS", a4r_API_ABS, 1); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "AL_RAND", a4r_API_AL_RAND, 0); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "gfx_driver", a4r_API_gfx_driver, 0); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "mouse_driver", a4r_API_mouse_driver, 0); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "timer_driver", a4r_API_timer_driver, 0); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "keyboard_driver", a4r_API_keyboard_driver, 0); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "joystick_driver", a4r_API_joystick_driver, 0); // in a4r_API_misc.c
 
-  rb_define_module_function(mAllegro4r_API, "allegro_init", a4r_allegro_init, 0); // in a4r_using_allegro.c
-  rb_define_module_function(mAllegro4r_API, "allegro_exit", a4r_allegro_exit, 0); // in a4r_using_allegro.c
-  rb_define_module_function(mAllegro4r_API, "allegro_error", a4r_allegro_error, 0); // in a4r_using_allegro.c
-  rb_define_module_function(mAllegro4r_API, "allegro_message", a4r_allegro_message, 1); // in a4r_using_allegro.c
+  rb_define_module_function(mAllegro4r_API, "allegro_init", a4r_API_allegro_init, 0); // in a4r_API_using_allegro.c
+  rb_define_module_function(mAllegro4r_API, "allegro_exit", a4r_API_allegro_exit, 0); // in a4r_API_using_allegro.c
+  rb_define_module_function(mAllegro4r_API, "allegro_error", a4r_API_allegro_error, 0); // in a4r_API_using_allegro.c
+  rb_define_module_function(mAllegro4r_API, "allegro_message", a4r_API_allegro_message, 1); // in a4r_API_using_allegro.c
 
-  rb_define_module_function(mAllegro4r_API, "ustrzncpy", a4r_ustrzncpy, 2); // in a4r_unicode_routines.c
-  rb_define_module_function(mAllegro4r_API, "usprintf", a4r_usprintf, 1); // in a4r_unicode_routines.c
+  rb_define_module_function(mAllegro4r_API, "ustrzncpy", a4r_API_ustrzncpy, 2); // in a4r_API_unicode_routines.c
+  rb_define_module_function(mAllegro4r_API, "usprintf", a4r_API_usprintf, 1); // in a4r_API_unicode_routines.c
 
-  rb_define_module_function(mAllegro4r_API, "install_mouse", a4r_install_mouse, 0); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "poll_mouse", a4r_poll_mouse, 0); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "mouse_x", a4r_mouse_x, 0); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "mouse_y", a4r_mouse_y, 0); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "mouse_z", a4r_mouse_z, 0); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "mouse_w", a4r_mouse_w, 0); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "mouse_b", a4r_mouse_b, 0); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "show_mouse", a4r_show_mouse, 1); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "get_mouse_mickeys", a4r_get_mouse_mickeys, 0); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "set_mouse_sprite", a4r_set_mouse_sprite, 1); // in a4r_mouse_routines.c
-  rb_define_module_function(mAllegro4r_API, "set_mouse_sprite_focus", a4r_set_mouse_sprite_focus, 2); // in a4r_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "install_mouse", a4r_API_install_mouse, 0); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "poll_mouse", a4r_API_poll_mouse, 0); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "mouse_x", a4r_API_mouse_x, 0); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "mouse_y", a4r_API_mouse_y, 0); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "mouse_z", a4r_API_mouse_z, 0); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "mouse_w", a4r_API_mouse_w, 0); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "mouse_b", a4r_API_mouse_b, 0); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "show_mouse", a4r_API_show_mouse, 1); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "get_mouse_mickeys", a4r_API_get_mouse_mickeys, 0); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "set_mouse_sprite", a4r_API_set_mouse_sprite, 1); // in a4r_API_mouse_routines.c
+  rb_define_module_function(mAllegro4r_API, "set_mouse_sprite_focus", a4r_API_set_mouse_sprite_focus, 2); // in a4r_API_mouse_routines.c
 
-  rb_define_module_function(mAllegro4r_API, "install_timer", a4r_install_timer, 0); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "install_int", a4r_install_int, 2); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "install_int_ex", a4r_install_int_ex, 2); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "LOCK_VARIABLE", a4r_LOCK_VARIABLE, 1); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "LOCK_FUNCTION", a4r_LOCK_FUNCTION, 1); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "retrace_count", a4r_retrace_count, 0); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "rest", a4r_rest, 1); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "SECS_TO_TIMER", a4r_SECS_TO_TIMER, 1); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "MSEC_TO_TIMER", a4r_MSEC_TO_TIMER, 1); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "BPS_TO_TIMER", a4r_BPS_TO_TIMER, 1); // in a4r_timer_routines.c
-  rb_define_module_function(mAllegro4r_API, "BPM_TO_TIMER", a4r_BPM_TO_TIMER, 1); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "install_timer", a4r_API_install_timer, 0); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "install_int", a4r_API_install_int, 2); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "install_int_ex", a4r_API_install_int_ex, 2); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "LOCK_VARIABLE", a4r_API_LOCK_VARIABLE, 1); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "LOCK_FUNCTION", a4r_API_LOCK_FUNCTION, 1); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "retrace_count", a4r_API_retrace_count, 0); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "rest", a4r_API_rest, 1); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "SECS_TO_TIMER", a4r_API_SECS_TO_TIMER, 1); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "MSEC_TO_TIMER", a4r_API_MSEC_TO_TIMER, 1); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "BPS_TO_TIMER", a4r_API_BPS_TO_TIMER, 1); // in a4r_API_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "BPM_TO_TIMER", a4r_API_BPM_TO_TIMER, 1); // in a4r_API_timer_routines.c
 
   timer_counter_names = rb_hash_new();
   rb_global_variable(&timer_counter_names);
   LOCK_VARIABLE(timer_counters)
   LOCK_FUNCTION(timer_counter_incr)
-  rb_define_module_function(mAllegro4r_API, "timer_counter_get", a4r_timer_counter_get, 1); // in a4r_timer_routines.c
+  rb_define_module_function(mAllegro4r_API, "timer_counter_get", a4r_API_timer_counter_get, 1); // in a4r_API_timer_routines.c
 
-  rb_define_module_function(mAllegro4r_API, "install_keyboard", a4r_install_keyboard, 0); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "key", a4r_key, 0); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "key_shifts", a4r_key_shifts, 0); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "keypressed", a4r_keypressed, 0); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "readkey", a4r_readkey, 0); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "ureadkey", a4r_ureadkey, 1); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "scancode_to_name", a4r_scancode_to_name, 1); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "keyboard_callback=", a4r_keyboard_callback_set, 1); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "keyboard_lowlevel_callback=", a4r_keyboard_lowlevel_callback_set, 1); // in a4r_keyboard_routines.c
-  rb_define_module_function(mAllegro4r_API, "clear_keybuf", a4r_clear_keybuf, 0); // in a4r_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "install_keyboard", a4r_API_install_keyboard, 0); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "key", a4r_API_key, 0); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "key_shifts", a4r_API_key_shifts, 0); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "keypressed", a4r_API_keypressed, 0); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "readkey", a4r_API_readkey, 0); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "ureadkey", a4r_API_ureadkey, 1); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "scancode_to_name", a4r_API_scancode_to_name, 1); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "keyboard_callback=", a4r_API_keyboard_callback_set, 1); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "keyboard_lowlevel_callback=", a4r_API_keyboard_lowlevel_callback_set, 1); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "clear_keybuf", a4r_API_clear_keybuf, 0); // in a4r_API_keyboard_routines.c
 
   rb_global_variable(&keyboard_callback_proc);
   rb_global_variable(&keyboard_lowlevel_callback_proc);
@@ -170,82 +292,82 @@ void Init_allegro4r()
   LOCK_FUNCTION(keyboard_callback_method)
   LOCK_FUNCTION(keyboard_lowlevel_callback_method)
 
-  rb_define_module_function(mAllegro4r_API, "install_joystick", a4r_install_joystick, 1); // in a4r_joystick_routines.c
-  rb_define_module_function(mAllegro4r_API, "poll_joystick", a4r_poll_joystick, 0); // in a4r_joystick_routines.c
-  rb_define_module_function(mAllegro4r_API, "num_joysticks", a4r_num_joysticks, 0); // in a4r_joystick_routines.c
-  rb_define_module_function(mAllegro4r_API, "joy", a4r_joy, 0); // in a4r_joystick_routines.c
-  rb_define_module_function(mAllegro4r_API, "calibrate_joystick_name", a4r_calibrate_joystick_name, 1); // in a4r_joystick_routines.c
-  rb_define_module_function(mAllegro4r_API, "calibrate_joystick", a4r_calibrate_joystick, 1); // in a4r_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "install_joystick", a4r_API_install_joystick, 1); // in a4r_API_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "poll_joystick", a4r_API_poll_joystick, 0); // in a4r_API_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "num_joysticks", a4r_API_num_joysticks, 0); // in a4r_API_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "joy", a4r_API_joy, 0); // in a4r_API_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "calibrate_joystick_name", a4r_API_calibrate_joystick_name, 1); // in a4r_API_joystick_routines.c
+  rb_define_module_function(mAllegro4r_API, "calibrate_joystick", a4r_API_calibrate_joystick, 1); // in a4r_API_joystick_routines.c
 
-  rb_define_module_function(mAllegro4r_API, "set_gfx_mode", a4r_set_gfx_mode, 5); // in a4r_graphics_modes.c
-  rb_define_module_function(mAllegro4r_API, "show_video_bitmap", a4r_show_video_bitmap, 1); // in a4r_graphics_modes.c
-  rb_define_module_function(mAllegro4r_API, "vsync", a4r_vsync, 0); // in a4r_graphics_modes.c
+  rb_define_module_function(mAllegro4r_API, "set_gfx_mode", a4r_API_set_gfx_mode, 5); // in a4r_API_graphics_modes.c
+  rb_define_module_function(mAllegro4r_API, "show_video_bitmap", a4r_API_show_video_bitmap, 1); // in a4r_API_graphics_modes.c
+  rb_define_module_function(mAllegro4r_API, "vsync", a4r_API_vsync, 0); // in a4r_API_graphics_modes.c
 
-  rb_define_module_function(mAllegro4r_API, "screen", a4r_screen, 0); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "SCREEN_W", a4r_SCREEN_W, 0); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "SCREEN_H", a4r_SCREEN_H, 0); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "create_bitmap", a4r_create_bitmap, 2); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "create_sub_bitmap", a4r_create_sub_bitmap, 5); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "create_video_bitmap", a4r_create_video_bitmap, 2); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "destroy_bitmap", a4r_destroy_bitmap, 1); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "bitmap_mask_color", a4r_bitmap_mask_color, 1); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "acquire_bitmap", a4r_acquire_bitmap, 1); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "release_bitmap", a4r_release_bitmap, 1); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "acquire_screen", a4r_acquire_screen, 0); // in a4r_bitmap_objects.c
-  rb_define_module_function(mAllegro4r_API, "release_screen", a4r_release_screen, 0); // in a4r_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "screen", a4r_API_screen, 0); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "SCREEN_W", a4r_API_SCREEN_W, 0); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "SCREEN_H", a4r_API_SCREEN_H, 0); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "create_bitmap", a4r_API_create_bitmap, 2); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "create_sub_bitmap", a4r_API_create_sub_bitmap, 5); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "create_video_bitmap", a4r_API_create_video_bitmap, 2); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "destroy_bitmap", a4r_API_destroy_bitmap, 1); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "bitmap_mask_color", a4r_API_bitmap_mask_color, 1); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "acquire_bitmap", a4r_API_acquire_bitmap, 1); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "release_bitmap", a4r_API_release_bitmap, 1); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "acquire_screen", a4r_API_acquire_screen, 0); // in a4r_API_bitmap_objects.c
+  rb_define_module_function(mAllegro4r_API, "release_screen", a4r_API_release_screen, 0); // in a4r_API_bitmap_objects.c
 
-  rb_define_module_function(mAllegro4r_API, "set_palette", a4r_set_palette, 1); // in a4r_palette_routines.c
-  rb_define_module_function(mAllegro4r_API, "get_palette", a4r_get_palette, 1); // in a4r_palette_routines.c
-  rb_define_module_function(mAllegro4r_API, "default_palette", a4r_default_palette, 0); // in a4r_palette_routines.c
-  rb_define_module_function(mAllegro4r_API, "black_palette", a4r_black_palette, 0); // in a4r_palette_routines.c
-  rb_define_module_function(mAllegro4r_API, "desktop_palette", a4r_desktop_palette, 0); // in a4r_palette_routines.c
+  rb_define_module_function(mAllegro4r_API, "set_palette", a4r_API_set_palette, 1); // in a4r_API_palette_routines.c
+  rb_define_module_function(mAllegro4r_API, "get_palette", a4r_API_get_palette, 1); // in a4r_API_palette_routines.c
+  rb_define_module_function(mAllegro4r_API, "default_palette", a4r_API_default_palette, 0); // in a4r_API_palette_routines.c
+  rb_define_module_function(mAllegro4r_API, "black_palette", a4r_API_black_palette, 0); // in a4r_API_palette_routines.c
+  rb_define_module_function(mAllegro4r_API, "desktop_palette", a4r_API_desktop_palette, 0); // in a4r_API_palette_routines.c
 
-  rb_define_module_function(mAllegro4r_API, "makecol", a4r_makecol, 3); // in a4r_truecolor_pixel_formats.c
-  rb_define_module_function(mAllegro4r_API, "palette_color", a4r_palette_color, 0); // in a4r_truecolor_pixel_formats.c
+  rb_define_module_function(mAllegro4r_API, "makecol", a4r_API_makecol, 3); // in a4r_API_truecolor_pixel_formats.c
+  rb_define_module_function(mAllegro4r_API, "palette_color", a4r_API_palette_color, 0); // in a4r_API_truecolor_pixel_formats.c
 
-  rb_define_module_function(mAllegro4r_API, "clear_bitmap", a4r_clear_bitmap, 1); // in a4r_drawing_primitives.c
-  rb_define_module_function(mAllegro4r_API, "clear_to_color", a4r_clear_to_color, 2); // in a4r_drawing_primitives.c
-  rb_define_module_function(mAllegro4r_API, "putpixel", a4r_putpixel, 4); // in a4r_drawing_primitives.c
-  rb_define_module_function(mAllegro4r_API, "getpixel", a4r_getpixel, 3); // in a4r_drawing_primitives.c
-  rb_define_module_function(mAllegro4r_API, "rectfill", a4r_rectfill, 6); // in a4r_drawing_primitives.c
-  rb_define_module_function(mAllegro4r_API, "circle", a4r_circle, 5); // in a4r_drawing_primitives.c
-  rb_define_module_function(mAllegro4r_API, "circlefill", a4r_circlefill, 5); // in a4r_drawing_primitives.c
+  rb_define_module_function(mAllegro4r_API, "clear_bitmap", a4r_API_clear_bitmap, 1); // in a4r_API_drawing_primitives.c
+  rb_define_module_function(mAllegro4r_API, "clear_to_color", a4r_API_clear_to_color, 2); // in a4r_API_drawing_primitives.c
+  rb_define_module_function(mAllegro4r_API, "putpixel", a4r_API_putpixel, 4); // in a4r_API_drawing_primitives.c
+  rb_define_module_function(mAllegro4r_API, "getpixel", a4r_API_getpixel, 3); // in a4r_API_drawing_primitives.c
+  rb_define_module_function(mAllegro4r_API, "rectfill", a4r_API_rectfill, 6); // in a4r_API_drawing_primitives.c
+  rb_define_module_function(mAllegro4r_API, "circle", a4r_API_circle, 5); // in a4r_API_drawing_primitives.c
+  rb_define_module_function(mAllegro4r_API, "circlefill", a4r_API_circlefill, 5); // in a4r_API_drawing_primitives.c
 
-  rb_define_module_function(mAllegro4r_API, "blit", a4r_blit, 8); // in a4r_blitting_and_sprites.c
-  rb_define_module_function(mAllegro4r_API, "masked_blit", a4r_masked_blit, 8); // in a4r_blitting_and_sprites.c
+  rb_define_module_function(mAllegro4r_API, "blit", a4r_API_blit, 8); // in a4r_API_blitting_and_sprites.c
+  rb_define_module_function(mAllegro4r_API, "masked_blit", a4r_API_masked_blit, 8); // in a4r_API_blitting_and_sprites.c
 
-  rb_define_module_function(mAllegro4r_API, "load_font", a4r_load_font, 3); // in a4r_fonts.c
-  rb_define_module_function(mAllegro4r_API, "destroy_font", a4r_destroy_font, 1); // in a4r_fonts.c
-  rb_define_module_function(mAllegro4r_API, "extract_font_range", a4r_extract_font_range, 3); // in a4r_fonts.c
-  rb_define_module_function(mAllegro4r_API, "merge_fonts", a4r_merge_fonts, 2); // in a4r_fonts.c
+  rb_define_module_function(mAllegro4r_API, "load_font", a4r_API_load_font, 3); // in a4r_API_fonts.c
+  rb_define_module_function(mAllegro4r_API, "destroy_font", a4r_API_destroy_font, 1); // in a4r_API_fonts.c
+  rb_define_module_function(mAllegro4r_API, "extract_font_range", a4r_API_extract_font_range, 3); // in a4r_API_fonts.c
+  rb_define_module_function(mAllegro4r_API, "merge_fonts", a4r_API_merge_fonts, 2); // in a4r_API_fonts.c
 
-  rb_define_module_function(mAllegro4r_API, "font", a4r_font, 0); // in a4r_text_output.c
-  rb_define_module_function(mAllegro4r_API, "font=", a4r_font_set, 1); // in a4r_text_output.c
-  rb_define_module_function(mAllegro4r_API, "text_length", a4r_text_length, 2); // in a4r_text_output.c
-  rb_define_module_function(mAllegro4r_API, "text_height", a4r_text_height, 1); // in a4r_text_output.c
-  rb_define_module_function(mAllegro4r_API, "textout_ex", a4r_textout_ex, 7); // in a4r_text_output.c
-  rb_define_module_function(mAllegro4r_API, "textout_centre_ex", a4r_textout_centre_ex, 7); // in a4r_text_output.c
-  rb_define_module_function(mAllegro4r_API, "textprintf_ex", a4r_textprintf_ex, 7); // in a4r_text_output.c
-  rb_define_module_function(mAllegro4r_API, "textprintf_centre_ex", a4r_textprintf_centre_ex, 7); // in a4r_text_output.c
-  rb_define_module_function(mAllegro4r_API, "textprintf_right_ex", a4r_textprintf_right_ex, 7); // in a4r_text_output.c
+  rb_define_module_function(mAllegro4r_API, "font", a4r_API_font, 0); // in a4r_API_text_output.c
+  rb_define_module_function(mAllegro4r_API, "font=", a4r_API_font_set, 1); // in a4r_API_text_output.c
+  rb_define_module_function(mAllegro4r_API, "text_length", a4r_API_text_length, 2); // in a4r_API_text_output.c
+  rb_define_module_function(mAllegro4r_API, "text_height", a4r_API_text_height, 1); // in a4r_API_text_output.c
+  rb_define_module_function(mAllegro4r_API, "textout_ex", a4r_API_textout_ex, 7); // in a4r_API_text_output.c
+  rb_define_module_function(mAllegro4r_API, "textout_centre_ex", a4r_API_textout_centre_ex, 7); // in a4r_API_text_output.c
+  rb_define_module_function(mAllegro4r_API, "textprintf_ex", a4r_API_textprintf_ex, 7); // in a4r_API_text_output.c
+  rb_define_module_function(mAllegro4r_API, "textprintf_centre_ex", a4r_API_textprintf_centre_ex, 7); // in a4r_API_text_output.c
+  rb_define_module_function(mAllegro4r_API, "textprintf_right_ex", a4r_API_textprintf_right_ex, 7); // in a4r_API_text_output.c
 
-  rb_define_module_function(mAllegro4r_API, "drawing_mode", a4r_drawing_mode, 4); // in a4r_transparency_and_patterned_drawing.c
-  rb_define_module_function(mAllegro4r_API, "solid_mode", a4r_solid_mode, 0); // in a4r_transparency_and_patterned_drawing.c
+  rb_define_module_function(mAllegro4r_API, "drawing_mode", a4r_API_drawing_mode, 4); // in a4r_API_transparency_and_patterned_drawing.c
+  rb_define_module_function(mAllegro4r_API, "solid_mode", a4r_API_solid_mode, 0); // in a4r_API_transparency_and_patterned_drawing.c
 
-  rb_define_module_function(mAllegro4r_API, "bmp_select", a4r_bmp_select, 1); // in a4r_direct_access_to_video_memory.c
-  rb_define_module_function(mAllegro4r_API, "bmp_read8", a4r_bmp_read8, 1); // in a4r_direct_access_to_video_memory.c
-  rb_define_module_function(mAllegro4r_API, "bmp_read32", a4r_bmp_read32, 1); // in a4r_direct_access_to_video_memory.c
-  rb_define_module_function(mAllegro4r_API, "bmp_write8", a4r_bmp_write8, 2); // in a4r_direct_access_to_video_memory.c
-  rb_define_module_function(mAllegro4r_API, "bmp_write32", a4r_bmp_write32, 2); // in a4r_direct_access_to_video_memory.c
-  rb_define_module_function(mAllegro4r_API, "bmp_write_line", a4r_bmp_write_line, 2); // in a4r_direct_access_to_video_memory.c
-  rb_define_module_function(mAllegro4r_API, "bmp_read_line", a4r_bmp_read_line, 2); // in a4r_direct_access_to_video_memory.c
-  rb_define_module_function(mAllegro4r_API, "bmp_unwrite_line", a4r_bmp_unwrite_line, 1); // in a4r_direct_access_to_video_memory.c
+  rb_define_module_function(mAllegro4r_API, "bmp_select", a4r_API_bmp_select, 1); // in a4r_API_direct_access_to_video_memory.c
+  rb_define_module_function(mAllegro4r_API, "bmp_read8", a4r_API_bmp_read8, 1); // in a4r_API_direct_access_to_video_memory.c
+  rb_define_module_function(mAllegro4r_API, "bmp_read32", a4r_API_bmp_read32, 1); // in a4r_API_direct_access_to_video_memory.c
+  rb_define_module_function(mAllegro4r_API, "bmp_write8", a4r_API_bmp_write8, 2); // in a4r_API_direct_access_to_video_memory.c
+  rb_define_module_function(mAllegro4r_API, "bmp_write32", a4r_API_bmp_write32, 2); // in a4r_API_direct_access_to_video_memory.c
+  rb_define_module_function(mAllegro4r_API, "bmp_write_line", a4r_API_bmp_write_line, 2); // in a4r_API_direct_access_to_video_memory.c
+  rb_define_module_function(mAllegro4r_API, "bmp_read_line", a4r_API_bmp_read_line, 2); // in a4r_API_direct_access_to_video_memory.c
+  rb_define_module_function(mAllegro4r_API, "bmp_unwrite_line", a4r_API_bmp_unwrite_line, 1); // in a4r_API_direct_access_to_video_memory.c
 
-  rb_define_module_function(mAllegro4r_API, "itofix", a4r_itofix, 1); // in a4r_fixed_point_math_routines.c
-  rb_define_module_function(mAllegro4r_API, "ftofix", a4r_ftofix, 1); // in a4r_fixed_point_math_routines.c
-  rb_define_module_function(mAllegro4r_API, "fixtof", a4r_fixtof, 1); // in a4r_fixed_point_math_routines.c
-  rb_define_module_function(mAllegro4r_API, "fixmul", a4r_fixmul, 2); // in a4r_fixed_point_math_routines.c
-  rb_define_module_function(mAllegro4r_API, "fixsqrt", a4r_fixsqrt, 1); // in a4r_fixed_point_math_routines.c
+  rb_define_module_function(mAllegro4r_API, "itofix", a4r_API_itofix, 1); // in a4r_API_fixed_point_math_routines.c
+  rb_define_module_function(mAllegro4r_API, "ftofix", a4r_API_ftofix, 1); // in a4r_API_fixed_point_math_routines.c
+  rb_define_module_function(mAllegro4r_API, "fixtof", a4r_API_fixtof, 1); // in a4r_API_fixed_point_math_routines.c
+  rb_define_module_function(mAllegro4r_API, "fixmul", a4r_API_fixmul, 2); // in a4r_API_fixed_point_math_routines.c
+  rb_define_module_function(mAllegro4r_API, "fixsqrt", a4r_API_fixsqrt, 1); // in a4r_API_fixed_point_math_routines.c
 
   /*
    * GFX_AUTODETECT: Allegro will try to set the specified resolution with the
@@ -591,7 +713,7 @@ void Init_allegro4r()
    * input once it has been calibrated, but is not doing this at the moment.
    */
   rb_define_const(mAllegro4r_API, "JOYFLAG_CALIB_DIGITAL", INT2FIX(JOYFLAG_CALIB_DIGITAL));
-  /* 
+  /*
    * JOYFLAG_CALIB_ANALOGUE: This control will be capable of providing analogue
    * input once it has been calibrated, but is not doing this at the moment.
    */
@@ -602,13 +724,13 @@ void Init_allegro4r()
    * calibrate_joystick function from a loop until this flag is cleared.
    */
   rb_define_const(mAllegro4r_API, "JOYFLAG_CALIBRATE", INT2FIX(JOYFLAG_CALIBRATE));
-  /* 
+  /*
    * JOYFLAG_SIGNED: Indicates that the analogue axis position is in signed
    * format, ranging from -128 to 128. This is the case for all 2d directional
    * controls.
    */
   rb_define_const(mAllegro4r_API, "JOYFLAG_SIGNED", INT2FIX(JOYFLAG_SIGNED));
-  /* 
+  /*
    * JOYFLAG_UNSIGNED: Indicates that the analogue axis position is in unsigned
    * format, ranging from 0 to 255. This is the case for all 1d throttle
    * controls.

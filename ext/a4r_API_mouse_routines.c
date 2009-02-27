@@ -20,7 +20,7 @@
  * the variable num_buttons. Even if this value is overridden by the user, the
  * global mouse variables will still report whatever the hardware is sending.
  */
-VALUE a4r_install_mouse(VALUE self)
+VALUE a4r_API_install_mouse(VALUE self)
 {
   return INT2FIX(install_mouse());
 }
@@ -42,7 +42,7 @@ VALUE a4r_install_mouse(VALUE self)
  * Return value: Returns zero on success, or a negative number on failure (ie.
  * no mouse driver installed).
  */
-VALUE a4r_poll_mouse(VALUE self)
+VALUE a4r_API_poll_mouse(VALUE self)
 {
   return INT2FIX(poll_mouse());
 }
@@ -75,7 +75,7 @@ VALUE a4r_poll_mouse(VALUE self)
  *   x = pos >> 16
  *   y = pos & 0x0000ffff
  */
-VALUE a4r_mouse_x(VALUE self)
+VALUE a4r_API_mouse_x(VALUE self)
 {
   return INT2FIX(mouse_x);
 }
@@ -86,7 +86,7 @@ VALUE a4r_mouse_x(VALUE self)
  *
  * See mouse_x.
  */
-VALUE a4r_mouse_y(VALUE self)
+VALUE a4r_API_mouse_y(VALUE self)
 {
   return INT2FIX(mouse_y);
 }
@@ -97,7 +97,7 @@ VALUE a4r_mouse_y(VALUE self)
  *
  * See mouse_x.
  */
-VALUE a4r_mouse_z(VALUE self)
+VALUE a4r_API_mouse_z(VALUE self)
 {
   return INT2FIX(mouse_z);
 }
@@ -108,7 +108,7 @@ VALUE a4r_mouse_z(VALUE self)
  *
  * See mouse_x.
  */
-VALUE a4r_mouse_w(VALUE self)
+VALUE a4r_API_mouse_w(VALUE self)
 {
   return INT2FIX(mouse_w);
 }
@@ -119,7 +119,7 @@ VALUE a4r_mouse_w(VALUE self)
  *
  * See mouse_x.
  */
-VALUE a4r_mouse_b(VALUE self)
+VALUE a4r_API_mouse_b(VALUE self)
 {
   return INT2FIX(mouse_b);
 }
@@ -145,7 +145,7 @@ VALUE a4r_mouse_b(VALUE self)
  * destroying the bitmap. This does not apply to 'screen' since you never
  * destroy 'screen' with destroy_bitmap.
  */
-VALUE a4r_show_mouse(VALUE self, VALUE bmp)
+VALUE a4r_API_show_mouse(VALUE self, VALUE bmp)
 {
   BITMAP *b;
   if (bmp == Qnil)
@@ -174,7 +174,7 @@ VALUE a4r_show_mouse(VALUE self, VALUE bmp)
  * Allegro signature take int_x and int_y by reference, but the Ruby signature
  * returns an array containing the values of int_x and int_y.
  */
-VALUE a4r_get_mouse_mickeys(VALUE self)
+VALUE a4r_API_get_mouse_mickeys(VALUE self)
 {
   int x, y;
   get_mouse_mickeys(&x, &y);
@@ -193,7 +193,7 @@ VALUE a4r_get_mouse_mickeys(VALUE self)
  * for the arrow. So if your arrow mouse sprite looks ugly after changing the
  * palette, call set_mouse_sprite(nil).
  */
-VALUE a4r_set_mouse_sprite(VALUE self, VALUE bmp)
+VALUE a4r_API_set_mouse_sprite(VALUE self, VALUE bmp)
 {
   BITMAP *b;
   if (bmp == Qnil)
@@ -213,7 +213,7 @@ VALUE a4r_set_mouse_sprite(VALUE self, VALUE bmp)
  * left corner of the arrow, but if you are using a different mouse pointer you
  * might need to alter it.
  */
-VALUE a4r_set_mouse_sprite_focus(VALUE self, VALUE x, VALUE y)
+VALUE a4r_API_set_mouse_sprite_focus(VALUE self, VALUE x, VALUE y)
 {
   set_mouse_sprite_focus(FIX2INT(x), FIX2INT(y));
   return Qnil;

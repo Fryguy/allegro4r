@@ -43,7 +43,7 @@
  * Return value: Returns zero on success. On failure returns a negative number
  * and stores a description of the problem in allegro_error.
  */
-VALUE a4r_set_gfx_mode(VALUE self, VALUE card, VALUE w, VALUE h, VALUE v_w, VALUE v_h)
+VALUE a4r_API_set_gfx_mode(VALUE self, VALUE card, VALUE w, VALUE h, VALUE v_w, VALUE v_h)
 {
   return INT2FIX(set_gfx_mode(NUM2INT(card), FIX2INT(w), FIX2INT(h), FIX2INT(v_w), FIX2INT(v_h)));
 }
@@ -76,7 +76,7 @@ VALUE a4r_set_gfx_mode(VALUE self, VALUE card, VALUE w, VALUE h, VALUE v_w, VALU
  *
  * Return value: Returns zero on success and non-zero on failure.
  */
-VALUE a4r_show_video_bitmap(VALUE self, VALUE bitmap)
+VALUE a4r_API_show_video_bitmap(VALUE self, VALUE bitmap)
 {
   BITMAP *bmp;
   Data_Get_Struct(bitmap, BITMAP, bmp);
@@ -96,7 +96,7 @@ VALUE a4r_show_video_bitmap(VALUE self, VALUE bitmap)
  * altering the palette or doing any hardware scrolling, though, so you don't
  * normally need to bother with this function.
  */
-VALUE a4r_vsync(VALUE self)
+VALUE a4r_API_vsync(VALUE self)
 {
   vsync();
   return Qnil;

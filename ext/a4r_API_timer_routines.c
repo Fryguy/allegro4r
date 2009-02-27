@@ -13,7 +13,7 @@
  * you may decide not to check the return value as this function is very
  * unlikely to fail).
  */
-VALUE a4r_install_timer(VALUE self)
+VALUE a4r_API_install_timer(VALUE self)
 {
   return INT2FIX(install_timer());
 }
@@ -39,10 +39,10 @@ VALUE a4r_install_timer(VALUE self)
  * callback. To get the value for that counter, call timer_counter_get with the
  * name.
  */
-VALUE a4r_install_int(VALUE self, VALUE name, VALUE speed)
+VALUE a4r_API_install_int(VALUE self, VALUE name, VALUE speed)
 {
   VALUE t_speed = LONG2NUM(MSEC_TO_TIMER(FIX2INT(speed)));
-  return a4r_install_int_ex(self, name, t_speed);
+  return a4r_API_install_int_ex(self, name, t_speed);
 }
 
 /*
@@ -76,7 +76,7 @@ VALUE a4r_install_int(VALUE self, VALUE name, VALUE speed)
  * callback. To get the value for that counter, call timer_counter_get with the
  * name.
  */
-VALUE a4r_install_int_ex(VALUE self, VALUE name, VALUE speed)
+VALUE a4r_API_install_int_ex(VALUE self, VALUE name, VALUE speed)
 {
   VALUE i = find_timer_counter(name);
   if (i == Qnil)
@@ -102,7 +102,7 @@ VALUE a4r_install_int_ex(VALUE self, VALUE name, VALUE speed)
  * are here simply for API consistency. They will raise warnings if the Ruby
  * script is run with -w.
  */
-VALUE a4r_LOCK_VARIABLE(VALUE self, VALUE variable_name)
+VALUE a4r_API_LOCK_VARIABLE(VALUE self, VALUE variable_name)
 {
   rb_warning("Allegro4r::API::LOCK_VARIABLE does nothing.");
   return Qnil;
@@ -114,7 +114,7 @@ VALUE a4r_LOCK_VARIABLE(VALUE self, VALUE variable_name)
  *
  * See LOCK_VARIABLE.
  */
-VALUE a4r_LOCK_FUNCTION(VALUE self, VALUE function_name)
+VALUE a4r_API_LOCK_FUNCTION(VALUE self, VALUE function_name)
 {
   rb_warning("Allegro4r::API::LOCK_FUNCTION does nothing.");
   return Qnil;
@@ -130,7 +130,7 @@ VALUE a4r_LOCK_FUNCTION(VALUE self, VALUE function_name)
  * incremented 70 times a second. This provides a way of controlling the speed
  * of your program without installing user timer functions.
  */
-VALUE a4r_retrace_count(VALUE self)
+VALUE a4r_API_retrace_count(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   return INT2FIX(retrace_count);
@@ -153,7 +153,7 @@ VALUE a4r_retrace_count(VALUE self)
  * multitasking operating systems it is good form to give up the CPU for a while
  * if you will not be using it.
  */
-VALUE a4r_rest(VALUE self, VALUE time)
+VALUE a4r_API_rest(VALUE self, VALUE time)
 {
   rest(NUM2UINT(time));
   return Qnil;
@@ -165,7 +165,7 @@ VALUE a4r_rest(VALUE self, VALUE time)
  *
  * Give the number of seconds between each tick
  */
-VALUE a4r_SECS_TO_TIMER(VALUE self, VALUE secs)
+VALUE a4r_API_SECS_TO_TIMER(VALUE self, VALUE secs)
 {
   return LONG2NUM(SECS_TO_TIMER(NUM2LONG(secs)));
 }
@@ -176,7 +176,7 @@ VALUE a4r_SECS_TO_TIMER(VALUE self, VALUE secs)
  *
  * Give the number of milliseconds between ticks
  */
-VALUE a4r_MSEC_TO_TIMER(VALUE self, VALUE msec)
+VALUE a4r_API_MSEC_TO_TIMER(VALUE self, VALUE msec)
 {
   return LONG2NUM(MSEC_TO_TIMER(NUM2LONG(msec)));
 }
@@ -187,7 +187,7 @@ VALUE a4r_MSEC_TO_TIMER(VALUE self, VALUE msec)
  *
  * Give the number of ticks each second
  */
-VALUE a4r_BPS_TO_TIMER(VALUE self, VALUE bps)
+VALUE a4r_API_BPS_TO_TIMER(VALUE self, VALUE bps)
 {
   return LONG2NUM(BPS_TO_TIMER(NUM2LONG(bps)));
 }
@@ -198,7 +198,7 @@ VALUE a4r_BPS_TO_TIMER(VALUE self, VALUE bps)
  *
  * Give the number of ticks per minute
  */
-VALUE a4r_BPM_TO_TIMER(VALUE self, VALUE bpm)
+VALUE a4r_API_BPM_TO_TIMER(VALUE self, VALUE bpm)
 {
   return LONG2NUM(BPM_TO_TIMER(NUM2LONG(bpm)));
 }
@@ -241,7 +241,7 @@ VALUE find_free_timer_counter()
  * 
  * *** This is not an Allegro method. See the Ruby note under install_int_ex.
  */
-VALUE a4r_timer_counter_get(VALUE self, VALUE name)
+VALUE a4r_API_timer_counter_get(VALUE self, VALUE name)
 {
   VALUE i = find_timer_counter(name);
   if (i == Qnil)

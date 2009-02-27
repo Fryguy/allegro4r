@@ -46,7 +46,7 @@
  * the COLORCONV_KEEP_TRANS and COLORCONV_DITHER* flags of the current color
  * conversion mode: see set_color_conversion for more information.
  */
-VALUE a4r_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
+VALUE a4r_API_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
 {
   BITMAP *bmp_source, *bmp_dest;
   Data_Get_Struct(source, BITMAP, bmp_source);
@@ -76,7 +76,7 @@ VALUE a4r_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE sourc
  * work correctly when used with a source image in system or video memory so the
  * latter must be a memory bitmap.
  */
-VALUE a4r_masked_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
+VALUE a4r_API_masked_blit(VALUE self, VALUE source, VALUE dest, VALUE source_x, VALUE source_y, VALUE dest_x, VALUE dest_y, VALUE width, VALUE height)
 {
   BITMAP *bmp_source, *bmp_dest;
   Data_Get_Struct(source, BITMAP, bmp_source);

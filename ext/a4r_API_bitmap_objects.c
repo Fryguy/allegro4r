@@ -33,11 +33,11 @@
  * this function for more detailed information). And never try to destroy it
  * with destroy_bitmap.
  */
-VALUE a4r_screen(VALUE self)
+VALUE a4r_API_screen(VALUE self)
 {
   // TODO: Convert to data struct or cached or hooked variable?
   BITMAP *bmp = screen;
-  VALUE obj = Data_Wrap_Struct(cBITMAP, 0, 0, bmp);
+  VALUE obj = Data_Wrap_Struct(cAPI_BITMAP, 0, 0, bmp);
   return obj;
 }
 
@@ -51,7 +51,7 @@ VALUE a4r_screen(VALUE self)
  *   uszprintf(buf, buf.length, "The screen size is %d x %d pixels" %
  *     [SCREEN_W, SCREEN_H])
  */
-VALUE a4r_SCREEN_W(VALUE self)
+VALUE a4r_API_SCREEN_W(VALUE self)
 {
   // TODO: Convert to hooked or virtual variable?
   return INT2FIX(SCREEN_W);
@@ -63,7 +63,7 @@ VALUE a4r_SCREEN_W(VALUE self)
  *
  * See SCREEN_W.
  */
-VALUE a4r_SCREEN_H(VALUE self)
+VALUE a4r_API_SCREEN_H(VALUE self)
 {
   // TODO: Convert to hooked or virtual variable?
   return INT2FIX(SCREEN_H);
@@ -91,13 +91,13 @@ VALUE a4r_SCREEN_H(VALUE self)
  * could not be created. Remember to free this bitmap later to avoid memory
  * leaks.
  */
-VALUE a4r_create_bitmap(VALUE self, VALUE width, VALUE height)
+VALUE a4r_API_create_bitmap(VALUE self, VALUE width, VALUE height)
 {
   // TODO: Change to call destroy_bitmap on free?
   BITMAP *bmp = create_bitmap(FIX2INT(width), FIX2INT(height));
   if (bmp == NULL)
     return Qnil;
-  VALUE obj = Data_Wrap_Struct(cBITMAP, 0, 0, bmp);
+  VALUE obj = Data_Wrap_Struct(cAPI_BITMAP, 0, 0, bmp);
   return obj;
 }
 
@@ -117,14 +117,14 @@ VALUE a4r_create_bitmap(VALUE self, VALUE width, VALUE height)
  * freeing the parent bitmap to avoid memory leaks and potential crashes
  * accessing memory which has been freed.
  */
-VALUE a4r_create_sub_bitmap(VALUE self, VALUE parent, VALUE x, VALUE y, VALUE width, VALUE height)
+VALUE a4r_API_create_sub_bitmap(VALUE self, VALUE parent, VALUE x, VALUE y, VALUE width, VALUE height)
 {
   BITMAP *bmp;
   Data_Get_Struct(parent, BITMAP, bmp);
   BITMAP *ret = create_sub_bitmap(bmp, FIX2INT(x), FIX2INT(y), FIX2INT(width), FIX2INT(height));
   if (ret == NULL)
     return Qnil;
-  VALUE obj = Data_Wrap_Struct(cBITMAP, 0, 0, ret);
+  VALUE obj = Data_Wrap_Struct(cAPI_BITMAP, 0, 0, ret);
   return obj;
 }
 
@@ -148,13 +148,13 @@ VALUE a4r_create_sub_bitmap(VALUE self, VALUE parent, VALUE x, VALUE y, VALUE wi
  * have run out of video ram. Remember to destroy this bitmap before any
  * subsequent call to set_gfx_mode.
  */
-VALUE a4r_create_video_bitmap(VALUE self, VALUE width, VALUE height)
+VALUE a4r_API_create_video_bitmap(VALUE self, VALUE width, VALUE height)
 {
   // TODO: Change to call destroy_bitmap on free?
   BITMAP *bmp = create_video_bitmap(FIX2INT(width), FIX2INT(height));
   if (bmp == NULL)
     return Qnil;
-  VALUE obj = Data_Wrap_Struct(cBITMAP, 0, 0, bmp);
+  VALUE obj = Data_Wrap_Struct(cAPI_BITMAP, 0, 0, bmp);
   return obj;
 }
 
@@ -170,7 +170,7 @@ VALUE a4r_create_video_bitmap(VALUE self, VALUE width, VALUE height)
  * The bitmap must not have a mouse cursor shown on it at the time it is
  * destroyed.
  */
-VALUE a4r_destroy_bitmap(VALUE self, VALUE bitmap)
+VALUE a4r_API_destroy_bitmap(VALUE self, VALUE bitmap)
 {
   BITMAP *bmp;
   if (bitmap == Qnil)
@@ -200,7 +200,7 @@ VALUE a4r_destroy_bitmap(VALUE self, VALUE bitmap)
  *     end
  *   end
  */
-VALUE a4r_bitmap_mask_color(VALUE self, VALUE bmp)
+VALUE a4r_API_bitmap_mask_color(VALUE self, VALUE bmp)
 {
   BITMAP *bitmap;
   Data_Get_Struct(bmp, BITMAP, bitmap);
@@ -261,7 +261,7 @@ VALUE a4r_bitmap_mask_color(VALUE self, VALUE bmp)
  * things like show_mouse (or scare_mouse which calls that) or readkey, since it
  * will most likely deadlock your entire program.
  */
-VALUE a4r_acquire_bitmap(VALUE self, VALUE bmp)
+VALUE a4r_API_acquire_bitmap(VALUE self, VALUE bmp)
 {
   BITMAP *bitmap;
   Data_Get_Struct(bmp, BITMAP, bitmap);
@@ -277,7 +277,7 @@ VALUE a4r_acquire_bitmap(VALUE self, VALUE bmp)
  * the bitmap was locked multiple times, you must release it the same number of
  * times before it will truly be unlocked.
  */
-VALUE a4r_release_bitmap(VALUE self, VALUE bmp)
+VALUE a4r_API_release_bitmap(VALUE self, VALUE bmp)
 {
   BITMAP *bitmap;
   Data_Get_Struct(bmp, BITMAP, bitmap);
@@ -291,7 +291,7 @@ VALUE a4r_release_bitmap(VALUE self, VALUE bmp)
  *
  * Shortcut version of acquire_bitmap(screen)
  */
-VALUE a4r_acquire_screen(VALUE self)
+VALUE a4r_API_acquire_screen(VALUE self)
 {
   acquire_screen();
   return Qnil;
@@ -303,7 +303,7 @@ VALUE a4r_acquire_screen(VALUE self)
  *
  * Shortcut version of release_bitmap(screen)
  */
-VALUE a4r_release_screen(VALUE self)
+VALUE a4r_API_release_screen(VALUE self)
 {
   release_screen();
   return Qnil;

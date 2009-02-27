@@ -62,7 +62,7 @@
  * directly to video RAM, so wherever possible you should use a memory bitmap
  * instead.
  */
-VALUE a4r_drawing_mode(VALUE self, VALUE mode, VALUE pattern, VALUE x_anchor, VALUE y_anchor)
+VALUE a4r_API_drawing_mode(VALUE self, VALUE mode, VALUE pattern, VALUE x_anchor, VALUE y_anchor)
 {
   BITMAP *bitmap;
   if (pattern == Qnil)
@@ -80,7 +80,7 @@ VALUE a4r_drawing_mode(VALUE self, VALUE mode, VALUE pattern, VALUE x_anchor, VA
  * This is a shortcut for selecting solid drawing mode. It is equivalent to
  * calling drawing_mode(DRAW_MODE_SOLID, nil, 0, 0).
  */
-VALUE a4r_solid_mode(VALUE self)
+VALUE a4r_API_solid_mode(VALUE self)
 {
   solid_mode();
   return Qnil;

@@ -1,31 +1,20 @@
 #include "allegro4r.h"
 
-/*
- * Document-class: Allegro4r::API::RGB
- *   unsigned char r, g, b
- *
- * Palette entry. It contains an additional field for the purpose of padding but
- * you should not usually care about it. Read chapter "Palette routines" for a
- * description on how to obtain/use this structure.
- */
-VALUE cRGB;
-
-
-void a4r_RGB_free(void *rgb)
+void a4r_API_RGB_free(void *rgb)
 {
   free((RGB*)rgb);
 }
 
 /* :nodoc: */
-VALUE a4r_RGB_alloc(VALUE klass)
+VALUE a4r_API_RGB_alloc(VALUE klass)
 {
   RGB *rgb;
-  VALUE obj = Data_Make_Struct(klass, RGB, 0, a4r_RGB_free, rgb);
+  VALUE obj = Data_Make_Struct(klass, RGB, 0, a4r_API_RGB_free, rgb);
   return obj;
 }
 
 /* :nodoc: */
-VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
+VALUE a4r_API_RGB_initialize_copy(VALUE copy, VALUE orig)
 {
   if (copy == orig)
     return copy;
@@ -33,7 +22,7 @@ VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
   // TODO: Bring back this check.  We do Data_Wrap_Structs in other places,
   //   which is causing this to have two structs with different free methods
 /*
-  if (TYPE(orig) != T_DATA || RDATA(orig)->dfree != (RUBY_DATA_FUNC)a4r_RGB_free)
+  if (TYPE(orig) != T_DATA || RDATA(orig)->dfree != (RUBY_DATA_FUNC)a4r_API_RGB_free)
     rb_raise(rb_eTypeError, "wrong argument type");
 */
 
@@ -50,7 +39,7 @@ VALUE a4r_RGB_initialize_copy(VALUE copy, VALUE orig)
  *
  * Returns the red value of the RGB.
  */
-VALUE a4r_RGB_r_get(VALUE self)
+VALUE a4r_API_RGB_r_get(VALUE self)
 {
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
@@ -63,7 +52,7 @@ VALUE a4r_RGB_r_get(VALUE self)
  *
  * Sets the red value of the RGB.  The value must be in the range 0-255.
  */
-VALUE a4r_RGB_r_set(VALUE self, VALUE val)
+VALUE a4r_API_RGB_r_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -78,7 +67,7 @@ VALUE a4r_RGB_r_set(VALUE self, VALUE val)
  *
  * Returns the green value of the RGB.
  */
-VALUE a4r_RGB_g_get(VALUE self)
+VALUE a4r_API_RGB_g_get(VALUE self)
 {
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
@@ -91,7 +80,7 @@ VALUE a4r_RGB_g_get(VALUE self)
  *
  * Sets the green value of the RGB.  The value must be in the range 0-255.
  */
-VALUE a4r_RGB_g_set(VALUE self, VALUE val)
+VALUE a4r_API_RGB_g_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
@@ -106,7 +95,7 @@ VALUE a4r_RGB_g_set(VALUE self, VALUE val)
  *
  * Returns the blue value of the RGB.
  */
-VALUE a4r_RGB_b_get(VALUE self)
+VALUE a4r_API_RGB_b_get(VALUE self)
 {
   RGB *rgb;
   Data_Get_Struct(self, RGB, rgb);
@@ -119,7 +108,7 @@ VALUE a4r_RGB_b_get(VALUE self)
  *
  * Sets the blue value of the RGB.  The value must be in the range 0-255.
  */
-VALUE a4r_RGB_b_set(VALUE self, VALUE val)
+VALUE a4r_API_RGB_b_set(VALUE self, VALUE val)
 {
   // TODO: val validation
   RGB *rgb;
