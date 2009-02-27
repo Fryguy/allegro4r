@@ -28,40 +28,35 @@ def draw_pattern(bitmap, message, color)
   release_bitmap(bitmap)
 end
 
-begin
-  exit 1 if allegro_init != 0
-  install_keyboard
+exit 1 if allegro_init != 0
+install_keyboard
 
-  if set_gfx_mode(GFX_AUTODETECT, 320, 200, 0, 0) != 0
-    if set_gfx_mode(GFX_SAFE, 320, 200, 0, 0) != 0
-      allegro_message("Unable to set any graphic mode\n%s\n" % allegro_error)
-      exit 1
-    end
+if set_gfx_mode(GFX_AUTODETECT, 320, 200, 0, 0) != 0
+  if set_gfx_mode(GFX_SAFE, 320, 200, 0, 0) != 0
+    allegro_message("Unable to set any graphic mode\n%s\n" % allegro_error)
+    exit 1
   end
-
-  set_palette(desktop_palette)
-  clear_to_color(screen, makecol(255, 255, 255))
-
-  # first cover the whole screen with a pattern
-  draw_pattern(screen, "<screen>", 255)
-
-  # draw the pattern onto a memory bitmap and then blit it to the screen
-  bitmap = create_bitmap(128, 32)
-  clear_to_color(bitmap, makecol(255, 255, 255))
-  draw_pattern(bitmap, "<memory>", 1)
-  masked_blit(bitmap, screen, 0, 0, 32, 32, 128, 32)
-  destroy_bitmap(bitmap)
-
-  # or we could use a sub-bitmap. These share video memory with their
-  # parent, so the drawing will be visible without us having to blit it
-  # across onto the screen.
-  bitmap = create_sub_bitmap(screen, 224, 64, 64, 128)
-  rectfill(screen, 224, 64, 286, 192, makecol(255, 255, 255))
-  draw_pattern(bitmap, "<subbmp>", 4)
-  destroy_bitmap(bitmap)
-
-  readkey
-ensure
-  # JF - you must ensure allegro_exit is called to prevent Ruby from crashing
-  allegro_exit
 end
+
+set_palette(desktop_palette)
+clear_to_color(screen, makecol(255, 255, 255))
+
+# first cover the whole screen with a pattern
+draw_pattern(screen, "<screen>", 255)
+
+# draw the pattern onto a memory bitmap and then blit it to the screen
+bitmap = create_bitmap(128, 32)
+clear_to_color(bitmap, makecol(255, 255, 255))
+draw_pattern(bitmap, "<memory>", 1)
+masked_blit(bitmap, screen, 0, 0, 32, 32, 128, 32)
+destroy_bitmap(bitmap)
+
+# or we could use a sub-bitmap. These share video memory with their
+# parent, so the drawing will be visible without us having to blit it
+# across onto the screen.
+bitmap = create_sub_bitmap(screen, 224, 64, 64, 128)
+rectfill(screen, 224, 64, 286, 192, makecol(255, 255, 255))
+draw_pattern(bitmap, "<subbmp>", 4)
+destroy_bitmap(bitmap)
+
+readkey

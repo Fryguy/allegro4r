@@ -71,151 +71,146 @@ def scroll
   rectfill(screen, 0, SCREEN_H() - 16, SCREEN_W() / 2, SCREEN_H() - 1, makecol(255, 255, 255))
 end
 
-begin
-  exit 1 if allegro_init != 0
-  install_keyboard
-  install_timer
+exit 1 if allegro_init != 0
+install_keyboard
+install_timer
 
-  if set_gfx_mode(GFX_AUTODETECT, 640, 480, 0, 0) != 0
-    if set_gfx_mode(GFX_SAFE, 640, 480, 0, 0) != 0
-      set_gfx_mode(GFX_TEXT, 0, 0, 0, 0)
-      allegro_message("Unable to set any graphic mode\n%s\n" % allegro_error)
-      exit 1
-    end
+if set_gfx_mode(GFX_AUTODETECT, 640, 480, 0, 0) != 0
+  if set_gfx_mode(GFX_SAFE, 640, 480, 0, 0) != 0
+    set_gfx_mode(GFX_TEXT, 0, 0, 0, 0)
+    allegro_message("Unable to set any graphic mode\n%s\n" % allegro_error)
+    exit 1
   end
+end
 
-  set_palette(desktop_palette)
+set_palette(desktop_palette)
 
-  clear_to_color(screen, makecol(255, 255, 255))
+clear_to_color(screen, makecol(255, 255, 255))
 
-  # Draw the initial keys grid by simulating release of every key.
-  (0...KEY_MAX).each do |k|
-    keypress_handler(k + 0x80)
-  end
+# Draw the initial keys grid by simulating release of every key.
+(0...KEY_MAX).each do |k|
+  keypress_handler(k + 0x80)
+end
 
-  # Install our keyboard callback.
-  # TODO: Have not been able to figure out how to get the keyboard interrupt stuff
-  # to work with Ruby, so I'm temporarily skipping this part.
-#  LOCK_FUNCTION(:keypress_handler)
-#  Allegro4r::API.keyboard_lowlevel_callback = self.method(:keypress_handler)
+# Install our keyboard callback.
+# TODO: Have not been able to figure out how to get the keyboard interrupt stuff
+# to work with Ruby, so I'm temporarily skipping this part.
+# LOCK_FUNCTION(:keypress_handler)
+# Allegro4r::API.keyboard_lowlevel_callback = self.method(:keypress_handler)
 
-  acquire_screen
-  textprintf_centre_ex(screen, font, SCREEN_W()/2, 8, makecol(0, 0, 0), makecol(255, 255, 255), "Driver: %s" % keyboard_driver.name)
+acquire_screen
+textprintf_centre_ex(screen, font, SCREEN_W()/2, 8, makecol(0, 0, 0), makecol(255, 255, 255), "Driver: %s" % keyboard_driver.name)
 
-  # keyboard input can be accessed with the readkey function
-  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press some keys (ESC to finish)")
-  scroll
+# keyboard input can be accessed with the readkey function
+textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press some keys (ESC to finish)")
+scroll
 
-  loop do
-    release_screen
-    k = readkey
-    acquire_screen
-    scroll
-    textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "readkey returned %-6d (0x%04X)" % [k, k])
-    break unless (k & 0xFF) != 27
-  end
-
-  # the ASCII code is in the low byte of the return value
-  scroll; scroll; scroll
-  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press some more keys (ESC to finish)")
-  scroll
-
-  loop do
-    release_screen
-    k = readkey
-    acquire_screen
-    scroll
-    textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "ASCII code is %d" % (k & 0xFF))
-    break unless (k & 0xFF) != 27
-  end
-
-  # the hardware scan code is in the high byte of the return value
-  scroll; scroll; scroll
-  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press some more keys (ESC to finish)")
-  scroll
-
-  loop do
-    release_screen
-    k = readkey
-    acquire_screen
-    scroll
-    textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Scan code is %d (%s)" % [k>>8, key_names[k>>8]])
-    break unless (k & 0xFF) != 27
-  end
-  
-  # key qualifiers are stored in the key_shifts variable. Note that this
-  # version of the code uses ureadkey instead of readkey: that is
-  # necessary if you want to access Unicode characters from outside
-  # the normal ASCII range, for example to support Russian or Chinese.
-  scroll; scroll; scroll
-  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press some more keys (ESC to finish)")
-  scroll
-
-  loop do
-    release_screen
-    k = ureadkey(nil)
-    acquire_screen
-    buf = ""
-    buf << "shift "   if (key_shifts & KB_SHIFT_FLAG != 0)
-    buf << "ctrl "    if (key_shifts & KB_CTRL_FLAG != 0)
-    buf << "alt "     if (key_shifts & KB_ALT_FLAG != 0)
-    buf << "lwin "    if (key_shifts & KB_LWIN_FLAG != 0)
-    buf << "rwin "    if (key_shifts & KB_RWIN_FLAG != 0)
-    buf << "menu "    if (key_shifts & KB_MENU_FLAG != 0)
-    buf << "command " if (key_shifts & KB_COMMAND_FLAG != 0)
-    buf << usprintf("'%c' [0x%02x]" % [k != 0 ? k : ' '[0], k])
-    buf << " caps"    if (key_shifts & KB_CAPSLOCK_FLAG != 0)
-    buf << " num"     if (key_shifts & KB_NUMLOCK_FLAG != 0)
-    buf << " scrl"    if (key_shifts & KB_SCROLOCK_FLAG != 0)
-    scroll
-    textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), buf)
-    break unless k != 27
-  end
-
-  # various scan codes are defined in allegro.h as KEY_* constants
-  scroll; scroll; scroll
-  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press F6")
-  scroll
-
+loop do
   release_screen
   k = readkey
   acquire_screen
-
-  while (k>>8) != KEY_F6 && (k>>8) != KEY_ESC
-    scroll
-    textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Wrong key, stupid! I said press F6")
-    release_screen
-    k = readkey
-    acquire_screen
-  end
-
-  # for detecting multiple simultaneous key presses, use the key[] array
-  scroll; scroll; scroll
-  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press a combination of numbers")
-  scroll; scroll
-
-  release_screen
-
-  buf = ' ' * 10
-  loop do
-    buf[0] = key[KEY_0] ? '0' : ' '
-    buf[1] = key[KEY_1] ? '1' : ' '
-    buf[2] = key[KEY_2] ? '2' : ' '
-    buf[3] = key[KEY_3] ? '3' : ' '
-    buf[4] = key[KEY_4] ? '4' : ' '
-    buf[5] = key[KEY_5] ? '5' : ' '
-    buf[6] = key[KEY_6] ? '6' : ' '
-    buf[7] = key[KEY_7] ? '7' : ' '
-    buf[8] = key[KEY_8] ? '8' : ' '
-    buf[9] = key[KEY_9] ? '9' : ' '
-    textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), buf)
-    rest(1)
-    break unless !keypressed || (readkey >> 8) != KEY_ESC
-  end
-
-  clear_keybuf
-#  Allegro4r::API.keyboard_lowlevel_callback = nil;
-ensure
-  # JF - you must ensure allegro_exit is called to prevent Ruby from crashing
-  allegro_exit
+  scroll
+  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "readkey returned %-6d (0x%04X)" % [k, k])
+  break unless (k & 0xFF) != 27
 end
+
+# the ASCII code is in the low byte of the return value
+scroll; scroll; scroll
+textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press some more keys (ESC to finish)")
+scroll
+
+loop do
+  release_screen
+  k = readkey
+  acquire_screen
+  scroll
+  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "ASCII code is %d" % (k & 0xFF))
+  break unless (k & 0xFF) != 27
+end
+
+# the hardware scan code is in the high byte of the return value
+scroll; scroll; scroll
+textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press some more keys (ESC to finish)")
+scroll
+
+loop do
+  release_screen
+  k = readkey
+  acquire_screen
+  scroll
+  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Scan code is %d (%s)" % [k>>8, key_names[k>>8]])
+  break unless (k & 0xFF) != 27
+end
+  
+# key qualifiers are stored in the key_shifts variable. Note that this
+# version of the code uses ureadkey instead of readkey: that is
+# necessary if you want to access Unicode characters from outside
+# the normal ASCII range, for example to support Russian or Chinese.
+scroll; scroll; scroll
+textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press some more keys (ESC to finish)")
+scroll
+
+loop do
+  release_screen
+  k = ureadkey(nil)
+  acquire_screen
+  buf = ""
+  buf << "shift "   if (key_shifts & KB_SHIFT_FLAG != 0)
+  buf << "ctrl "    if (key_shifts & KB_CTRL_FLAG != 0)
+  buf << "alt "     if (key_shifts & KB_ALT_FLAG != 0)
+  buf << "lwin "    if (key_shifts & KB_LWIN_FLAG != 0)
+  buf << "rwin "    if (key_shifts & KB_RWIN_FLAG != 0)
+  buf << "menu "    if (key_shifts & KB_MENU_FLAG != 0)
+  buf << "command " if (key_shifts & KB_COMMAND_FLAG != 0)
+  buf << usprintf("'%c' [0x%02x]" % [k != 0 ? k : ' '[0], k])
+  buf << " caps"    if (key_shifts & KB_CAPSLOCK_FLAG != 0)
+  buf << " num"     if (key_shifts & KB_NUMLOCK_FLAG != 0)
+  buf << " scrl"    if (key_shifts & KB_SCROLOCK_FLAG != 0)
+  scroll
+  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), buf)
+  break unless k != 27
+end
+
+# various scan codes are defined in allegro.h as KEY_* constants
+scroll; scroll; scroll
+textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press F6")
+scroll
+
+release_screen
+k = readkey
+acquire_screen
+
+while (k>>8) != KEY_F6 && (k>>8) != KEY_ESC
+  scroll
+  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Wrong key, stupid! I said press F6")
+  release_screen
+  k = readkey
+  acquire_screen
+end
+
+# for detecting multiple simultaneous key presses, use the key[] array
+scroll; scroll; scroll
+textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), "Press a combination of numbers")
+scroll; scroll
+
+release_screen
+
+buf = ' ' * 10
+loop do
+  buf[0] = key[KEY_0] ? '0' : ' '
+  buf[1] = key[KEY_1] ? '1' : ' '
+  buf[2] = key[KEY_2] ? '2' : ' '
+  buf[3] = key[KEY_3] ? '3' : ' '
+  buf[4] = key[KEY_4] ? '4' : ' '
+  buf[5] = key[KEY_5] ? '5' : ' '
+  buf[6] = key[KEY_6] ? '6' : ' '
+  buf[7] = key[KEY_7] ? '7' : ' '
+  buf[8] = key[KEY_8] ? '8' : ' '
+  buf[9] = key[KEY_9] ? '9' : ' '
+  textprintf_ex(screen, font, 8, SCREEN_H()-16, makecol(0, 0, 0), makecol(255, 255, 255), buf)
+  rest(1)
+  break unless !keypressed || (readkey >> 8) != KEY_ESC
+end
+
+clear_keybuf
+# Allegro4r::API.keyboard_lowlevel_callback = nil;

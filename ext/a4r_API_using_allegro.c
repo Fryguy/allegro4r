@@ -1,5 +1,10 @@
 #include "allegro4r.h"
 
+static VALUE a4r_at_exit()
+{
+  rb_funcall(rb_mKernel, rb_intern("at_exit"), 0);
+}
+
 /*
  * call-seq:
  *   allegro_init -> int
@@ -9,7 +14,10 @@
  */
 VALUE a4r_API_allegro_init(VALUE self)
 {
-  return INT2FIX(allegro_init());
+  int ret = allegro_init();
+  if (!ret)
+    rb_iterate(a4r_at_exit, 0, a4r_API_allegro_exit, self);
+  return INT2FIX(ret);
 }
 
 /*
