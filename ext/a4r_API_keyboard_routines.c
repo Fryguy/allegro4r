@@ -36,6 +36,33 @@ VALUE a4r_API_install_keyboard(VALUE self)
 
 /*
  * call-seq:
+ *   poll_keyboard -> int
+ *
+ * Wherever possible, Allegro will read the keyboard input asynchronously (ie.
+ * from inside an interrupt handler), but on some platforms that may not be
+ * possible, in which case you must call this routine at regular intervals to
+ * update the keyboard state variables.
+ *
+ * To help you test your keyboard polling code even if you are programming on a
+ * platform that doesn't require it, after the first time that you call this
+ * function Allegro will switch into polling mode, so from that point onwards
+ * you will have to call this routine in order to get any keyboard input at all,
+ * regardless of whether the current driver actually needs to be polled or not.
+ *
+ * The keypressed, readkey, and ureadkey functions call poll_keyboard
+ * automatically, so you only need to use this function when accessing the
+ * key array and key_shifts variable.
+ *
+ * Return value: Returns zero on success, or a negative number on failure (ie.
+ * no keyboard driver installed).
+ */
+VALUE a4r_API_poll_keyboard(VALUE self)
+{
+  return INT2FIX(poll_keyboard());
+}
+
+/*
+ * call-seq:
  *   key -> ary
  *
  * Array of flags indicating the state of each key, ordered by scancode.

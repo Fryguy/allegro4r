@@ -15,8 +15,6 @@
 
 #include "allegro4r.h"
 
-ID CALL_ID;
-
 /*
  * Document-class: Allegro4r
  *
@@ -126,9 +124,42 @@ VALUE cAPI_RGB;
 VALUE cAPI_FONT;
 
 /*
+ * Document-class: Allegro4r::API::SAMPLE
+ *
+ *   int bits;                   - 8 or 16
+ *   int stereo;                 - sample type flag
+ *   int freq;                   - sample frequency
+ *   int priority;               - 0-255
+ *   unsigned long len;          - length (in samples)
+ *   unsigned long loop_start;   - loop start position
+ *   unsigned long loop_end;     - loop finish position
+ *   void *data;                 - raw sample data
+ *
+ * A sample structure, which holds sound data, used by the digital sample
+ * routines. You can consider all of these fields as read only except priority,
+ * loop_start and loop_end, which you can change them for example after loading
+ * a sample from disk.
+ *
+ * The priority is a value from 0 to 255 (by default set to 128) and controls
+ * how hardware voices on the sound card are allocated if you attempt to play
+ * more than the driver can handle. This may be used to ensure that the less
+ * important sounds are cut off while the important ones are preserved.
+ *
+ * The variables loop_start and loop_end specify the loop position in sample
+ * units, and are set by default to the start and end of the sample.
+ *
+ * If you are creating your own samples on the fly, you might also want to
+ * modify the raw data of the sample pointed by the data field. The sample data
+ * are always in unsigned format. This means that if you are loading a PCM
+ * encoded sound file with signed 16-bit samples, you would have to XOR every
+ * two bytes (i.e. every sample value) with 0x8000 to change the signedness.
+ */
+VALUE cAPI_SAMPLE;
+
+/*
  * Document-class: Allegro4r::API::GFX_DRIVER
  *
- * Stores the contents of the graphics driver.
+ * Creates and manages the screen bitmap.
  */
 VALUE cAPI_GFX_DRIVER;
 
@@ -156,9 +187,18 @@ VALUE cAPI_KEYBOARD_DRIVER;
 /*
  * Document-class: Allegro4r::API::JOYSTICK_DRIVER
  *
- * Stores the contents of the joystick driver.
+ * Driver for reading joystick input.
  */
 VALUE cAPI_JOYSTICK_DRIVER;
+
+/*
+ * Document-class: Allegro4r::API::DIGI_DRIVER
+ *
+ * Driver for playing digital sfx.
+ */
+VALUE cAPI_DIGI_DRIVER;
+
+ID CALL_ID;
 
 void Init_allegro4r()
 {
@@ -212,6 +252,8 @@ void Init_allegro4r()
 
   cAPI_FONT = rb_define_class_under(mAllegro4r_API, "FONT", rb_cObject);
 
+  cAPI_SAMPLE = rb_define_class_under(mAllegro4r_API, "SAMPLE", rb_cObject);
+
   cAPI_GFX_DRIVER = rb_define_class_under(mAllegro4r_API, "GFX_DRIVER", rb_cObject); // in a4r_API_GFX_DRIVER.c
   rb_define_method(cAPI_GFX_DRIVER, "name", a4r_API_GFX_DRIVER_name_get, 0); // in a4r_API_GFX_DRIVER.c
 
@@ -227,6 +269,9 @@ void Init_allegro4r()
   cAPI_JOYSTICK_DRIVER = rb_define_class_under(mAllegro4r_API, "JOYSTICK_DRIVER", rb_cObject); // in a4r_API_JOYSTICK_DRIVER.c
   rb_define_method(cAPI_JOYSTICK_DRIVER, "name", a4r_API_JOYSTICK_DRIVER_name_get, 0); // in a4r_API_JOYSTICK_DRIVER.c
 
+  cAPI_DIGI_DRIVER = rb_define_class_under(mAllegro4r_API, "DIGI_DRIVER", rb_cObject); // in a4r_API_DIGI_DRIVER.c
+  rb_define_method(cAPI_DIGI_DRIVER, "name", a4r_API_DIGI_DRIVER_name_get, 0); // in a4r_API_DIGI_DRIVER.c
+  
   rb_define_module_function(mAllegro4r_API, "MIN", a4r_API_MIN, 2); // in a4r_API_misc.c
   rb_define_module_function(mAllegro4r_API, "ABS", a4r_API_ABS, 1); // in a4r_API_misc.c
   rb_define_module_function(mAllegro4r_API, "AL_RAND", a4r_API_AL_RAND, 0); // in a4r_API_misc.c
@@ -235,6 +280,7 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "timer_driver", a4r_API_timer_driver, 0); // in a4r_API_misc.c
   rb_define_module_function(mAllegro4r_API, "keyboard_driver", a4r_API_keyboard_driver, 0); // in a4r_API_misc.c
   rb_define_module_function(mAllegro4r_API, "joystick_driver", a4r_API_joystick_driver, 0); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "digi_driver", a4r_API_digi_driver, 0); // in a4r_API_misc.c
 
   rb_define_module_function(mAllegro4r_API, "allegro_init", a4r_API_allegro_init, 0); // in a4r_API_using_allegro.c
   rb_define_module_function(mAllegro4r_API, "allegro_exit", a4r_API_allegro_exit, 0); // in a4r_API_using_allegro.c
@@ -275,6 +321,7 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "timer_counter_get", a4r_API_timer_counter_get, 1); // in a4r_API_timer_routines.c
 
   rb_define_module_function(mAllegro4r_API, "install_keyboard", a4r_API_install_keyboard, 0); // in a4r_API_keyboard_routines.c
+  rb_define_module_function(mAllegro4r_API, "poll_keyboard", a4r_API_poll_keyboard, 0); // in a4r_API_keyboard_routines.c
   rb_define_module_function(mAllegro4r_API, "key", a4r_API_key, 0); // in a4r_API_keyboard_routines.c
   rb_define_module_function(mAllegro4r_API, "key_shifts", a4r_API_key_shifts, 0); // in a4r_API_keyboard_routines.c
   rb_define_module_function(mAllegro4r_API, "keypressed", a4r_API_keypressed, 0); // in a4r_API_keyboard_routines.c
@@ -362,6 +409,13 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "bmp_write_line", a4r_API_bmp_write_line, 2); // in a4r_API_direct_access_to_video_memory.c
   rb_define_module_function(mAllegro4r_API, "bmp_read_line", a4r_API_bmp_read_line, 2); // in a4r_API_direct_access_to_video_memory.c
   rb_define_module_function(mAllegro4r_API, "bmp_unwrite_line", a4r_API_bmp_unwrite_line, 1); // in a4r_API_direct_access_to_video_memory.c
+
+  rb_define_module_function(mAllegro4r_API, "install_sound", a4r_API_install_sound, 3); // in a4r_API_sound_init_routines.c
+
+  rb_define_module_function(mAllegro4r_API, "load_sample", a4r_API_load_sample, 1); // in a4r_API_digital_sample_routines.c
+  rb_define_module_function(mAllegro4r_API, "destroy_sample", a4r_API_destroy_sample, 1); // in a4r_API_digital_sample_routines.c
+  rb_define_module_function(mAllegro4r_API, "play_sample", a4r_API_play_sample, 5); // in a4r_API_digital_sample_routines.c
+  rb_define_module_function(mAllegro4r_API, "adjust_sample", a4r_API_adjust_sample, 5); // in a4r_API_digital_sample_routines.c
 
   rb_define_module_function(mAllegro4r_API, "itofix", a4r_API_itofix, 1); // in a4r_API_fixed_point_math_routines.c
   rb_define_module_function(mAllegro4r_API, "ftofix", a4r_API_ftofix, 1); // in a4r_API_fixed_point_math_routines.c
@@ -737,6 +791,15 @@ void Init_allegro4r()
    */
   rb_define_const(mAllegro4r_API, "JOYFLAG_UNSIGNED", INT2FIX(JOYFLAG_UNSIGNED));
 
+  /* DIGI_AUTODETECT: Let Allegro pick a digital sound driver */
+  rb_define_const(mAllegro4r_API, "DIGI_AUTODETECT", INT2FIX(DIGI_AUTODETECT));
+  /* DIGI_NONE: No digital sound */
+  rb_define_const(mAllegro4r_API, "DIGI_NONE", INT2FIX(DIGI_NONE));
+
+  /* MIDI_AUTODETECT: Let Allegro pick a MIDI sound driver */
+  rb_define_const(mAllegro4r_API, "MIDI_AUTODETECT", INT2FIX(MIDI_AUTODETECT));
+  /* MIDI_NONE: No MIDI sound */
+  rb_define_const(mAllegro4r_API, "MIDI_NONE", INT2FIX(MIDI_NONE));
 }
 
 // needed if Allegro is built as a shared library

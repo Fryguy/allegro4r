@@ -38,12 +38,14 @@ extern VALUE cAPI_JOYSTICK_AXIS_INFO;
 extern VALUE cAPI_PALETTE;
 extern VALUE cAPI_RGB;
 extern VALUE cAPI_FONT;
+extern VALUE cAPI_SAMPLE;
 
 extern VALUE cAPI_GFX_DRIVER;
 extern VALUE cAPI_MOUSE_DRIVER;
 extern VALUE cAPI_TIMER_DRIVER;
 extern VALUE cAPI_KEYBOARD_DRIVER;
 extern VALUE cAPI_JOYSTICK_DRIVER;
+extern VALUE cAPI_DIGI_DRIVER;
 
 // Method definitions for structures and types defined by Allegro
 
@@ -107,6 +109,9 @@ extern VALUE a4r_API_KEYBOARD_DRIVER_name_get(VALUE self);
 //   JOYSTICK_DRIVER
 extern VALUE a4r_API_JOYSTICK_DRIVER_name_get(VALUE self);
 
+//   DIGI_DRIVER
+extern VALUE a4r_API_DIGI_DRIVER_name_get(VALUE self);
+
 // Ruby methods for routines defined by Allegro
 
 //   Misc
@@ -118,6 +123,7 @@ extern VALUE a4r_API_mouse_driver(VALUE self);
 extern VALUE a4r_API_timer_driver(VALUE self);
 extern VALUE a4r_API_keyboard_driver(VALUE self);
 extern VALUE a4r_API_joystick_driver(VALUE self);
+extern VALUE a4r_API_digi_driver(VALUE self);
 
 //   Using Allegro
 extern VALUE a4r_API_allegro_init(VALUE self);
@@ -167,6 +173,7 @@ extern VALUE a4r_API_timer_counter_get(VALUE self, VALUE name);
 
 //   Keyboard routines
 extern VALUE a4r_API_install_keyboard(VALUE self);
+extern VALUE a4r_API_poll_keyboard(VALUE self);
 extern VALUE a4r_API_key(VALUE self);
 extern VALUE a4r_API_key_shifts(VALUE self);
 extern VALUE a4r_API_keypressed(VALUE self);
@@ -264,6 +271,15 @@ extern VALUE a4r_API_bmp_write32(VALUE self, VALUE addr, VALUE c);
 extern VALUE a4r_API_bmp_write_line(VALUE self, VALUE bmp, VALUE line);
 extern VALUE a4r_API_bmp_read_line(VALUE self, VALUE bmp, VALUE line);
 extern VALUE a4r_API_bmp_unwrite_line(VALUE self, VALUE bmp);
+
+//   Sound init routines
+extern VALUE a4r_API_install_sound(VALUE self, VALUE digi, VALUE midi, VALUE cfg_path);
+
+//   Digital sample routines
+extern VALUE a4r_API_load_sample(VALUE self, VALUE filename);
+extern VALUE a4r_API_destroy_sample(VALUE self, VALUE spl);
+extern VALUE a4r_API_play_sample(VALUE self, VALUE spl, VALUE vol, VALUE pan, VALUE freq, VALUE loop);
+extern VALUE a4r_API_adjust_sample(VALUE self, VALUE spl, VALUE vol, VALUE pan, VALUE freq, VALUE loop);
 
 //   Fixed point math routines
 extern VALUE a4r_API_itofix(VALUE self, VALUE x);

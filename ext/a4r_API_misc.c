@@ -103,3 +103,17 @@ VALUE a4r_API_joystick_driver(VALUE self)
   VALUE obj = Data_Wrap_Struct(cAPI_JOYSTICK_DRIVER, 0, 0, driver);
   return obj;
 }
+
+/*
+ * call-seq:
+ *   digi_driver -> digi_driver
+ *
+ * Global reference to the digital driver.
+ */
+VALUE a4r_API_digi_driver(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  DIGI_DRIVER *driver = digi_driver;
+  VALUE obj = Data_Wrap_Struct(cAPI_DIGI_DRIVER, 0, 0, driver);
+  return obj;
+}
