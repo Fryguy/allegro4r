@@ -50,6 +50,58 @@ VALUE a4r_API_set_gfx_mode(VALUE self, VALUE card, VALUE w, VALUE h, VALUE v_w, 
 
 /*
  * call-seq:
+ *   set_display_switch_mode(mode) -> int
+ *
+ * Sets how the program should handle being switched into the background, if the
+ * user tabs away from it. Not all of the possible modes will be supported by
+ * every graphics driver on every platform. The available modes are:
+ * SWITCH_NONE::
+ *   Disables switching. This is the default in single-tasking systems like DOS.
+ *   It may be supported on other platforms, but you should use it with caution,
+ *   because your users won't be impressed if they want to switch away from your
+ *   program, but you don't let them!
+ * SWITCH_PAUSE::
+ *   Pauses the program whenever it is in the background. Execution will be
+ *   resumed as soon as the user switches back to it. This is the default in
+ *   most fullscreen multitasking environments, for example the Linux console,
+ *   but not under Windows.
+ * SWITCH_AMNESIA::
+ *   Like SWITCH_PAUSE, but this mode doesn't bother to remember the contents of
+ *   video memory, so the screen, and any video bitmaps that you have created,
+ *   will be erased after the user switches away and then back to your program.
+ *   This is not a terribly useful mode to have, but it is the default for the
+ *   fullscreen drivers under Windows because DirectDraw is too dumb to
+ *   implement anything better.
+ * SWITCH_BACKGROUND::
+ *   The program will carry on running in the background, with the screen bitmap
+ *   temporarily being pointed at a memory buffer for the fullscreen drivers.
+ *   You must take special care when using this mode, because bad things will
+ *   happen if the screen bitmap gets changed around when your program isn't
+ *   expecting it (see below).
+ * SWITCH_BACKAMNESIA::
+ *   Like SWITCH_BACKGROUND, but this mode doesn't bother to remember the
+ *   contents of video memory (see SWITCH_AMNESIA). It is again the only mode
+ *   supported by the fullscreen drivers under Windows that lets the program
+ *   keep running in the background.
+ *
+ * Note that you should be very careful when you are using graphics routines in
+ * the switching context: you must always call acquire_screen before the start
+ * of any drawing code onto the screen and not release it until you are
+ * completely finished, because the automatic locking mechanism may not be good
+ * enough to work when the program runs in the background or has just been
+ * raised in the foreground.
+ *
+ * Return value: Returns zero on success, invalidating at the same time all
+ * callbacks previously registered with set_display_switch_callback. Returns -1
+ * if the requested mode is not currently possible. 
+ */
+VALUE a4r_API_set_display_switch_mode(VALUE self, VALUE mode)
+{
+  return INT2FIX(set_display_switch_mode(FIX2INT(mode)));
+}
+
+/*
+ * call-seq:
  *   show_video_bitmap(bitmap) -> int
  *
  * Attempts to page flip the hardware screen to display the specified video

@@ -117,3 +117,17 @@ VALUE a4r_API_digi_driver(VALUE self)
   VALUE obj = Data_Wrap_Struct(cAPI_DIGI_DRIVER, 0, 0, driver);
   return obj;
 }
+
+/*
+ * call-seq:
+ *   midi_driver -> midi_driver
+ *
+ * Global reference to the MIDI driver.
+ */
+VALUE a4r_API_midi_driver(VALUE self)
+{
+  // TODO: Convert to data struct or cached or hooked variable?
+  MIDI_DRIVER *driver = midi_driver;
+  VALUE obj = Data_Wrap_Struct(cAPI_MIDI_DRIVER, 0, 0, driver);
+  return obj;
+}

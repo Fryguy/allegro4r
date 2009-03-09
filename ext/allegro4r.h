@@ -39,6 +39,7 @@ extern VALUE cAPI_PALETTE;
 extern VALUE cAPI_RGB;
 extern VALUE cAPI_FONT;
 extern VALUE cAPI_SAMPLE;
+extern VALUE cAPI_MIDI;
 
 extern VALUE cAPI_GFX_DRIVER;
 extern VALUE cAPI_MOUSE_DRIVER;
@@ -46,6 +47,7 @@ extern VALUE cAPI_TIMER_DRIVER;
 extern VALUE cAPI_KEYBOARD_DRIVER;
 extern VALUE cAPI_JOYSTICK_DRIVER;
 extern VALUE cAPI_DIGI_DRIVER;
+extern VALUE cAPI_MIDI_DRIVER;
 
 // Method definitions for structures and types defined by Allegro
 
@@ -112,6 +114,9 @@ extern VALUE a4r_API_JOYSTICK_DRIVER_name_get(VALUE self);
 //   DIGI_DRIVER
 extern VALUE a4r_API_DIGI_DRIVER_name_get(VALUE self);
 
+//   MIDI_DRIVER
+extern VALUE a4r_API_MIDI_DRIVER_name_get(VALUE self);
+
 // Ruby methods for routines defined by Allegro
 
 //   Misc
@@ -124,6 +129,7 @@ extern VALUE a4r_API_timer_driver(VALUE self);
 extern VALUE a4r_API_keyboard_driver(VALUE self);
 extern VALUE a4r_API_joystick_driver(VALUE self);
 extern VALUE a4r_API_digi_driver(VALUE self);
+extern VALUE a4r_API_midi_driver(VALUE self);
 
 //   Using Allegro
 extern VALUE a4r_API_allegro_init(VALUE self);
@@ -200,6 +206,7 @@ extern VALUE a4r_API_calibrate_joystick(VALUE self, VALUE n);
 
 //   Graphics modes
 extern VALUE a4r_API_set_gfx_mode(VALUE self, VALUE card, VALUE w, VALUE h, VALUE v_w, VALUE v_h);
+extern VALUE a4r_API_set_display_switch_mode(VALUE self, VALUE mode);
 extern VALUE a4r_API_show_video_bitmap(VALUE self, VALUE bitmap);
 extern VALUE a4r_API_vsync(VALUE self);
 
@@ -280,6 +287,19 @@ extern VALUE a4r_API_load_sample(VALUE self, VALUE filename);
 extern VALUE a4r_API_destroy_sample(VALUE self, VALUE spl);
 extern VALUE a4r_API_play_sample(VALUE self, VALUE spl, VALUE vol, VALUE pan, VALUE freq, VALUE loop);
 extern VALUE a4r_API_adjust_sample(VALUE self, VALUE spl, VALUE vol, VALUE pan, VALUE freq, VALUE loop);
+
+//   Music routines (MIDI)
+extern VALUE a4r_API_load_midi(VALUE self, VALUE filename);
+extern VALUE a4r_API_destroy_midi(VALUE self, VALUE midi);
+extern VALUE a4r_API_play_midi(VALUE self, VALUE midi, VALUE loop);
+extern VALUE a4r_API_midi_pause(VALUE self);
+extern VALUE a4r_API_midi_resume(VALUE self);
+extern VALUE a4r_API_get_midi_length(VALUE self, VALUE midi);
+extern VALUE a4r_API_midi_pos(VALUE self);
+extern VALUE a4r_API_midi_time(VALUE self);
+
+//   File and compression routines
+extern VALUE a4r_API_get_filename(VALUE self, VALUE path);
 
 //   Fixed point math routines
 extern VALUE a4r_API_itofix(VALUE self, VALUE x);

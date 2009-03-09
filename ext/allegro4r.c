@@ -157,6 +157,14 @@ VALUE cAPI_FONT;
 VALUE cAPI_SAMPLE;
 
 /*
+ * Document-class: Allegro4r::API::MIDI
+ *
+ * A structure holding MIDI data. Read chapter "Music routines (MIDI)" for a
+ * description on how to obtain/use this structure.
+ */
+VALUE cAPI_MIDI;
+
+/*
  * Document-class: Allegro4r::API::GFX_DRIVER
  *
  * Creates and manages the screen bitmap.
@@ -197,6 +205,13 @@ VALUE cAPI_JOYSTICK_DRIVER;
  * Driver for playing digital sfx.
  */
 VALUE cAPI_DIGI_DRIVER;
+
+/*
+ * Document-class: Allegro4r::API::MIDI_DRIVER
+ *
+ * Driver for playing midi music.
+ */
+VALUE cAPI_MIDI_DRIVER;
 
 ID CALL_ID;
 
@@ -254,6 +269,8 @@ void Init_allegro4r()
 
   cAPI_SAMPLE = rb_define_class_under(mAllegro4r_API, "SAMPLE", rb_cObject);
 
+  cAPI_MIDI = rb_define_class_under(mAllegro4r_API, "MIDI", rb_cObject);
+
   cAPI_GFX_DRIVER = rb_define_class_under(mAllegro4r_API, "GFX_DRIVER", rb_cObject); // in a4r_API_GFX_DRIVER.c
   rb_define_method(cAPI_GFX_DRIVER, "name", a4r_API_GFX_DRIVER_name_get, 0); // in a4r_API_GFX_DRIVER.c
 
@@ -271,7 +288,10 @@ void Init_allegro4r()
 
   cAPI_DIGI_DRIVER = rb_define_class_under(mAllegro4r_API, "DIGI_DRIVER", rb_cObject); // in a4r_API_DIGI_DRIVER.c
   rb_define_method(cAPI_DIGI_DRIVER, "name", a4r_API_DIGI_DRIVER_name_get, 0); // in a4r_API_DIGI_DRIVER.c
-  
+
+  cAPI_MIDI_DRIVER = rb_define_class_under(mAllegro4r_API, "MIDI_DRIVER", rb_cObject); // in a4r_API_MIDI_DRIVER.c
+  rb_define_method(cAPI_MIDI_DRIVER, "name", a4r_API_MIDI_DRIVER_name_get, 0); // in a4r_API_MIDI_DRIVER.c
+
   rb_define_module_function(mAllegro4r_API, "MIN", a4r_API_MIN, 2); // in a4r_API_misc.c
   rb_define_module_function(mAllegro4r_API, "ABS", a4r_API_ABS, 1); // in a4r_API_misc.c
   rb_define_module_function(mAllegro4r_API, "AL_RAND", a4r_API_AL_RAND, 0); // in a4r_API_misc.c
@@ -281,6 +301,7 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "keyboard_driver", a4r_API_keyboard_driver, 0); // in a4r_API_misc.c
   rb_define_module_function(mAllegro4r_API, "joystick_driver", a4r_API_joystick_driver, 0); // in a4r_API_misc.c
   rb_define_module_function(mAllegro4r_API, "digi_driver", a4r_API_digi_driver, 0); // in a4r_API_misc.c
+  rb_define_module_function(mAllegro4r_API, "midi_driver", a4r_API_midi_driver, 0); // in a4r_API_misc.c
 
   rb_define_module_function(mAllegro4r_API, "allegro_init", a4r_API_allegro_init, 0); // in a4r_API_using_allegro.c
   rb_define_module_function(mAllegro4r_API, "allegro_exit", a4r_API_allegro_exit, 0); // in a4r_API_using_allegro.c
@@ -347,6 +368,7 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "calibrate_joystick", a4r_API_calibrate_joystick, 1); // in a4r_API_joystick_routines.c
 
   rb_define_module_function(mAllegro4r_API, "set_gfx_mode", a4r_API_set_gfx_mode, 5); // in a4r_API_graphics_modes.c
+  rb_define_module_function(mAllegro4r_API, "set_display_switch_mode", a4r_API_set_display_switch_mode, 1); // in a4r_API_graphics_modes.c
   rb_define_module_function(mAllegro4r_API, "show_video_bitmap", a4r_API_show_video_bitmap, 1); // in a4r_API_graphics_modes.c
   rb_define_module_function(mAllegro4r_API, "vsync", a4r_API_vsync, 0); // in a4r_API_graphics_modes.c
 
@@ -417,6 +439,17 @@ void Init_allegro4r()
   rb_define_module_function(mAllegro4r_API, "play_sample", a4r_API_play_sample, 5); // in a4r_API_digital_sample_routines.c
   rb_define_module_function(mAllegro4r_API, "adjust_sample", a4r_API_adjust_sample, 5); // in a4r_API_digital_sample_routines.c
 
+  rb_define_module_function(mAllegro4r_API, "load_midi", a4r_API_load_midi, 1); // in a4r_API_music_routines_midi.c
+  rb_define_module_function(mAllegro4r_API, "destroy_midi", a4r_API_destroy_midi, 1); // in a4r_API_music_routines_midi.c
+  rb_define_module_function(mAllegro4r_API, "play_midi", a4r_API_play_midi, 2); // in a4r_API_music_routines_midi.c
+  rb_define_module_function(mAllegro4r_API, "midi_pause", a4r_API_midi_pause, 0); // in a4r_API_music_routines_midi.c
+  rb_define_module_function(mAllegro4r_API, "midi_resume", a4r_API_midi_resume, 0); // in a4r_API_music_routines_midi.c
+  rb_define_module_function(mAllegro4r_API, "get_midi_length", a4r_API_get_midi_length, 1); // in a4r_API_music_routines_midi.c
+  rb_define_module_function(mAllegro4r_API, "midi_pos", a4r_API_midi_pos, 0); // in a4r_API_music_routines_midi.c
+  rb_define_module_function(mAllegro4r_API, "midi_time", a4r_API_midi_time, 0); // in a4r_API_music_routines_midi.c
+
+  rb_define_module_function(mAllegro4r_API, "get_filename", a4r_API_get_filename, 1); // in a4r_API_file_and_compression_routines.c
+
   rb_define_module_function(mAllegro4r_API, "itofix", a4r_API_itofix, 1); // in a4r_API_fixed_point_math_routines.c
   rb_define_module_function(mAllegro4r_API, "ftofix", a4r_API_ftofix, 1); // in a4r_API_fixed_point_math_routines.c
   rb_define_module_function(mAllegro4r_API, "fixtof", a4r_API_fixtof, 1); // in a4r_API_fixed_point_math_routines.c
@@ -452,6 +485,29 @@ void Init_allegro4r()
    * match to that (usually 80x25).
    */
   rb_define_const(mAllegro4r_API, "GFX_TEXT", INT2FIX(GFX_TEXT));
+
+  /* SWITCH_NONE: Disables switching. */
+  rb_define_const(mAllegro4r_API, "SWITCH_NONE", INT2FIX(SWITCH_NONE));
+  /* SWITCH_PAUSE: Pauses the program whenever it is in the background. */
+  rb_define_const(mAllegro4r_API, "SWITCH_PAUSE", INT2FIX(SWITCH_PAUSE));
+  /* 
+   * SWITCH_AMNESIA: Like SWITCH_PAUSE, but this mode doesn't bother to remember
+   * the contents of video memory, so the screen, and any video bitmaps that you
+   * have created, will be erased after the user switches away and then back to
+   * your program
+   */
+  rb_define_const(mAllegro4r_API, "SWITCH_AMNESIA", INT2FIX(SWITCH_AMNESIA));
+  /* 
+   * SWITCH_BACKGROUND: The program will carry on running in the background,
+   * with the screen bitmap temporarily being pointed at a memory buffer for the
+   * fullscreen drivers
+   */
+  rb_define_const(mAllegro4r_API, "SWITCH_BACKGROUND", INT2FIX(SWITCH_BACKGROUND));
+  /* 
+   * SWITCH_BACKAMNESIA: Like SWITCH_BACKGROUND, but this mode doesn't bother to
+   * remember the contents of video memory
+   */
+  rb_define_const(mAllegro4r_API, "SWITCH_BACKAMNESIA", INT2FIX(SWITCH_BACKAMNESIA));
 
   /* DRAW_MODE_SOLID: The default, solid color drawing */
   rb_define_const(mAllegro4r_API, "DRAW_MODE_SOLID", INT2FIX(DRAW_MODE_SOLID));
