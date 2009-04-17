@@ -10,27 +10,33 @@
 
 = Allegro4r
 
-* FIX (url)
+http://allegro4r.rubyforge.org
 
-== DESCRIPTION:
-
-FIX (describe your package)
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
-
-== SYNOPSIS:
-
-  FIX (code sample of usage)
+Ruby binding to the Allegro game programming library. <http://alleg.sourceforge.net>
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* Allegro 4.2.2 <http://alleg.sourceforge.net/wip.html>
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* Install Allegro 4.2.2
+
+  Windows:: The easiest way to install Allegro is to download the precompiled binaries found here[http://www.allegro.cc/files/].
+            Download the MinGW binary version.  For 32 bit Windows, put the files in the System32 directory.  For 64 bit Windows, put the files in the SysWOW64 directory.
+
+  Linux:: For Debian based Linux (e.g. Ubuntu), install the allegro4.2 or liballegro4.2 package: <tt>sudo apt-get install allegro4.2</tt>
+          More package information can be found here[http://packages.debian.org/source/lenny/allegro4.2].
+
+* <tt>gem install allegro4r</tt>
+
+== EXAMPLES:
+
+See code examples in the examples directory.
+
+== HISTORY:
+
+See History.txt
 
 == LICENSE:
 
