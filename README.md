@@ -46,4 +46,8 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/Fryguy
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).  See [LICENSE.txt](LICENSE.txt).
+
+### Third Party Licenses
+
+The files in examples/data are borrowed from the Allegro source in order to allow the Ruby examples to serve as a mirror of the original examples. As such, the Allegro license is also included in [LICENSE_ALLEGRO.txt](LICENSE_ALLEGRO.txt).
