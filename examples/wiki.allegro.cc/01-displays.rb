@@ -1,4 +1,4 @@
-# http://wiki.allegro.cc/index.php?title=Allegro_5_Tutorial/Displays
+# https://wiki.allegro.cc/index.php?title=Allegro_5_Tutorial/Displays
 require 'allegro4r'
 include Allegro4r::API
 

@@ -1,4 +1,4 @@
-# http://wiki.allegro.cc/index.php?title=Creating_a_fullscreen_display_with_current_desktop_resolution
+# https://wiki.allegro.cc/index.php?title=Creating_a_fullscreen_display_with_maximum/minimum_resolution
 require 'allegro4r'
 include Allegro4r::API
 include Allegro4r::API::Image
