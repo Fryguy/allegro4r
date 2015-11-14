@@ -19,10 +19,10 @@ few examples on getting the C examples to compile.
   As can be seen, you must link to both allegro and allegro_main.
 
 - Given the source located [here](https://wiki.allegro.cc/index.php?title=Creating_a_fullscreen_display_with_maximum/minimum_resolution),
-  store it in a file named 02-fullscreen.c and compile with:
+  store it in a file named 01a-fullscreen.c and compile with:
 
   ```sh
-  gcc 02-fullscreen.c -o 02-fullscreen -lallegro -lallegro_main -lallegro_image -lallegro_primitives
+  gcc 01a-fullscreen.c -o 01a-fullscreen -lallegro -lallegro_main -lallegro_image -lallegro_primitives
   ```
 
   As can be seen, there are extra linker targets allegro_image and allegro_primitives.
