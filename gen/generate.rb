@@ -72,6 +72,10 @@ Allegro4r::Generator.generate("allegro_image.5.0", "API::Image", %w(
   allegro allegro_image
 ))
 
+Allegro4r::Generator.generate("allegro_dialog.5.0", "API::NativeDialog", %w(
+  allegro allegro_native_dialog
+))
+
 Allegro4r::Generator.generate("allegro_primitives.5.0", "API::Primitives", %w(
   allegro allegro_primitives
 )) do |contents|
