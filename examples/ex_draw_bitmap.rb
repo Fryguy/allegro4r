@@ -6,6 +6,8 @@ include Allegro4r::API
 include Allegro4r::API::Image
 include Allegro4r::API::Font
 
+require_relative 'common'
+
 FPS = 60
 MAX_SPRITES = 1024
 
@@ -211,9 +213,9 @@ def main
   need_redraw = true
   example.show_help = true
 
-  raise "Failed to init Allegro." unless al_init
+  abort_example("Failed to init Allegro.\n") unless al_init
 
-  raise "Failed to init IIO addon." unless al_init_image_addon
+  abort_example("Failed to init IIO addon.\n") unless al_init_image_addon
 
   al_init_font_addon
 
@@ -223,17 +225,17 @@ def main
   w = info[:x2] - info[:x1] if info[:x2] - info[:x1] < w
   h = info[:y2] - info[:y1] if info[:y2] - info[:y1] < h
   example.display = al_create_display(w, h)
-  raise "Error creating display." if example.display.null?
+  abort_example("Error creating display.\n") if example.display.null?
 
-  raise "Error installing keyboard." unless al_install_keyboard
+  abort_example("Error installing keyboard.\n") unless al_install_keyboard
 
-  raise "Error installing mouse." unless al_install_mouse
+  abort_example("Error installing mouse.\n") unless al_install_mouse
 
   example.font = al_load_font("data/fixed_font.tga", 0, 0)
-  raise "Error loading data/fixed_font.tga" if example.font.null?
+  abort_example("Error loading data/fixed_font.tga\n") if example.font.null?
 
   example.mysha = al_load_bitmap("data/mysha256x256.png")
-  raise "Error loading data/mysha256x256.png" if example.mysha.null?
+  abort_example("Error loading data/mysha256x256.png\n") if example.mysha.null?
 
   example.white = al_map_rgb_f(1, 1, 1)
   example.half_white = al_map_rgba_f(1, 1, 1, 0.5)
