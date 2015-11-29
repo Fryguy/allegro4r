@@ -13,14 +13,11 @@ require_relative 'common'
 INTERVAL = 0.01
 
 
-class << self
-  attr_accessor :bmp_x, :bmp_y, :bmp_dx, :bmp_dy, :bmp_flag
-end
-@bmp_x = 200.0
-@bmp_y = 200.0
-@bmp_dx = 96.0
-@bmp_dy = 96.0
-@bmp_flag = 0
+$bmp_x = 200.0
+$bmp_y = 200.0
+$bmp_dx = 96.0
+$bmp_dy = 96.0
+$bmp_flag = 0
 
 def update(bmp)
   target = al_get_target_bitmap
@@ -29,32 +26,32 @@ def update(bmp)
   bitmap_w = al_get_bitmap_width(bmp)
   bitmap_h = al_get_bitmap_height(bmp)
 
-  self.bmp_x += bmp_dx * INTERVAL
-  self.bmp_y += bmp_dy * INTERVAL
+  $bmp_x += $bmp_dx * INTERVAL
+  $bmp_y += $bmp_dy * INTERVAL
 
   # Make sure bitmap is still on the screen.
-  if bmp_y < 0
-    self.bmp_y = 0
-    self.bmp_dy *= -1
-    self.bmp_flag &= ~ALLEGRO_FLIP_VERTICAL
+  if $bmp_y < 0
+    $bmp_y = 0
+    $bmp_dy *= -1
+    $bmp_flag &= ~ALLEGRO_FLIP_VERTICAL
   end
 
-  if bmp_x < 0
-    self.bmp_x = 0
-    self.bmp_dx *= -1
-    self.bmp_flag &= ~ALLEGRO_FLIP_HORIZONTAL
+  if $bmp_x < 0
+    $bmp_x = 0
+    $bmp_dx *= -1
+    $bmp_flag &= ~ALLEGRO_FLIP_HORIZONTAL
   end
 
-  if bmp_y > display_h - bitmap_h
-    self.bmp_y = display_h - bitmap_h
-    self.bmp_dy *= -1
-    self.bmp_flag |= ALLEGRO_FLIP_VERTICAL
+  if $bmp_y > display_h - bitmap_h
+    $bmp_y = display_h - bitmap_h
+    $bmp_dy *= -1
+    $bmp_flag |= ALLEGRO_FLIP_VERTICAL
   end
 
-  if bmp_x > display_w - bitmap_w
-    self.bmp_x = display_w - bitmap_w
-    self.bmp_dx *= -1
-    self.bmp_flag |= ALLEGRO_FLIP_HORIZONTAL
+  if $bmp_x > display_w - bitmap_w
+    $bmp_x = display_w - bitmap_w
+    $bmp_dx *= -1
+    $bmp_flag |= ALLEGRO_FLIP_HORIZONTAL
   end
 end
 
@@ -103,7 +100,7 @@ def main
       update(bmp)
       al_clear_to_color(al_map_rgb_f(0, 0, 0))
       al_draw_tinted_bitmap(bmp, al_map_rgba_f(1, 1, 1, 0.5),
-        bmp_x, bmp_y, bmp_flag)
+        $bmp_x, $bmp_y, $bmp_flag)
       al_draw_text(font, al_map_rgba_f(1, 1, 1, 0.5), 0, 0, 0, text)
       al_flip_display
       redraw = false
