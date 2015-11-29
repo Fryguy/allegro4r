@@ -2,7 +2,7 @@
 
 require 'ffi'
 
-module Allegro4r::API::Primitives
+module Allegro4r; module API; module Primitives
   extend FFI::Library
   ffi_lib_flags :now
   ffi_lib "allegro_primitives.5.0"
@@ -17,7 +17,7 @@ module Allegro4r::API::Primitives
 
   ALLEGRO_PRIM_QUALITY = 10
 
-  # Enum: ALLEGRO_PRIM_TYPE
+  # (Not documented)
   #
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_prim_type).</em>
   #
@@ -135,14 +135,14 @@ module Allegro4r::API::Primitives
   # :v ::
   #   (Float)
   # :color ::
-  #   (unknown)
+  #   (ALLEGROCOLOR)
   class ALLEGROVERTEX < FFI::Struct
     layout :x, :float,
            :y, :float,
            :z, :float,
            :u, :float,
            :v, :float,
-           :color, :char
+           :color, ALLEGROCOLOR.by_value
   end
 
   # (Not documented)
@@ -244,11 +244,11 @@ module Allegro4r::API::Primitives
   # @param [Float] y1
   # @param [Float] x2
   # @param [Float] y2
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_line, :al_draw_line, [:float, :float, :float, :float, :char, :float], :void
+  attach_function :al_draw_line, :al_draw_line, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -259,11 +259,11 @@ module Allegro4r::API::Primitives
   # @param [Float] y2
   # @param [Float] x3
   # @param [Float] y3
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_triangle, :al_draw_triangle, [:float, :float, :float, :float, :float, :float, :char, :float], :void
+  attach_function :al_draw_triangle, :al_draw_triangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -272,11 +272,11 @@ module Allegro4r::API::Primitives
   # @param [Float] y1
   # @param [Float] x2
   # @param [Float] y2
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_rectangle, :al_draw_rectangle, [:float, :float, :float, :float, :char, :float], :void
+  attach_function :al_draw_rectangle, :al_draw_rectangle, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -287,11 +287,11 @@ module Allegro4r::API::Primitives
   # @param [Float] y2
   # @param [Float] rx
   # @param [Float] ry
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_rounded_rectangle, :al_draw_rounded_rectangle, [:float, :float, :float, :float, :float, :float, :char, :float], :void
+  attach_function :al_draw_rounded_rectangle, :al_draw_rounded_rectangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -316,11 +316,11 @@ module Allegro4r::API::Primitives
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] r
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_circle, :al_draw_circle, [:float, :float, :float, :char, :float], :void
+  attach_function :al_draw_circle, :al_draw_circle, [:float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -329,11 +329,11 @@ module Allegro4r::API::Primitives
   # @param [Float] cy
   # @param [Float] rx
   # @param [Float] ry
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_ellipse, :al_draw_ellipse, [:float, :float, :float, :float, :char, :float], :void
+  attach_function :al_draw_ellipse, :al_draw_ellipse, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -343,11 +343,11 @@ module Allegro4r::API::Primitives
   # @param [Float] r
   # @param [Float] start_theta
   # @param [Float] delta_theta
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_arc, :al_draw_arc, [:float, :float, :float, :float, :float, :char, :float], :void
+  attach_function :al_draw_arc, :al_draw_arc, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -358,11 +358,11 @@ module Allegro4r::API::Primitives
   # @param [Float] ry
   # @param [Float] start_theta
   # @param [Float] delta_theta
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_elliptical_arc, :al_draw_elliptical_arc, [:float, :float, :float, :float, :float, :float, :char, :float], :void
+  attach_function :al_draw_elliptical_arc, :al_draw_elliptical_arc, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -372,11 +372,11 @@ module Allegro4r::API::Primitives
   # @param [Float] r
   # @param [Float] start_theta
   # @param [Float] delta_theta
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_pieslice, :al_draw_pieslice, [:float, :float, :float, :float, :float, :char, :float], :void
+  attach_function :al_draw_pieslice, :al_draw_pieslice, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -394,11 +394,11 @@ module Allegro4r::API::Primitives
   #
   # @method al_draw_spline(points, color, thickness)
   # @param [Array<Float>] points
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_spline, :al_draw_spline, [:pointer, :char, :float], :void
+  attach_function :al_draw_spline, :al_draw_spline, [:pointer, ALLEGROCOLOR.by_value, :float], :void
 
   # (Not documented)
   #
@@ -418,12 +418,12 @@ module Allegro4r::API::Primitives
   # @method al_draw_ribbon(points, points_stride, color, thickness, num_segments)
   # @param [FFI::Pointer(*Float)] points
   # @param [Integer] points_stride
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @param [Float] thickness
   # @param [Integer] num_segments
   # @return [nil]
   # @scope class
-  attach_function :al_draw_ribbon, :al_draw_ribbon, [:pointer, :int, :char, :float, :int], :void
+  attach_function :al_draw_ribbon, :al_draw_ribbon, [:pointer, :int, ALLEGROCOLOR.by_value, :float, :int], :void
 
   # (Not documented)
   #
@@ -434,10 +434,10 @@ module Allegro4r::API::Primitives
   # @param [Float] y2
   # @param [Float] x3
   # @param [Float] y3
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_triangle, :al_draw_filled_triangle, [:float, :float, :float, :float, :float, :float, :char], :void
+  attach_function :al_draw_filled_triangle, :al_draw_filled_triangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
 
   # (Not documented)
   #
@@ -446,10 +446,10 @@ module Allegro4r::API::Primitives
   # @param [Float] y1
   # @param [Float] x2
   # @param [Float] y2
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_rectangle, :al_draw_filled_rectangle, [:float, :float, :float, :float, :char], :void
+  attach_function :al_draw_filled_rectangle, :al_draw_filled_rectangle, [:float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
 
   # (Not documented)
   #
@@ -458,10 +458,10 @@ module Allegro4r::API::Primitives
   # @param [Float] cy
   # @param [Float] rx
   # @param [Float] ry
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_ellipse, :al_draw_filled_ellipse, [:float, :float, :float, :float, :char], :void
+  attach_function :al_draw_filled_ellipse, :al_draw_filled_ellipse, [:float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
 
   # (Not documented)
   #
@@ -469,10 +469,10 @@ module Allegro4r::API::Primitives
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] r
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_circle, :al_draw_filled_circle, [:float, :float, :float, :char], :void
+  attach_function :al_draw_filled_circle, :al_draw_filled_circle, [:float, :float, :float, ALLEGROCOLOR.by_value], :void
 
   # (Not documented)
   #
@@ -482,10 +482,10 @@ module Allegro4r::API::Primitives
   # @param [Float] r
   # @param [Float] start_theta
   # @param [Float] delta_theta
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_pieslice, :al_draw_filled_pieslice, [:float, :float, :float, :float, :float, :char], :void
+  attach_function :al_draw_filled_pieslice, :al_draw_filled_pieslice, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
 
   # (Not documented)
   #
@@ -496,9 +496,9 @@ module Allegro4r::API::Primitives
   # @param [Float] y2
   # @param [Float] rx
   # @param [Float] ry
-  # @param [unknown] color
+  # @param [ALLEGROCOLOR] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_rounded_rectangle, :al_draw_filled_rounded_rectangle, [:float, :float, :float, :float, :float, :float, :char], :void
+  attach_function :al_draw_filled_rounded_rectangle, :al_draw_filled_rounded_rectangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
 
-end
+end; end; end

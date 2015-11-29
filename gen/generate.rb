@@ -66,7 +66,14 @@ end
 
 Allegro4r::Generator.generate("allegro_font.5.0", "API::Font", %w(
   allegro color allegro_font
-))
+)) do |contents|
+  # Remove duplicate definitions for color
+  contents.sub!(/(^\s+#.+?\n)+\s+class ALLEGROCOLOR.+attach_function :al_get_pixel_format_bits.+?\n/m, "")
+
+  # Adjust module nesting to appease Ruby const lookup
+  contents.sub!("module Allegro4r::API::Font", "module Allegro4r; module API; module Font")
+  contents.sub!(/end\z/, "end; end; end")
+end
 
 Allegro4r::Generator.generate("allegro_image.5.0", "API::Image", %w(
   allegro allegro_image
@@ -77,8 +84,15 @@ Allegro4r::Generator.generate("allegro_dialog.5.0", "API::NativeDialog", %w(
 ))
 
 Allegro4r::Generator.generate("allegro_primitives.5.0", "API::Primitives", %w(
-  allegro allegro_primitives
+  allegro color allegro_primitives
 )) do |contents|
+  # Remove duplicate definitions for color
+  contents.sub!(/(^\s+#.+?\n)+\s+class ALLEGROCOLOR.+attach_function :al_get_pixel_format_bits.+?\n/m, "")
+
+  # Adjust module nesting to appease Ruby const lookup
+  contents.sub!("module Allegro4r::API::Primitives", "module Allegro4r; module API; module Primitives")
+  contents.sub!(/end\z/, "end; end; end")
+
   # Fix contents based on syntax and calling errors with ffi_gen
   contents.gsub!("[:float, 8]", ":pointer")
 end
