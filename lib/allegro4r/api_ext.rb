@@ -289,8 +289,6 @@ module Allegro4r::API
         STDERR.puts "#{full_backtrace[0]}: #{err.message} (#{err.class})"
         STDERR.puts full_backtrace[1..-1].map { |l| "\tfrom #{l}" }.join("\n")
         1
-      ensure
-        al_uninstall_system
       end
     end
   end
