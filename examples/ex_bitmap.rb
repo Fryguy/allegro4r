@@ -7,12 +7,12 @@ include Allegro4r::API::Image
 
 require_relative "common"
 
-def main(argc, argv)
+def main(argc, *argv)
   redraw = true
   zoom = 1.0
 
-  if argc >= 1
-    filename = argv[0]
+  if argc > 1
+    filename = argv[1]
   else
     filename = "data/mysha.pcx"
   end
@@ -21,7 +21,7 @@ def main(argc, argv)
 
   open_log
 
-  al_set_new_display_adapter(argv[1].to_i) if argc >= 2
+  al_set_new_display_adapter(argv[2].to_i) if argc > 2
 
   al_install_mouse
   al_install_keyboard
@@ -104,4 +104,5 @@ def main(argc, argv)
   close_log(false)
 end
 
-run_main(method(:main), ARGV.length, ARGV)
+args = ARGV.unshift($0)
+run_main(method(:main), args.length, *args)
