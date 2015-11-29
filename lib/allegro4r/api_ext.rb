@@ -255,7 +255,7 @@ module Allegro4r::API
   ALLEGRO_NUM_BLEND_OPERATIONS = 3
 
   def self.al_init
-    al_install_system(ALLEGRO_VERSION_INT, nil)
+    al_install_system(al_get_allegro_version, nil)
   end
 
   def al_init
