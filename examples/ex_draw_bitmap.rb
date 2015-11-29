@@ -322,7 +322,6 @@ def main
       end
 
     when ALLEGRO_EVENT_MOUSE_AXES
-      raise "something"
       if example.mouse_down
         dx = event[:mouse][:x] - example.last_x
         dy = event[:mouse][:y] - example.last_y
