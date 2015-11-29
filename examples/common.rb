@@ -4,13 +4,7 @@ require 'allegro4r'
 
 include Allegro4r::API::NativeDialog
 
-def textlog
-  @textlog
-end
-
-def textlog=(val)
-  @textlog = val
-end
+$textlog = nil
 
 def abort_example(format, *args)
   str = format % args
@@ -25,30 +19,30 @@ end
 
 def open_log
   if al_init_native_dialog_addon
-    textlog = al_open_native_text_log("Log", 0)
+    $textlog = al_open_native_text_log("Log", 0)
   end
 end
 
 def open_log_monospace
   if al_init_native_dialog_addon
-    textlog = al_open_native_text_log("Log", ALLEGRO_TEXTLOG_MONOSPACE)
+    $textlog = al_open_native_text_log("Log", ALLEGRO_TEXTLOG_MONOSPACE)
   end
 end
 
 def close_log(wait_for_user)
-  if textlog && wait_for_user
+  if $textlog && wait_for_user
     queue = al_create_event_queue
     al_register_event_source(queue, al_get_native_text_log_event_source(
-      textlog))
+      $textlog))
     al_wait_for_event(queue, nil)
     al_destroy_event_queue(queue)
   end
 
-  al_close_native_text_log(textlog)
-  textlog = nil
+  al_close_native_text_log($textlog)
+  $textlog = nil
 end
 
 def log_printf(format, *args)
   str = format % args
-  al_append_native_text_log(textlog, str)
+  al_append_native_text_log($textlog, str)
 end
