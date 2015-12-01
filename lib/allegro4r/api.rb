@@ -5,7 +5,7 @@ require 'ffi'
 module Allegro4r; module API
   extend FFI::Library
   ffi_lib_flags :now
-  ffi_lib "allegro.5.0"
+  ffi_lib "allegro"
 
   def self.attach_function(name, *_)
     begin; super; rescue FFI::NotFoundError => e

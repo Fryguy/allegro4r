@@ -1,4 +1,8 @@
 language: ruby
 rvm:
-  - 2.2.2
-before_install: gem install bundler -v 1.10.6
+- "2.2"
+before_install:
+- sudo add-apt-repository -y ppa:allegro/5.0
+- sudo apt-get -y update
+- sudo apt-get -y install liballegro5-dev
+- gem install bundler -v 1.10.6

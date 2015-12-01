@@ -49,7 +49,7 @@ module Allegro4r
   end
 end
 
-Allegro4r::Generator.generate("allegro.5.0", "API", %w(
+Allegro4r::Generator.generate("allegro", "API", %w(
   allegro base altime bitmap bitmap_draw bitmap_io bitmap_lock blender color
   config debug display drawing error events file fixed fmaths fshook
   fullscreen_mode joystick keyboard memory monitor mouse mouse_cursor path
@@ -73,22 +73,22 @@ Allegro4r::Generator.generate("allegro.5.0", "API", %w(
   contents.gsub!(/(attach_function :al_run_main.+)$/, '\1, :blocking => true')
 end
 
-Allegro4r::Generator.generate("allegro_font.5.0", "API::Font", %w(
+Allegro4r::Generator.generate("allegro_font", "API::Font", %w(
   allegro color allegro_font
 )) do |contents|
   # Remove duplicate definitions for color
   contents.sub!(/(^\s+#.+?\n)+\s+class ALLEGROCOLOR.+attach_function :al_get_pixel_format_bits.+?\n/m, "")
 end
 
-Allegro4r::Generator.generate("allegro_image.5.0", "API::Image", %w(
+Allegro4r::Generator.generate("allegro_image", "API::Image", %w(
   allegro allegro_image
 ))
 
-Allegro4r::Generator.generate("allegro_dialog.5.0", "API::NativeDialog", %w(
+Allegro4r::Generator.generate("allegro_dialog", "API::NativeDialog", %w(
   allegro allegro_native_dialog
 ))
 
-Allegro4r::Generator.generate("allegro_primitives.5.0", "API::Primitives", %w(
+Allegro4r::Generator.generate("allegro_primitives", "API::Primitives", %w(
   allegro color allegro_primitives
 )) do |contents|
   # Remove duplicate definitions for color
