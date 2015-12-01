@@ -1,4 +1,4 @@
-# Ruby port of ex_target_bitmap.c from the Allegro examples.
+# Ruby port of ex_bitmap_target.c from the Allegro examples.
 
 # An example comparing FPS when drawing to a bitmap with the
 # ALLEGRO_FORCE_LOCKING flag and without. Mainly meant as a test how much
