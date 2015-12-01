@@ -2,7 +2,7 @@
 
 require 'ffi'
 
-module Allegro4r::API::NativeDialog
+module Allegro4r; module API; module NativeDialog
   extend FFI::Library
   ffi_lib_flags :now
   ffi_lib "allegro_dialog.5.0"
@@ -136,4 +136,4 @@ module Allegro4r::API::NativeDialog
   # @scope class
   attach_function :al_get_allegro_native_dialog_version, :al_get_allegro_native_dialog_version, [], :uint
 
-end
+end; end; end

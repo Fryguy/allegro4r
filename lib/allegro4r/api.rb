@@ -2,7 +2,7 @@
 
 require 'ffi'
 
-module Allegro4r::API
+module Allegro4r; module API
   extend FFI::Library
   ffi_lib_flags :now
   ffi_lib "allegro.5.0"
@@ -4842,4 +4842,4 @@ module Allegro4r::API
   # @scope class
   attach_function :al_check_inverse, :al_check_inverse, [ALLEGROTRANSFORM, :float], :int
 
-end
+end; end

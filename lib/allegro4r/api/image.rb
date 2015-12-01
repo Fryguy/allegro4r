@@ -2,7 +2,7 @@
 
 require 'ffi'
 
-module Allegro4r::API::Image
+module Allegro4r; module API; module Image
   extend FFI::Library
   ffi_lib_flags :now
   ffi_lib "allegro_image.5.0"
@@ -34,4 +34,4 @@ module Allegro4r::API::Image
   # @scope class
   attach_function :al_get_allegro_image_version, :al_get_allegro_image_version, [], :uint
 
-end
+end; end; end
