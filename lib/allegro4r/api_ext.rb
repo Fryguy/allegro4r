@@ -3,6 +3,9 @@ module Allegro4r::API
     ((ALLEGRO_VERSION << 24) | (ALLEGRO_SUB_VERSION << 16) |
     (ALLEGRO_WIP_VERSION << 8) | ALLEGRO_RELEASE_NUMBER)
 
+  ALLEGRO_USTR = AlTagbstring
+  ALLEGRO_USTR_INFO = AlTagbstring
+
   # enums not copied in yet by ffi_gen
   ALLEGRO_WINDOWED                    = 1 << 0
   ALLEGRO_FULLSCREEN                  = 1 << 1
@@ -237,6 +240,10 @@ module Allegro4r::API
   ALLEGRO_TEXTLOG_MONOSPACE           = 1<<1
 
   ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE   = 600
+
+  ALLEGRO_LOCK_READWRITE  = 0
+  ALLEGRO_LOCK_READONLY   = 1
+  ALLEGRO_LOCK_WRITEONLY  = 2
 
   # NOTE: These have enum definitions with names, but ffi_gen is broken/weird
   ALLEGRO_ZERO               = 0

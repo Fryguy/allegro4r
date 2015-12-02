@@ -69,6 +69,10 @@ Allegro4r::Generator.generate("allegro", "API", %w(
   contents.sub!(/class ALLEGROUSEREVENT.+?:source, ALLEGROEVENTSOURCE/m,  '\0.by_ref')
   contents.sub!(/class ALLEGROUSEREVENT.+?:source, ALLEGROUSEREVENTDESCRIPTOR/m, '\0.by_ref')
 
+  # Fix issues with return pointers not marked as such
+  contents.sub!(/(attach_function :al_lock_bitmap.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
+  contents.sub!(/(attach_function :al_lock_bitmap_region.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
+
   # Directly adjust specific calls that otherwise can't be fixed in api_fixes.rb
   contents.gsub!(/(attach_function :al_run_main.+)$/, '\1, :blocking => true')
 end

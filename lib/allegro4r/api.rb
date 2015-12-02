@@ -2025,7 +2025,7 @@ module Allegro4r; module API
   # @param [Integer] flags
   # @return [ALLEGROLOCKEDREGION]
   # @scope class
-  attach_function :al_lock_bitmap, :al_lock_bitmap, [:pointer, :int, :int], ALLEGROLOCKEDREGION
+  attach_function :al_lock_bitmap, :al_lock_bitmap, [:pointer, :int, :int], ALLEGROLOCKEDREGION.by_ref
 
   # (Not documented)
   #
@@ -2039,7 +2039,7 @@ module Allegro4r; module API
   # @param [Integer] flags
   # @return [ALLEGROLOCKEDREGION]
   # @scope class
-  attach_function :al_lock_bitmap_region, :al_lock_bitmap_region, [:pointer, :int, :int, :int, :int, :int, :int], ALLEGROLOCKEDREGION
+  attach_function :al_lock_bitmap_region, :al_lock_bitmap_region, [:pointer, :int, :int, :int, :int, :int, :int], ALLEGROLOCKEDREGION.by_ref
 
   # (Not documented)
   #
