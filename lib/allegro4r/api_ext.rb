@@ -261,6 +261,19 @@ module Allegro4r::API
   ALLEGRO_DEST_MINUS_SRC     = 2
   ALLEGRO_NUM_BLEND_OPERATIONS = 3
 
+  ALLEGRO_STATE_NEW_DISPLAY_PARAMETERS = 0x0001
+  ALLEGRO_STATE_NEW_BITMAP_PARAMETERS  = 0x0002
+  ALLEGRO_STATE_DISPLAY                = 0x0004
+  ALLEGRO_STATE_TARGET_BITMAP          = 0x0008
+  ALLEGRO_STATE_BLENDER                = 0x0010
+  ALLEGRO_STATE_NEW_FILE_INTERFACE     = 0x0020
+  ALLEGRO_STATE_TRANSFORM              = 0x0040
+
+  ALLEGRO_STATE_BITMAP                 = ALLEGRO_STATE_TARGET_BITMAP +
+                                         ALLEGRO_STATE_NEW_BITMAP_PARAMETERS
+
+  ALLEGRO_STATE_ALL                    = 0xffff
+
   def self.al_init
     al_install_system(al_get_allegro_version, nil)
   end
