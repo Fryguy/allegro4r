@@ -7,7 +7,7 @@ include Allegro4r::API::Image
 
 require_relative "common"
 
-def main(argc, *argv)
+def main(argc, argv)
   redraw = true
   zoom = 1.0
 
@@ -105,4 +105,4 @@ def main(argc, *argv)
 end
 
 args = ARGV.unshift($0)
-run_main(method(:main), args.length, *args)
+run_main(method(:main), args.length, args)
