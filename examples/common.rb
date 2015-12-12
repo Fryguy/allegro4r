@@ -52,7 +52,7 @@ if ENV["ALLEGRO_POPUP_EXAMPLES"]
 else
 
   def abort_example(format, *args)
-    STDERR.print(format % args)
+    STDERR.printf(format, *args)
     exit 1
   end
 
@@ -66,7 +66,7 @@ else
   end
 
   def log_printf(format, *args)
-    STDERR.print(format % args)
+    printf(format, *args)
   end
 
 end
