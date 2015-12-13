@@ -2975,7 +2975,7 @@ module Allegro4r; module API
   # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
   # @return [Integer]
   # @scope class
-  attach_function :al_get_display_format, :al_get_display_format, [:pointer], :int
+  attach_function :al_get_display_format, :al_get_display_format, [:pointer], :allegro_pixel_format
 
   # (Not documented)
   #

@@ -73,7 +73,10 @@ Allegro4r::Generator.generate("allegro", "API", %w(
   contents.sub!(/(attach_function :al_lock_bitmap.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
   contents.sub!(/(attach_function :al_lock_bitmap_region.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
 
-  # Directly adjust specific calls that otherwise can't be fixed in api_fixes.rb
+  # Fix issues with return enums not marked as such
+  contents.gsub!(/(attach_function :al_get_display_format.+), :int$/, '\1, :allegro_pixel_format')
+
+  # Directly adjust specific calls that otherwise can't be fixed in api_ext.rb
   contents.gsub!(/(attach_function :al_run_main.+)$/, '\1, :blocking => true')
 end
 

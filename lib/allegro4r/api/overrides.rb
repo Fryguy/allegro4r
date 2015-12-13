@@ -12,6 +12,14 @@ module Allegro4r
         super(*args)
         args.map(&:read_int32)
       end
+
+      def al_unmap_rgba_f(*args)
+        return super unless args.length == 1
+
+        args += 4.times.map { FFI::MemoryPointer.new(:float) }
+        super(*args)
+        args.drop(1).map(&:read_float)
+      end
     end
   end
 end
