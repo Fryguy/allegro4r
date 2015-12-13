@@ -311,15 +311,7 @@ class Dialog
   public :draw_requested?
 
   def draw
-    cx = FFI::MemoryPointer.new(:int)
-    cy = FFI::MemoryPointer.new(:int)
-    cw = FFI::MemoryPointer.new(:int)
-    ch = FFI::MemoryPointer.new(:int)
-    al_get_clipping_rectangle(cx, cy, cw, ch)
-    cx = cx.read_int32
-    cy = cy.read_int32
-    cw = cw.read_int32
-    ch = ch.read_int32
+    cx, cy, cw, ch = al_get_clipping_rectangle
 
     all_widgets.each do |wid|
       al_set_clipping_rectangle(wid.x1, wid.y1, wid.width, wid.height)

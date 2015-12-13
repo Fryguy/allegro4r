@@ -1,4 +1,7 @@
 module Allegro4r::API
+  prepend Allegro4r::API::Overrides
+  singleton_class.prepend Allegro4r::API::Overrides
+
   ALLEGRO_VERSION_INT =
     ((ALLEGRO_VERSION << 24) | (ALLEGRO_SUB_VERSION << 16) |
     (ALLEGRO_WIP_VERSION << 8) | ALLEGRO_RELEASE_NUMBER)
@@ -273,14 +276,6 @@ module Allegro4r::API
                                          ALLEGRO_STATE_NEW_BITMAP_PARAMETERS
 
   ALLEGRO_STATE_ALL                    = 0xffff
-
-  def self.al_init
-    al_install_system(al_get_allegro_version, nil)
-  end
-
-  def al_init
-    Allegro4r::API.al_init
-  end
 
   def self.run_main(real_main, *args)
     argc = 0

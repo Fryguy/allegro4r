@@ -6,4 +6,5 @@ require "allegro4r/api/image"
 require "allegro4r/api/native_dialog"
 require "allegro4r/api/primitives"
 
+require "allegro4r/api/overrides"
 require "allegro4r/api_ext"
