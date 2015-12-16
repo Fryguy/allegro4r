@@ -5,9 +5,7 @@
 # even).
 
 require 'allegro4r'
-
 include Allegro4r::API
-include Allegro4r::API::Font
 
 def clamp(x, y, z)
   [x, [y, z].min].max

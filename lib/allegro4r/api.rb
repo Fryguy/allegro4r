@@ -2,10 +2,10 @@
 
 require 'ffi'
 
-module Allegro4r; module API
+module Allegro4r::API
   extend FFI::Library
   ffi_lib_flags :now
-  ffi_lib "allegro"
+  ffi_lib "allegro", "allegro_font", "allegro_image", "allegro_dialog", "allegro_primitives"
 
   def self.attach_function(name, *_)
     begin; super; rescue FFI::NotFoundError => e
@@ -62,6 +62,10 @@ module Allegro4r; module API
   def al_init()
     (al_install_system(ALLEGRO_VERSION_INT, ATEXIT))
   end
+
+  ALLEGRO_VERTEX_CACHE_SIZE = 256
+
+  ALLEGRO_PRIM_QUALITY = 10
 
   # (Not documented)
   #
@@ -4842,4 +4846,782 @@ module Allegro4r; module API
   # @scope class
   attach_function :al_check_inverse, :al_check_inverse, [ALLEGROTRANSFORM, :float], :int
 
-end; end
+  # (Not documented)
+  #
+  # = Fields:
+  # :data ::
+  #   (FFI::Pointer(*Void))
+  # :height ::
+  #   (Integer)
+  # :vtable ::
+  #   (FFI::Pointer(*ALLEGROFONTVTABLE))
+  class ALLEGROFONT < FFI::Struct
+    layout :data, :pointer,
+           :height, :int,
+           :vtable, :pointer
+  end
+
+  # (Not documented)
+  #
+  # = Fields:
+  # :font_height ::
+  #   (FFI::Pointer(*))
+  # :font_ascent ::
+  #   (FFI::Pointer(*))
+  # :font_descent ::
+  #   (FFI::Pointer(*))
+  # :char_length ::
+  #   (FFI::Pointer(*))
+  # :text_length ::
+  #   (FFI::Pointer(*))
+  # :render_char ::
+  #   (FFI::Pointer(*))
+  # :render ::
+  #   (FFI::Pointer(*))
+  # :destroy ::
+  #   (FFI::Pointer(*))
+  # :get_text_dimensions ::
+  #   (FFI::Pointer(*))
+  class ALLEGROFONTVTABLE < FFI::Struct
+    layout :font_height, :pointer,
+           :font_ascent, :pointer,
+           :font_descent, :pointer,
+           :char_length, :pointer,
+           :text_length, :pointer,
+           :render_char, :pointer,
+           :render, :pointer,
+           :destroy, :pointer,
+           :get_text_dimensions, :pointer
+  end
+
+  # (Not documented)
+  #
+  # @method al_register_font_loader(ext, load)
+  # @param [String] ext
+  # @param [FFI::Pointer(*)] load
+  # @return [Boolean]
+  # @scope class
+  attach_function :al_register_font_loader, :al_register_font_loader, [:string, :pointer], :bool
+
+  # (Not documented)
+  #
+  # @method al_load_bitmap_font(filename)
+  # @param [String] filename
+  # @return [ALLEGROFONT]
+  # @scope class
+  attach_function :al_load_bitmap_font, :al_load_bitmap_font, [:string], ALLEGROFONT
+
+  # (Not documented)
+  #
+  # @method al_load_font(filename, size, flags)
+  # @param [String] filename
+  # @param [Integer] size
+  # @param [Integer] flags
+  # @return [ALLEGROFONT]
+  # @scope class
+  attach_function :al_load_font, :al_load_font, [:string, :int, :int], ALLEGROFONT
+
+  # (Not documented)
+  #
+  # @method al_grab_font_from_bitmap(bmp, n, ranges)
+  # @param [ALLEGROBITMAP] bmp
+  # @param [Integer] n
+  # @param [FFI::Pointer(*Int)] ranges
+  # @return [ALLEGROFONT]
+  # @scope class
+  attach_function :al_grab_font_from_bitmap, :al_grab_font_from_bitmap, [ALLEGROBITMAP, :int, :pointer], ALLEGROFONT
+
+  # (Not documented)
+  #
+  # @method al_create_builtin_font()
+  # @return [ALLEGROFONT]
+  # @scope class
+  attach_function :al_create_builtin_font, :al_create_builtin_font, [], ALLEGROFONT
+
+  # (Not documented)
+  #
+  # @method al_draw_ustr(font, color, x, y, flags, ustr)
+  # @param [ALLEGROFONT] font
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] x
+  # @param [Float] y
+  # @param [Integer] flags
+  # @param [AlTagbstring] ustr
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_ustr, :al_draw_ustr, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :int, AlTagbstring], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_text(font, color, x, y, flags, text)
+  # @param [ALLEGROFONT] font
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] x
+  # @param [Float] y
+  # @param [Integer] flags
+  # @param [String] text
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_text, :al_draw_text, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :int, :string], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_justified_text(font, color, x1, x2, y, diff, flags, text)
+  # @param [ALLEGROFONT] font
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] x1
+  # @param [Float] x2
+  # @param [Float] y
+  # @param [Float] diff
+  # @param [Integer] flags
+  # @param [String] text
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_justified_text, :al_draw_justified_text, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :int, :string], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_justified_ustr(font, color, x1, x2, y, diff, flags, text)
+  # @param [ALLEGROFONT] font
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] x1
+  # @param [Float] x2
+  # @param [Float] y
+  # @param [Float] diff
+  # @param [Integer] flags
+  # @param [AlTagbstring] text
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_justified_ustr, :al_draw_justified_ustr, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :int, AlTagbstring], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_textf(font, color, x, y, flags, format)
+  # @param [ALLEGROFONT] font
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] x
+  # @param [Float] y
+  # @param [Integer] flags
+  # @param [String] format
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_textf, :al_draw_textf, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :int, :string], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_justified_textf(font, color, x1, x2, y, diff, flags, format)
+  # @param [ALLEGROFONT] font
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] x1
+  # @param [Float] x2
+  # @param [Float] y
+  # @param [Float] diff
+  # @param [Integer] flags
+  # @param [String] format
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_justified_textf, :al_draw_justified_textf, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :int, :string], :void
+
+  # (Not documented)
+  #
+  # @method al_get_text_width(f, str)
+  # @param [ALLEGROFONT] f
+  # @param [String] str
+  # @return [Integer]
+  # @scope class
+  attach_function :al_get_text_width, :al_get_text_width, [ALLEGROFONT, :string], :int
+
+  # (Not documented)
+  #
+  # @method al_get_ustr_width(f, ustr)
+  # @param [ALLEGROFONT] f
+  # @param [AlTagbstring] ustr
+  # @return [Integer]
+  # @scope class
+  attach_function :al_get_ustr_width, :al_get_ustr_width, [ALLEGROFONT, AlTagbstring], :int
+
+  # (Not documented)
+  #
+  # @method al_get_font_line_height(f)
+  # @param [ALLEGROFONT] f
+  # @return [Integer]
+  # @scope class
+  attach_function :al_get_font_line_height, :al_get_font_line_height, [ALLEGROFONT], :int
+
+  # (Not documented)
+  #
+  # @method al_get_font_ascent(f)
+  # @param [ALLEGROFONT] f
+  # @return [Integer]
+  # @scope class
+  attach_function :al_get_font_ascent, :al_get_font_ascent, [ALLEGROFONT], :int
+
+  # (Not documented)
+  #
+  # @method al_get_font_descent(f)
+  # @param [ALLEGROFONT] f
+  # @return [Integer]
+  # @scope class
+  attach_function :al_get_font_descent, :al_get_font_descent, [ALLEGROFONT], :int
+
+  # (Not documented)
+  #
+  # @method al_destroy_font(f)
+  # @param [ALLEGROFONT] f
+  # @return [nil]
+  # @scope class
+  attach_function :al_destroy_font, :al_destroy_font, [ALLEGROFONT], :void
+
+  # (Not documented)
+  #
+  # @method al_get_ustr_dimensions(f, text, bbx, bby, bbw, bbh)
+  # @param [ALLEGROFONT] f
+  # @param [AlTagbstring] text
+  # @param [FFI::Pointer(*Int)] bbx
+  # @param [FFI::Pointer(*Int)] bby
+  # @param [FFI::Pointer(*Int)] bbw
+  # @param [FFI::Pointer(*Int)] bbh
+  # @return [nil]
+  # @scope class
+  attach_function :al_get_ustr_dimensions, :al_get_ustr_dimensions, [ALLEGROFONT, AlTagbstring, :pointer, :pointer, :pointer, :pointer], :void
+
+  # (Not documented)
+  #
+  # @method al_get_text_dimensions(f, text, bbx, bby, bbw, bbh)
+  # @param [ALLEGROFONT] f
+  # @param [String] text
+  # @param [FFI::Pointer(*Int)] bbx
+  # @param [FFI::Pointer(*Int)] bby
+  # @param [FFI::Pointer(*Int)] bbw
+  # @param [FFI::Pointer(*Int)] bbh
+  # @return [nil]
+  # @scope class
+  attach_function :al_get_text_dimensions, :al_get_text_dimensions, [ALLEGROFONT, :string, :pointer, :pointer, :pointer, :pointer], :void
+
+  # (Not documented)
+  #
+  # @method al_init_font_addon()
+  # @return [nil]
+  # @scope class
+  attach_function :al_init_font_addon, :al_init_font_addon, [], :void
+
+  # (Not documented)
+  #
+  # @method al_shutdown_font_addon()
+  # @return [nil]
+  # @scope class
+  attach_function :al_shutdown_font_addon, :al_shutdown_font_addon, [], :void
+
+  # (Not documented)
+  #
+  # @method al_get_allegro_font_version()
+  # @return [Integer]
+  # @scope class
+  attach_function :al_get_allegro_font_version, :al_get_allegro_font_version, [], :uint
+
+  # (Not documented)
+  #
+  # @method al_init_image_addon()
+  # @return [Boolean]
+  # @scope class
+  attach_function :al_init_image_addon, :al_init_image_addon, [], :bool
+
+  # (Not documented)
+  #
+  # @method al_shutdown_image_addon()
+  # @return [nil]
+  # @scope class
+  attach_function :al_shutdown_image_addon, :al_shutdown_image_addon, [], :void
+
+  # (Not documented)
+  #
+  # @method al_get_allegro_image_version()
+  # @return [Integer]
+  # @scope class
+  attach_function :al_get_allegro_image_version, :al_get_allegro_image_version, [], :uint
+
+  # (Not documented)
+  #
+  # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_prim_type).</em>
+  #
+  # === Options:
+  # :line_list ::
+  #
+  # :line_strip ::
+  #
+  # :line_loop ::
+  #
+  # :triangle_list ::
+  #
+  # :triangle_strip ::
+  #
+  # :triangle_fan ::
+  #
+  # :point_list ::
+  #
+  # :num_types ::
+  #
+  #
+  # @method _enum_allegro_prim_type_
+  # @return [Symbol]
+  # @scope class
+  enum :allegro_prim_type, [
+    :line_list, 0,
+    :line_strip, 1,
+    :line_loop, 2,
+    :triangle_list, 3,
+    :triangle_strip, 4,
+    :triangle_fan, 5,
+    :point_list, 6,
+    :num_types, 7
+  ]
+
+  # Enum: ALLEGRO_PRIM_ATTR
+  #
+  # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_prim_attr).</em>
+  #
+  # === Options:
+  # :position ::
+  #
+  # :color_attr ::
+  #
+  # :tex_coord ::
+  #
+  # :tex_coord_pixel ::
+  #
+  # :attr_num ::
+  #
+  #
+  # @method _enum_allegro_prim_attr_
+  # @return [Symbol]
+  # @scope class
+  enum :allegro_prim_attr, [
+    :position, 1,
+    :color_attr, 2,
+    :tex_coord, 3,
+    :tex_coord_pixel, 4,
+    :attr_num, 5
+  ]
+
+  # Enum: ALLEGRO_PRIM_STORAGE
+  #
+  # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_prim_storage).</em>
+  #
+  # === Options:
+  # :float_2 ::
+  #
+  # :float_3 ::
+  #
+  # :short_2 ::
+  #
+  #
+  # @method _enum_allegro_prim_storage_
+  # @return [Symbol]
+  # @scope class
+  enum :allegro_prim_storage, [
+    :float_2, 0,
+    :float_3, 1,
+    :short_2, 2
+  ]
+
+  # Type: ALLEGRO_VERTEX_ELEMENT
+  #
+  # = Fields:
+  # :attribute ::
+  #   (Integer)
+  # :storage ::
+  #   (Integer)
+  # :offset ::
+  #   (Integer)
+  class ALLEGROVERTEXELEMENT < FFI::Struct
+    layout :attribute, :int,
+           :storage, :int,
+           :offset, :int
+  end
+
+  # Type: ALLEGRO_VERTEX_DECL
+  class ALLEGROVERTEXDECL < FFI::Struct
+    layout :dummy, :char
+  end
+
+  # Type: ALLEGRO_VERTEX
+  #
+  # = Fields:
+  # :x ::
+  #   (Float)
+  # :y ::
+  #   (Float)
+  # :z ::
+  #   (Float)
+  # :u ::
+  #   (Float)
+  # :v ::
+  #   (Float)
+  # :color ::
+  #   (ALLEGROCOLOR)
+  class ALLEGROVERTEX < FFI::Struct
+    layout :x, :float,
+           :y, :float,
+           :z, :float,
+           :u, :float,
+           :v, :float,
+           :color, ALLEGROCOLOR.by_value
+  end
+
+  # (Not documented)
+  #
+  # @method al_get_allegro_primitives_version()
+  # @return [Integer]
+  # @scope class
+  attach_function :al_get_allegro_primitives_version, :al_get_allegro_primitives_version, [], :uint
+
+  # Primary Functions
+  #
+  # @method al_init_primitives_addon()
+  # @return [Boolean]
+  # @scope class
+  attach_function :al_init_primitives_addon, :al_init_primitives_addon, [], :bool
+
+  # (Not documented)
+  #
+  # @method al_shutdown_primitives_addon()
+  # @return [nil]
+  # @scope class
+  attach_function :al_shutdown_primitives_addon, :al_shutdown_primitives_addon, [], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_prim(vtxs, decl, texture, start, end_, type)
+  # @param [FFI::Pointer(*Void)] vtxs
+  # @param [ALLEGROVERTEXDECL] decl
+  # @param [ALLEGROBITMAP] texture
+  # @param [Integer] start
+  # @param [Integer] end_
+  # @param [Integer] type
+  # @return [Integer]
+  # @scope class
+  attach_function :al_draw_prim, :al_draw_prim, [:pointer, ALLEGROVERTEXDECL, ALLEGROBITMAP, :int, :int, :int], :int
+
+  # (Not documented)
+  #
+  # @method al_draw_indexed_prim(vtxs, decl, texture, indices, num_vtx, type)
+  # @param [FFI::Pointer(*Void)] vtxs
+  # @param [ALLEGROVERTEXDECL] decl
+  # @param [ALLEGROBITMAP] texture
+  # @param [FFI::Pointer(*Int)] indices
+  # @param [Integer] num_vtx
+  # @param [Integer] type
+  # @return [Integer]
+  # @scope class
+  attach_function :al_draw_indexed_prim, :al_draw_indexed_prim, [:pointer, ALLEGROVERTEXDECL, ALLEGROBITMAP, :pointer, :int, :int], :int
+
+  # (Not documented)
+  #
+  # @method al_create_vertex_decl(elements, stride)
+  # @param [ALLEGROVERTEXELEMENT] elements
+  # @param [Integer] stride
+  # @return [ALLEGROVERTEXDECL]
+  # @scope class
+  attach_function :al_create_vertex_decl, :al_create_vertex_decl, [ALLEGROVERTEXELEMENT, :int], ALLEGROVERTEXDECL
+
+  # (Not documented)
+  #
+  # @method al_destroy_vertex_decl(decl)
+  # @param [ALLEGROVERTEXDECL] decl
+  # @return [nil]
+  # @scope class
+  attach_function :al_destroy_vertex_decl, :al_destroy_vertex_decl, [ALLEGROVERTEXDECL], :void
+
+  # Custom primitives
+  #
+  # @method al_draw_soft_triangle(v1, v2, v3, state, init, first, step, draw)
+  # @param [ALLEGROVERTEX] v1
+  # @param [ALLEGROVERTEX] v2
+  # @param [ALLEGROVERTEX] v3
+  # @param [Integer] state
+  # @param [FFI::Pointer(*)] init
+  # @param [FFI::Pointer(*)] first
+  # @param [FFI::Pointer(*)] step
+  # @param [FFI::Pointer(*)] draw
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_soft_triangle, :al_draw_soft_triangle, [ALLEGROVERTEX, ALLEGROVERTEX, ALLEGROVERTEX, :ulong, :pointer, :pointer, :pointer, :pointer], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_soft_line(v1, v2, state, first, step, draw)
+  # @param [ALLEGROVERTEX] v1
+  # @param [ALLEGROVERTEX] v2
+  # @param [Integer] state
+  # @param [FFI::Pointer(*)] first
+  # @param [FFI::Pointer(*)] step
+  # @param [FFI::Pointer(*)] draw
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_soft_line, :al_draw_soft_line, [ALLEGROVERTEX, ALLEGROVERTEX, :ulong, :pointer, :pointer, :pointer], :void
+
+  # High level primitives
+  #
+  # @method al_draw_line(x1, y1, x2, y2, color, thickness)
+  # @param [Float] x1
+  # @param [Float] y1
+  # @param [Float] x2
+  # @param [Float] y2
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_line, :al_draw_line, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_triangle(x1, y1, x2, y2, x3, y3, color, thickness)
+  # @param [Float] x1
+  # @param [Float] y1
+  # @param [Float] x2
+  # @param [Float] y2
+  # @param [Float] x3
+  # @param [Float] y3
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_triangle, :al_draw_triangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_rectangle(x1, y1, x2, y2, color, thickness)
+  # @param [Float] x1
+  # @param [Float] y1
+  # @param [Float] x2
+  # @param [Float] y2
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_rectangle, :al_draw_rectangle, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_rounded_rectangle(x1, y1, x2, y2, rx, ry, color, thickness)
+  # @param [Float] x1
+  # @param [Float] y1
+  # @param [Float] x2
+  # @param [Float] y2
+  # @param [Float] rx
+  # @param [Float] ry
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_rounded_rectangle, :al_draw_rounded_rectangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_calculate_arc(dest, stride, cx, cy, rx, ry, start_theta, delta_theta, thickness, num_points)
+  # @param [FFI::Pointer(*Float)] dest
+  # @param [Integer] stride
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] rx
+  # @param [Float] ry
+  # @param [Float] start_theta
+  # @param [Float] delta_theta
+  # @param [Float] thickness
+  # @param [Integer] num_points
+  # @return [nil]
+  # @scope class
+  attach_function :al_calculate_arc, :al_calculate_arc, [:pointer, :int, :float, :float, :float, :float, :float, :float, :float, :int], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_circle(cx, cy, r, color, thickness)
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] r
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_circle, :al_draw_circle, [:float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_ellipse(cx, cy, rx, ry, color, thickness)
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] rx
+  # @param [Float] ry
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_ellipse, :al_draw_ellipse, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_arc(cx, cy, r, start_theta, delta_theta, color, thickness)
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] r
+  # @param [Float] start_theta
+  # @param [Float] delta_theta
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_arc, :al_draw_arc, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_elliptical_arc(cx, cy, rx, ry, start_theta, delta_theta, color, thickness)
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] rx
+  # @param [Float] ry
+  # @param [Float] start_theta
+  # @param [Float] delta_theta
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_elliptical_arc, :al_draw_elliptical_arc, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_pieslice(cx, cy, r, start_theta, delta_theta, color, thickness)
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] r
+  # @param [Float] start_theta
+  # @param [Float] delta_theta
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_pieslice, :al_draw_pieslice, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_calculate_spline(dest, stride, points, thickness, num_segments)
+  # @param [FFI::Pointer(*Float)] dest
+  # @param [Integer] stride
+  # @param [Array<Float>] points
+  # @param [Float] thickness
+  # @param [Integer] num_segments
+  # @return [nil]
+  # @scope class
+  attach_function :al_calculate_spline, :al_calculate_spline, [:pointer, :int, :pointer, :float, :int], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_spline(points, color, thickness)
+  # @param [Array<Float>] points
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_spline, :al_draw_spline, [:pointer, ALLEGROCOLOR.by_value, :float], :void
+
+  # (Not documented)
+  #
+  # @method al_calculate_ribbon(dest, dest_stride, points, points_stride, thickness, num_segments)
+  # @param [FFI::Pointer(*Float)] dest
+  # @param [Integer] dest_stride
+  # @param [FFI::Pointer(*Float)] points
+  # @param [Integer] points_stride
+  # @param [Float] thickness
+  # @param [Integer] num_segments
+  # @return [nil]
+  # @scope class
+  attach_function :al_calculate_ribbon, :al_calculate_ribbon, [:pointer, :int, :pointer, :int, :float, :int], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_ribbon(points, points_stride, color, thickness, num_segments)
+  # @param [FFI::Pointer(*Float)] points
+  # @param [Integer] points_stride
+  # @param [ALLEGROCOLOR] color
+  # @param [Float] thickness
+  # @param [Integer] num_segments
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_ribbon, :al_draw_ribbon, [:pointer, :int, ALLEGROCOLOR.by_value, :float, :int], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_filled_triangle(x1, y1, x2, y2, x3, y3, color)
+  # @param [Float] x1
+  # @param [Float] y1
+  # @param [Float] x2
+  # @param [Float] y2
+  # @param [Float] x3
+  # @param [Float] y3
+  # @param [ALLEGROCOLOR] color
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_filled_triangle, :al_draw_filled_triangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_filled_rectangle(x1, y1, x2, y2, color)
+  # @param [Float] x1
+  # @param [Float] y1
+  # @param [Float] x2
+  # @param [Float] y2
+  # @param [ALLEGROCOLOR] color
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_filled_rectangle, :al_draw_filled_rectangle, [:float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_filled_ellipse(cx, cy, rx, ry, color)
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] rx
+  # @param [Float] ry
+  # @param [ALLEGROCOLOR] color
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_filled_ellipse, :al_draw_filled_ellipse, [:float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_filled_circle(cx, cy, r, color)
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] r
+  # @param [ALLEGROCOLOR] color
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_filled_circle, :al_draw_filled_circle, [:float, :float, :float, ALLEGROCOLOR.by_value], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_filled_pieslice(cx, cy, r, start_theta, delta_theta, color)
+  # @param [Float] cx
+  # @param [Float] cy
+  # @param [Float] r
+  # @param [Float] start_theta
+  # @param [Float] delta_theta
+  # @param [ALLEGROCOLOR] color
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_filled_pieslice, :al_draw_filled_pieslice, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+
+  # (Not documented)
+  #
+  # @method al_draw_filled_rounded_rectangle(x1, y1, x2, y2, rx, ry, color)
+  # @param [Float] x1
+  # @param [Float] y1
+  # @param [Float] x2
+  # @param [Float] y2
+  # @param [Float] rx
+  # @param [Float] ry
+  # @param [ALLEGROCOLOR] color
+  # @return [nil]
+  # @scope class
+  attach_function :al_draw_filled_rounded_rectangle, :al_draw_filled_rounded_rectangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+
+end

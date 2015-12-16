@@ -5,12 +5,7 @@
 # speedup direct drawing can give over the slow locking.
 
 require 'allegro4r'
-
 include Allegro4r::API
-include Allegro4r::API::Font
-include Allegro4r::API::Image
-include Allegro4r::API::Primitives
-
 require_relative "common"
 
 W = 300 # Size of target bitmap.

@@ -4,7 +4,7 @@ require 'allegro4r'
 
 if ENV["ALLEGRO_POPUP_EXAMPLES"]
 
-  include Allegro4r::API::NativeDialog
+  include Allegro4r::API
 
   $textlog = nil
 

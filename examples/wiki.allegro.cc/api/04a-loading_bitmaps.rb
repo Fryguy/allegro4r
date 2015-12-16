@@ -1,8 +1,6 @@
 # https://wiki.allegro.cc/index.php?title=Basic_tutorial_on_loading_and_showing_images
 require 'allegro4r'
 include Allegro4r::API
-include Allegro4r::API::Image
-include Allegro4r::API::NativeDialog
 
 def main
   unless al_init

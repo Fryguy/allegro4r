@@ -1,9 +1,7 @@
 # Ruby port of ex_bitmap.c from the Allegro examples.
 
 require 'allegro4r'
-
 include Allegro4r::API
-include Allegro4r::API::Image
 
 require_relative "common"
 

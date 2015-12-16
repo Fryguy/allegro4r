@@ -1,10 +1,7 @@
 # Ruby port of ex_draw_bitmap.c from the Allegro examples.
 
 require 'allegro4r'
-
 include Allegro4r::API
-include Allegro4r::API::Image
-include Allegro4r::API::Font
 
 require_relative 'common'
 

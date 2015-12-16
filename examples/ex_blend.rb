@@ -3,11 +3,7 @@
 # An example demonstrating different blending modes.
 
 require 'allegro4r'
-
 include Allegro4r::API
-include Allegro4r::API::Font
-include Allegro4r::API::Image
-include Allegro4r::API::Primitives
 
 require_relative "common"
 

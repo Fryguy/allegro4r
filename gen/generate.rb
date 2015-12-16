@@ -1,106 +1,100 @@
 #!/usr/bin/env ruby
 
-require 'fileutils'
 require 'ffi_gen'
-require 'active_support/core_ext/string'
 
-module Allegro4r
-  class Generator
-    DEST_DIR = File.expand_path("../lib/allegro4r", __dir__)
+output = File.expand_path("../lib/allegro4r/api.rb", __dir__)
 
-    def self.generate(library_name, namespace, headers)
-      puts "=== Generating #{namespace} ==="
+FFIGen.generate(
+  module_name:   "Allegro4r::API",
+  output:        output,
+  cflags:        `llvm-config --cflags`.split(" "),
+  ffi_lib_flags: [:now],
+  ffi_lib: %w(
+    allegro
+    allegro_font
+    allegro_image
+    allegro_dialog
+    allegro_primitives
+  ),
+  headers: %w(
+    allegro5/allegro.h
+    allegro5/base.h
+    allegro5/altime.h
+    allegro5/bitmap.h
+    allegro5/bitmap_draw.h
+    allegro5/bitmap_io.h
+    allegro5/bitmap_lock.h
+    allegro5/blender.h
+    allegro5/color.h
+    allegro5/config.h
+    allegro5/debug.h
+    allegro5/display.h
+    allegro5/drawing.h
+    allegro5/error.h
+    allegro5/events.h
+    allegro5/file.h
+    allegro5/fixed.h
+    allegro5/fmaths.h
+    allegro5/fshook.h
+    allegro5/fullscreen_mode.h
+    allegro5/joystick.h
+    allegro5/keyboard.h
+    allegro5/memory.h
+    allegro5/monitor.h
+    allegro5/mouse.h
+    allegro5/mouse_cursor.h
+    allegro5/path.h
+    allegro5/system.h
+    allegro5/threads.h
+    allegro5/timer.h
+    allegro5/tls.h
+    allegro5/transformations.h
+    allegro5/utf8.h
+    allegro5/keycodes.h
 
-      module_name = "Allegro4r::#{namespace}"
-      output = File.join(DEST_DIR, "#{namespace.underscore}.rb")
+    allegro5/allegro_font.h
+    allegro5/allegro_image.h
+    allegro5/allegro_dialog.h
+    allegro5/allegro_primitives.h
+  )
+)
 
-      FileUtils.mkdir_p(File.dirname(output))
+puts "Cleaning up #{output}"
+contents = File.read(output)
 
-      FFIGen.generate(
-        module_name:   module_name,
-        ffi_lib_flags: [:now],
-        ffi_lib:       library_name,
-        cflags:        `llvm-config --cflags`.split(" "),
-        headers:       headers.map { |h| "allegro5/#{h}.h" },
-        output:        output,
-      )
+# Remove trailing whitespace
+contents = contents.lines.map(&:rstrip).join("\n")
 
-      puts "Cleaning up #{output}"
-      contents = File.read(output)
+# Fix issue where ffi_lib is given an Array instead of multiple params
+contents.sub!(/ffi_lib \[(.+?)\]/, 'ffi_lib \1')
 
-      # Remove trailing whitespace
-      contents = contents.lines.map(&:rstrip).join("\n")
+# Fix contents based on syntax and calling errors with ffi_gen
+contents.gsub!("[:char, 1]", ":pointer")
+contents.gsub!("[:float, 8]", ":pointer")
+contents.gsub!(":pointer.by_value", ":pointer")
 
-      # Adjust module nesting to appease Ruby const lookup
-      nested_modules = module_name.split("::")
-      nested_module_names = nested_modules.map { |m| "module #{m}" }.join("; ")
-      nested_module_ends = (["end"] * nested_modules.length).join("; ")
-      contents.sub!("module #{module_name}", nested_module_names)
-      contents.sub!(/end\z/, nested_module_ends)
+# Fix issues with Unions with nested structures...they need to be by_ref
+contents.sub!(/class ALLEGROANYEVENT.+?:source, ALLEGROEVENTSOURCE/m,   '\0.by_ref')
+contents.sub!(/class ALLEGROJOYSTICKEVENT.+?:source, ALLEGROJOYSTICK/m, '\0.by_ref')
+contents.sub!(/class ALLEGROJOYSTICKEVENT.+?:id, ALLEGROJOYSTICK/m,     '\0.by_ref')
+contents.sub!(/class ALLEGROKEYBOARDEVENT.+?:source, ALLEGROKEYBOARD/m, '\0.by_ref')
+contents.sub!(/class ALLEGROMOUSEEVENT.+?:source, ALLEGROMOUSE/m,       '\0.by_ref')
+contents.sub!(/class ALLEGROTIMEREVENT.+?:source, ALLEGROTIMER/m,       '\0.by_ref')
+contents.sub!(/class ALLEGROUSEREVENT.+?:source, ALLEGROEVENTSOURCE/m,  '\0.by_ref')
+contents.sub!(/class ALLEGROUSEREVENT.+?:source, ALLEGROUSEREVENTDESCRIPTOR/m, '\0.by_ref')
 
-      yield(contents) if block_given?
+# Fix issues with return pointers not marked as such
+contents.sub!(/(attach_function :al_lock_bitmap.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
+contents.sub!(/(attach_function :al_lock_bitmap_region.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
 
-      # Write out the modified contents
-      puts "Writing #{output}"
-      File.write(output, contents)
+# Fix issues with return enums not marked as such
+contents.sub!(/(attach_function :al_get_display_format.+), :int$/, '\1, :allegro_pixel_format')
 
-      puts
-    end
-  end
-end
+# Directly adjust specific calls that otherwise can't be fixed in api_ext.rb
+contents.sub!(/(attach_function :al_run_main.+)$/, '\1, :blocking => true')
 
-Allegro4r::Generator.generate("allegro", "API", %w(
-  allegro base altime bitmap bitmap_draw bitmap_io bitmap_lock blender color
-  config debug display drawing error events file fixed fmaths fshook
-  fullscreen_mode joystick keyboard memory monitor mouse mouse_cursor path
-  system threads timer tls transformations utf8 keycodes
-)) do |contents|
-  # Fix contents based on syntax and calling errors with ffi_gen
-  contents.gsub!("[:char, 1]", ":pointer")
-  contents.gsub!(":pointer.by_value", ":pointer")
+# Write out the modified contents
+puts "Writing #{output}"
+File.write(output, contents)
 
-  # Fix issues with Unions with nested structures...they need to be by_ref
-  contents.sub!(/class ALLEGROANYEVENT.+?:source, ALLEGROEVENTSOURCE/m,   '\0.by_ref')
-  contents.sub!(/class ALLEGROJOYSTICKEVENT.+?:source, ALLEGROJOYSTICK/m, '\0.by_ref')
-  contents.sub!(/class ALLEGROJOYSTICKEVENT.+?:id, ALLEGROJOYSTICK/m,     '\0.by_ref')
-  contents.sub!(/class ALLEGROKEYBOARDEVENT.+?:source, ALLEGROKEYBOARD/m, '\0.by_ref')
-  contents.sub!(/class ALLEGROMOUSEEVENT.+?:source, ALLEGROMOUSE/m,       '\0.by_ref')
-  contents.sub!(/class ALLEGROTIMEREVENT.+?:source, ALLEGROTIMER/m,       '\0.by_ref')
-  contents.sub!(/class ALLEGROUSEREVENT.+?:source, ALLEGROEVENTSOURCE/m,  '\0.by_ref')
-  contents.sub!(/class ALLEGROUSEREVENT.+?:source, ALLEGROUSEREVENTDESCRIPTOR/m, '\0.by_ref')
-
-  # Fix issues with return pointers not marked as such
-  contents.sub!(/(attach_function :al_lock_bitmap.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
-  contents.sub!(/(attach_function :al_lock_bitmap_region.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
-
-  # Fix issues with return enums not marked as such
-  contents.gsub!(/(attach_function :al_get_display_format.+), :int$/, '\1, :allegro_pixel_format')
-
-  # Directly adjust specific calls that otherwise can't be fixed in api_ext.rb
-  contents.gsub!(/(attach_function :al_run_main.+)$/, '\1, :blocking => true')
-end
-
-Allegro4r::Generator.generate("allegro_font", "API::Font", %w(
-  allegro color allegro_font
-)) do |contents|
-  # Remove duplicate definitions for color
-  contents.sub!(/(^\s+#.+?\n)+\s+class ALLEGROCOLOR.+attach_function :al_get_pixel_format_bits.+?\n/m, "")
-end
-
-Allegro4r::Generator.generate("allegro_image", "API::Image", %w(
-  allegro allegro_image
-))
-
-Allegro4r::Generator.generate("allegro_dialog", "API::NativeDialog", %w(
-  allegro allegro_native_dialog
-))
-
-Allegro4r::Generator.generate("allegro_primitives", "API::Primitives", %w(
-  allegro color allegro_primitives
-)) do |contents|
-  # Remove duplicate definitions for color
-  contents.sub!(/(^\s+#.+?\n)+\s+class ALLEGROCOLOR.+attach_function :al_get_pixel_format_bits.+?\n/m, "")
-
-  # Fix contents based on syntax and calling errors with ffi_gen
-  contents.gsub!("[:float, 8]", ":pointer")
-end
+puts

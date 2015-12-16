@@ -1,9 +1,7 @@
 # Ruby port of ex_blend_test.c from the Allegro examples.
 
 require 'allegro4r'
-
 include Allegro4r::API
-include Allegro4r::API::Primitives
 
 require_relative "common"
 

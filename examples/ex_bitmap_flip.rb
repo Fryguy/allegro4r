@@ -3,10 +3,7 @@
 # An example showing bitmap flipping flags, by Steven Wallace.
 
 require 'allegro4r'
-
 include Allegro4r::API
-include Allegro4r::API::Image
-include Allegro4r::API::Font
 
 require_relative 'common'
 
