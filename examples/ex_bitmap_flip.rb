@@ -89,7 +89,7 @@ def main
 
   al_start_timer(timer)
 
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
 
   event = ALLEGROEVENT.new
   until done

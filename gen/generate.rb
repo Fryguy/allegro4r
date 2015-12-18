@@ -2,6 +2,12 @@
 
 require 'ffi_gen'
 
+class FFIGen::Enum
+  # Override the method to not shorten Enum names
+  def shorten_names
+  end
+end
+
 output = File.expand_path("../lib/allegro4r/api.rb", __dir__)
 
 FFIGen.generate(

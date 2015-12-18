@@ -63,12 +63,12 @@ def main(argc, argv)
     when ALLEGRO_EVENT_DISPLAY_ORIENTATION
       o = event[:display][:orientation]
       case o
-      when ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES   then log_printf("0 degrees\n")
-      when ALLEGRO_DISPLAY_ORIENTATION_90_DEGREES  then log_printf("90 degrees\n")
-      when ALLEGRO_DISPLAY_ORIENTATION_180_DEGREES then log_printf("180 degrees\n")
-      when ALLEGRO_DISPLAY_ORIENTATION_270_DEGREES then log_printf("270 degrees\n")
-      when ALLEGRO_DISPLAY_ORIENTATION_FACE_UP     then log_printf("Face up\n")
-      when ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN   then log_printf("Face down\n")
+      when :allegro_display_orientation_0_degrees   then log_printf("0 degrees\n")
+      when :allegro_display_orientation_90_degrees  then log_printf("90 degrees\n")
+      when :allegro_display_orientation_180_degrees then log_printf("180 degrees\n")
+      when :allegro_display_orientation_270_degrees then log_printf("270 degrees\n")
+      when :allegro_display_orientation_face_up     then log_printf("Face up\n")
+      when :allegro_display_orientation_face_down   then log_printf("Face down\n")
       end
     when ALLEGRO_EVENT_DISPLAY_CLOSE
       break

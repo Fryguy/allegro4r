@@ -248,35 +248,6 @@ module Allegro4r::API
   ALLEGRO_LOCK_READONLY   = 1
   ALLEGRO_LOCK_WRITEONLY  = 2
 
-  # NOTE: These have enum definitions with names, but ffi_gen is broken/weird
-  ALLEGRO_ZERO               = 0
-  ALLEGRO_ONE                = 1
-  ALLEGRO_ALPHA              = 2
-  ALLEGRO_INVERSE_ALPHA      = 3
-  ALLEGRO_SRC_COLOR          = 4
-  ALLEGRO_DEST_COLOR         = 5
-  ALLEGRO_INVERSE_SRC_COLOR  = 6
-  ALLEGRO_INVERSE_DEST_COLOR = 7
-  ALLEGRO_NUM_BLEND_MODES    = 8
-
-  ALLEGRO_ADD                = 0
-  ALLEGRO_SRC_MINUS_DEST     = 1
-  ALLEGRO_DEST_MINUS_SRC     = 2
-  ALLEGRO_NUM_BLEND_OPERATIONS = 3
-
-  ALLEGRO_STATE_NEW_DISPLAY_PARAMETERS = 0x0001
-  ALLEGRO_STATE_NEW_BITMAP_PARAMETERS  = 0x0002
-  ALLEGRO_STATE_DISPLAY                = 0x0004
-  ALLEGRO_STATE_TARGET_BITMAP          = 0x0008
-  ALLEGRO_STATE_BLENDER                = 0x0010
-  ALLEGRO_STATE_NEW_FILE_INTERFACE     = 0x0020
-  ALLEGRO_STATE_TRANSFORM              = 0x0040
-
-  ALLEGRO_STATE_BITMAP                 = ALLEGRO_STATE_TARGET_BITMAP +
-                                         ALLEGRO_STATE_NEW_BITMAP_PARAMETERS
-
-  ALLEGRO_STATE_ALL                    = 0xffff
-
   def self.run_main(real_main, *args)
     argc = 0
     argv = FFI::MemoryPointer.new(:pointer)

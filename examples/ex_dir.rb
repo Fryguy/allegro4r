@@ -16,12 +16,12 @@ def print_file(entry)
 
   log_printf("%-36s %s%s%s%s%s%s %8u %8u %8u %8u\n",
     name,
-    mode & Allegro4r::API.enum_value(:filemode_read) != 0 ? "r" : ".",
-    mode & Allegro4r::API.enum_value(:filemode_write) != 0 ? "w" : ".",
-    mode & Allegro4r::API.enum_value(:filemode_execute) != 0 ? "x" : ".",
-    mode & Allegro4r::API.enum_value(:filemode_hidden) != 0 ? "h" : ".",
-    mode & Allegro4r::API.enum_value(:filemode_isfile) != 0 ? "f" : ".",
-    mode & Allegro4r::API.enum_value(:filemode_isdir) != 0 ? "d" : ".",
+    mode & Allegro4r::API.enum_value(:allegro_filemode_read) != 0 ? "r" : ".",
+    mode & Allegro4r::API.enum_value(:allegro_filemode_write) != 0 ? "w" : ".",
+    mode & Allegro4r::API.enum_value(:allegro_filemode_execute) != 0 ? "x" : ".",
+    mode & Allegro4r::API.enum_value(:allegro_filemode_hidden) != 0 ? "h" : ".",
+    mode & Allegro4r::API.enum_value(:allegro_filemode_isfile) != 0 ? "f" : ".",
+    mode & Allegro4r::API.enum_value(:allegro_filemode_isdir) != 0 ? "d" : ".",
     now - ctime,
     now - mtime,
     now - atime,
@@ -31,7 +31,7 @@ end
 def print_entry(entry)
   print_file(entry)
 
-  if al_get_fs_entry_mode(entry) & Allegro4r::API.enum_value(:filemode_isdir) != 0
+  if al_get_fs_entry_mode(entry) & Allegro4r::API.enum_value(:allegro_filemode_isdir) != 0
     al_open_directory(entry)
     loop do
       next_dir = al_read_directory(entry)

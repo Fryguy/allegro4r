@@ -24,7 +24,7 @@ $queue = nil # Our events queue.
 def print(x, y, format, *args)
   message = format % args
 
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
 
   al_draw_text($myfont, al_map_rgb(0, 0, 0), x + 2, y + 2, 0, message)
   al_draw_text($myfont, al_map_rgb(255, 255, 255), x, y, 0, message)
@@ -38,7 +38,7 @@ def draw
   $last_time = t
 
   al_set_target_bitmap($target)
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA)
+  al_set_blender(:allegro_add, :allegro_alpha, :allegro_inverse_alpha)
 
   al_draw_filled_rectangle($x, $y, $x + RW, $y + RH, al_map_rgba_f(1, 0, 0, 1))
   al_draw_filled_rectangle(0, 0, W, H, al_map_rgba_f(1, 1, 0, 0.1))
@@ -63,7 +63,7 @@ def draw
   end
 
   al_set_target_backbuffer($display)
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
   al_clear_to_color(al_map_rgba_f(0, 0, 1, 1))
   xs = 1 + 0.2 * Math.sin(t * ALLEGRO_PI * 2)
   ys = 1 + 0.2 * Math.sin(t * ALLEGRO_PI * 2)

@@ -20,7 +20,7 @@ def test(src_col, dst_col, src_format, dst_format,
 
   al_set_new_bitmap_format(dst_format)
   al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP)
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
   dst_bmp = al_create_bitmap(1, 1)
   al_set_target_bitmap(dst_bmp)
   al_clear_to_color(dst_col)
@@ -30,14 +30,14 @@ def test(src_col, dst_col, src_format, dst_format,
     al_set_target_bitmap(src_bmp)
     al_clear_to_color(src_col)
     al_set_target_bitmap(dst_bmp)
-    al_set_separate_blender(ALLEGRO_ADD, src, dst, ALLEGRO_ADD, src_a, dst_a)
+    al_set_separate_blender(:allegro_add, src, dst, :allegro_add, src_a, dst_a)
     al_draw_bitmap(src_bmp, 0, 0, 0)
     al_destroy_bitmap(src_bmp)
   elsif operation == 1
-    al_set_separate_blender(ALLEGRO_ADD, src, dst, ALLEGRO_ADD, src_a, dst_a)
+    al_set_separate_blender(:allegro_add, src, dst, :allegro_add, src_a, dst_a)
     al_draw_pixel(0, 0, src_col)
   elsif operation == 2
-    al_set_separate_blender(ALLEGRO_ADD, src, dst, ALLEGRO_ADD, src_a, dst_a)
+    al_set_separate_blender(:allegro_add, src, dst, :allegro_add, src_a, dst_a)
     al_draw_line(0, 0, 1, 1, src_col, 0)
   end
 
@@ -46,7 +46,7 @@ def test(src_col, dst_col, src_format, dst_format,
   al_set_target_backbuffer($display)
 
   if $test_display
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
     al_draw_bitmap(dst_bmp, 0, 0, 0)
   end
 
@@ -61,12 +61,14 @@ def test(src_col, dst_col, src_format, dst_format,
   print_color(src_col)
   log_printf(" %s format=%d mode=%d alpha=%d\n",
     operation == 0 ? "bitmap" : operation == 1 ? "pixel" : "prim",
-    Allegro4r::API.enum_value(src_format), src, src_a)
+    Allegro4r::API.enum_value(src_format), Allegro4r::API.enum_value(src),
+    Allegro4r::API.enum_value(src_a))
 
   log_printf("destination: ")
   print_color(dst_col)
   log_printf(" format=%d mode=%d alpha=%d\n",
-    Allegro4r::API.enum_value(dst_format), dst, dst_a)
+    Allegro4r::API.enum_value(dst_format), Allegro4r::API.enum_value(dst),
+    Allegro4r::API.enum_value(dst_a))
 
   log_printf("result     : ")
   print_color(result)
@@ -88,17 +90,17 @@ end
 
 def get_factor(operation, alpha)
   case operation
-  when ALLEGRO_ZERO then return 0
-  when ALLEGRO_ONE then return 1
-  when ALLEGRO_ALPHA then return alpha
-  when ALLEGRO_INVERSE_ALPHA then return 1 - alpha
+  when :allegro_zero then return 0
+  when :allegro_one then return 1
+  when :allegro_alpha then return alpha
+  when :allegro_inverse_alpha then return 1 - alpha
   end
   0
 end
 
 def has_alpha(format)
-  return false if format == :pixel_format_rgb_888
-  return false if format == :pixel_format_bgr_888
+  return false if format == :allegro_pixel_format_rgb_888
+  return false if format == :allegro_pixel_format_bgr_888
   true
 end
 
@@ -189,10 +191,10 @@ def do_test2(src_col, dst_col, src_format, dst_format,
 end
 
 def do_test1(src_col, dst_col, src_format, dst_format)
-  smodes = [ALLEGRO_ALPHA, ALLEGRO_ZERO, ALLEGRO_ONE,
-    ALLEGRO_INVERSE_ALPHA]
-  dmodes = [ALLEGRO_INVERSE_ALPHA, ALLEGRO_ZERO, ALLEGRO_ONE,
-    ALLEGRO_ALPHA]
+  smodes = [:allegro_alpha, :allegro_zero, :allegro_one,
+    :allegro_inverse_alpha]
+  dmodes = [:allegro_inverse_alpha, :allegro_zero, :allegro_one,
+    :allegro_alpha]
   4.times do |i|
     4.times do |j|
       4.times do |k|
@@ -217,12 +219,12 @@ def main(argc, argv)
   src_colors = []
   dst_colors = []
   src_formats = [
-    :pixel_format_abgr_8888,
-    :pixel_format_bgr_888
+    :allegro_pixel_format_abgr_8888,
+    :allegro_pixel_format_bgr_888
   ]
   dst_formats = [
-    :pixel_format_abgr_8888,
-    :pixel_format_bgr_888
+    :allegro_pixel_format_abgr_8888,
+    :allegro_pixel_format_bgr_888
   ]
   src_colors[0] = c(0, 0, 0, 1)
   src_colors[1] = c(1, 1, 1, 1)

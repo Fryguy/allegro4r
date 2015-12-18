@@ -12,7 +12,7 @@ def clamp(x, y, z)
 end
 
 class SaveState
-  def initialize(save = ALLEGRO_STATE_ALL)
+  def initialize(save = :allegro_state_all)
     state = ALLEGROSTATE.new
     al_store_state(state, save)
     yield
@@ -349,7 +349,7 @@ class Label < Widget
     theme = dialog.get_theme
 
     SaveState.new do
-      al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+      al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
       if centred
         al_draw_text(theme.font, theme.fg, (x1 + x2 + 1) / 2,
           y1, ALLEGRO_ALIGN_CENTRE, text)
@@ -404,7 +404,7 @@ class Button < Widget
         x2, y2, bg)
       al_draw_rectangle(x1 + 0.5, y1 + 0.5,
         x2 - 0.5, y2 - 0.5, fg, 0)
-      al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+      al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
       al_draw_text(theme.font, fg, (x1 + x2 + 1) / 2,
         y1, ALLEGRO_ALIGN_CENTRE, text.c_str)
     end
@@ -479,7 +479,7 @@ class List < Widget
     SaveState.new do
       al_draw_filled_rectangle(x1 + 1, y1 + 1, x2 - 1, y2 - 1, theme.bg)
 
-      al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+      al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
       font_height = al_get_font_line_height(theme.font)
       items.each_with_index do |item, i|
         yi = y1 + i * font_height
@@ -699,7 +699,7 @@ class TextEntry < Widget
     SaveState.new do
       al_draw_filled_rectangle(x1, y1, x2, y2, theme.bg)
 
-      al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+      al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
 
       if !focused
         al_draw_ustr(theme.font, theme.fg, x1, y1, 0, UString.new(text, left_pos).ustr)

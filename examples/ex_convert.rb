@@ -23,7 +23,7 @@ def main(argc, argv)
 
     al_init_image_addon
 
-    al_set_new_bitmap_format(:pixel_format_argb_8888)
+    al_set_new_bitmap_format(:allegro_pixel_format_argb_8888)
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP |
       ALLEGRO_NO_PREMULTIPLIED_ALPHA)
 

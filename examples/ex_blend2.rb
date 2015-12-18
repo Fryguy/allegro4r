@@ -127,20 +127,20 @@ class Prog
   private
 
   def str_to_blend_mode(str)
-    return ALLEGRO_ZERO               if str == "ZERO"
-    return ALLEGRO_ONE                if str == "ONE"
-    return ALLEGRO_SRC_COLOR          if str == "SRC_COLOR"
-    return ALLEGRO_DEST_COLOR         if str == "DEST_COLOR"
-    return ALLEGRO_INVERSE_SRC_COLOR  if str == "INV_SRC_COLOR"
-    return ALLEGRO_INVERSE_DEST_COLOR if str == "INV_DEST_COLOR"
-    return ALLEGRO_ALPHA              if str == "ALPHA"
-    return ALLEGRO_INVERSE_ALPHA      if str == "INVERSE"
-    return ALLEGRO_ADD                if str == "ADD"
-    return ALLEGRO_SRC_MINUS_DEST     if str == "SRC_MINUS_DEST"
-    return ALLEGRO_DEST_MINUS_SRC     if str == "DEST_MINUS_SRC"
+    return :allegro_zero               if str == "ZERO"
+    return :allegro_one                if str == "ONE"
+    return :allegro_src_color          if str == "SRC_COLOR"
+    return :allegro_dest_color         if str == "DEST_COLOR"
+    return :allegro_inverse_src_color  if str == "INV_SRC_COLOR"
+    return :allegro_inverse_dest_color if str == "INV_DEST_COLOR"
+    return :allegro_alpha              if str == "ALPHA"
+    return :allegro_inverse_alpha      if str == "INVERSE"
+    return :allegro_add                if str == "ADD"
+    return :allegro_src_minus_dest     if str == "SRC_MINUS_DEST"
+    return :allegro_dest_minus_src     if str == "DEST_MINUS_SRC"
 
     ALLEGRO_ASSERT(false)
-    ALLEGRO_ONE
+    :allegro_one
   end
 
   def draw_background(x, y)
@@ -230,7 +230,7 @@ class Prog
 
     # Initialize with destination.
     al_clear_to_color(transparency) # Just in case.
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
     draw_bitmap(destination_image.get_selected_item_text,
       "original", memory, true)
 
@@ -242,7 +242,8 @@ class Prog
 
   def draw_samples
     state = ALLEGROSTATE.new
-    al_store_state(state, ALLEGRO_STATE_TARGET_BITMAP | ALLEGRO_STATE_BLENDER)
+    al_store_state(state, Allegro4r::API.enum_value(:allegro_state_target_bitmap) |
+      Allegro4r::API.enum_value(:allegro_state_blender))
 
     # Draw a background, in case our target bitmap will end up with
     # alpha in it.
@@ -259,7 +260,7 @@ class Prog
 
     # Display results.
     al_restore_state(state)
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
     al_draw_bitmap($target, 40, 20, 0)
     al_draw_bitmap($target_bmp, 400, 20, 0)
 

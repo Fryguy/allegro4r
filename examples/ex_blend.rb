@@ -31,7 +31,7 @@ $ex = Example.new
 def print(x, y, vertical, format, *args)
   message = format % args
 
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
   h = al_get_font_line_height($ex.myfont)
 
   2.times do |j|
@@ -59,7 +59,7 @@ end
 # Create an example bitmap.
 def create_example_bitmap
   bitmap = al_create_bitmap(100, 100)
-  locked = al_lock_bitmap(bitmap, :pixel_format_abgr_8888, ALLEGRO_LOCK_WRITEONLY)
+  locked = al_lock_bitmap(bitmap, :allegro_pixel_format_abgr_8888, ALLEGRO_LOCK_WRITEONLY)
   data = locked[:data]
 
   100.times do |j|
@@ -88,8 +88,8 @@ def draw
 
   blend_names = %w(ZERO ONE ALPHA INVERSE)
   blend_vnames = %w(ZERO ONE ALPHA INVER)
-  blend_modes = [ALLEGRO_ZERO, ALLEGRO_ONE, ALLEGRO_ALPHA,
-    ALLEGRO_INVERSE_ALPHA]
+  blend_modes = [:allegro_zero, :allegro_one, :allegro_alpha,
+    :allegro_inverse_alpha]
   x = 40.0
   y = 40.0
 
@@ -108,7 +108,7 @@ def draw
     print(20, y + i * 110, true, blend_vnames[i])
   end
 
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
   if $ex.mode >= 1 && $ex.mode <= 5
     al_set_target_bitmap($ex.offscreen)
     al_clear_to_color(test[$ex.mode - 1])
@@ -120,7 +120,7 @@ def draw
 
   4.times do |j|
     4.times do |i|
-      al_set_blender(ALLEGRO_ADD, blend_modes[j], blend_modes[i])
+      al_set_blender(:allegro_add, blend_modes[j], blend_modes[i])
       if $ex.image == 0
         al_draw_bitmap($ex.example, x + i * 110, y + j * 110, 0)
       elsif $ex.image >= 1 && $ex.image <= 6
@@ -132,12 +132,12 @@ def draw
   end
 
   if $ex.mode >= 1 && $ex.mode <= 5
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
     al_set_target_bitmap(target)
     al_draw_bitmap_region($ex.offscreen, x, y, 430, 430, x, y, 0)
   end
   if $ex.mode >= 6 && $ex.mode <= 10
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
     al_set_target_bitmap(target)
     al_draw_bitmap_region($ex.memory, x, y, 430, 430, x, y, 0)
   end

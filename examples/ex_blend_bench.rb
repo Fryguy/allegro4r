@@ -65,13 +65,13 @@ def do_test(mode)
   end
 
   al_set_target_bitmap(b1)
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
   step(mode, b2)
 
   # Display the blended bitmap to the screen so we can see something.
-  al_store_state(state, ALLEGRO_STATE_ALL)
+  al_store_state(state, :allegro_state_all)
   al_set_target_backbuffer($display)
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
   al_draw_bitmap(b1, 0, 0, 0)
   al_flip_display
   al_restore_state(state)

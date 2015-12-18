@@ -143,95 +143,95 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_pixel_format).</em>
   #
   # === Options:
-  # :pixel_format_any ::
+  # :allegro_pixel_format_any ::
   #
-  # :pixel_format_any_no_alpha ::
+  # :allegro_pixel_format_any_no_alpha ::
   #
-  # :pixel_format_any_with_alpha ::
+  # :allegro_pixel_format_any_with_alpha ::
   #
-  # :pixel_format_any_15_no_alpha ::
+  # :allegro_pixel_format_any_15_no_alpha ::
   #
-  # :pixel_format_any_16_no_alpha ::
+  # :allegro_pixel_format_any_16_no_alpha ::
   #
-  # :pixel_format_any_16_with_alpha ::
+  # :allegro_pixel_format_any_16_with_alpha ::
   #
-  # :pixel_format_any_24_no_alpha ::
+  # :allegro_pixel_format_any_24_no_alpha ::
   #
-  # :pixel_format_any_32_no_alpha ::
+  # :allegro_pixel_format_any_32_no_alpha ::
   #
-  # :pixel_format_any_32_with_alpha ::
+  # :allegro_pixel_format_any_32_with_alpha ::
   #
-  # :pixel_format_argb_8888 ::
+  # :allegro_pixel_format_argb_8888 ::
   #
-  # :pixel_format_rgba_8888 ::
+  # :allegro_pixel_format_rgba_8888 ::
   #
-  # :pixel_format_argb_4444 ::
+  # :allegro_pixel_format_argb_4444 ::
   #
-  # :pixel_format_rgb_888 ::
+  # :allegro_pixel_format_rgb_888 ::
   #
-  # :pixel_format_rgb_565 ::
+  # :allegro_pixel_format_rgb_565 ::
   #   24 bit format
-  # :pixel_format_rgb_555 ::
+  # :allegro_pixel_format_rgb_555 ::
   #
-  # :pixel_format_rgba_5551 ::
+  # :allegro_pixel_format_rgba_5551 ::
   #
-  # :pixel_format_argb_1555 ::
+  # :allegro_pixel_format_argb_1555 ::
   #
-  # :pixel_format_abgr_8888 ::
+  # :allegro_pixel_format_abgr_8888 ::
   #
-  # :pixel_format_xbgr_8888 ::
+  # :allegro_pixel_format_xbgr_8888 ::
   #
-  # :pixel_format_bgr_888 ::
+  # :allegro_pixel_format_bgr_888 ::
   #
-  # :pixel_format_bgr_565 ::
+  # :allegro_pixel_format_bgr_565 ::
   #   24 bit format
-  # :pixel_format_bgr_555 ::
+  # :allegro_pixel_format_bgr_555 ::
   #
-  # :pixel_format_rgbx_8888 ::
+  # :allegro_pixel_format_rgbx_8888 ::
   #
-  # :pixel_format_xrgb_8888 ::
+  # :allegro_pixel_format_xrgb_8888 ::
   #
-  # :pixel_format_abgr_f32 ::
+  # :allegro_pixel_format_abgr_f32 ::
   #
-  # :pixel_format_abgr_8888_le ::
+  # :allegro_pixel_format_abgr_8888_le ::
   #
-  # :pixel_format_rgba_4444 ::
+  # :allegro_pixel_format_rgba_4444 ::
   #
-  # :num_pixel_formats ::
+  # :allegro_num_pixel_formats ::
   #
   #
   # @method _enum_allegro_pixel_format_
   # @return [Symbol]
   # @scope class
   enum :allegro_pixel_format, [
-    :pixel_format_any, 0,
-    :pixel_format_any_no_alpha, 1,
-    :pixel_format_any_with_alpha, 2,
-    :pixel_format_any_15_no_alpha, 3,
-    :pixel_format_any_16_no_alpha, 4,
-    :pixel_format_any_16_with_alpha, 5,
-    :pixel_format_any_24_no_alpha, 6,
-    :pixel_format_any_32_no_alpha, 7,
-    :pixel_format_any_32_with_alpha, 8,
-    :pixel_format_argb_8888, 9,
-    :pixel_format_rgba_8888, 10,
-    :pixel_format_argb_4444, 11,
-    :pixel_format_rgb_888, 12,
-    :pixel_format_rgb_565, 13,
-    :pixel_format_rgb_555, 14,
-    :pixel_format_rgba_5551, 15,
-    :pixel_format_argb_1555, 16,
-    :pixel_format_abgr_8888, 17,
-    :pixel_format_xbgr_8888, 18,
-    :pixel_format_bgr_888, 19,
-    :pixel_format_bgr_565, 20,
-    :pixel_format_bgr_555, 21,
-    :pixel_format_rgbx_8888, 22,
-    :pixel_format_xrgb_8888, 23,
-    :pixel_format_abgr_f32, 24,
-    :pixel_format_abgr_8888_le, 25,
-    :pixel_format_rgba_4444, 26,
-    :num_pixel_formats, 27
+    :allegro_pixel_format_any, 0,
+    :allegro_pixel_format_any_no_alpha, 1,
+    :allegro_pixel_format_any_with_alpha, 2,
+    :allegro_pixel_format_any_15_no_alpha, 3,
+    :allegro_pixel_format_any_16_no_alpha, 4,
+    :allegro_pixel_format_any_16_with_alpha, 5,
+    :allegro_pixel_format_any_24_no_alpha, 6,
+    :allegro_pixel_format_any_32_no_alpha, 7,
+    :allegro_pixel_format_any_32_with_alpha, 8,
+    :allegro_pixel_format_argb_8888, 9,
+    :allegro_pixel_format_rgba_8888, 10,
+    :allegro_pixel_format_argb_4444, 11,
+    :allegro_pixel_format_rgb_888, 12,
+    :allegro_pixel_format_rgb_565, 13,
+    :allegro_pixel_format_rgb_555, 14,
+    :allegro_pixel_format_rgba_5551, 15,
+    :allegro_pixel_format_argb_1555, 16,
+    :allegro_pixel_format_abgr_8888, 17,
+    :allegro_pixel_format_xbgr_8888, 18,
+    :allegro_pixel_format_bgr_888, 19,
+    :allegro_pixel_format_bgr_565, 20,
+    :allegro_pixel_format_bgr_555, 21,
+    :allegro_pixel_format_rgbx_8888, 22,
+    :allegro_pixel_format_xrgb_8888, 23,
+    :allegro_pixel_format_abgr_f32, 24,
+    :allegro_pixel_format_abgr_8888_le, 25,
+    :allegro_pixel_format_rgba_4444, 26,
+    :allegro_num_pixel_formats, 27
   ]
 
   # (Not documented)
@@ -1578,20 +1578,20 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_seek).</em>
   #
   # === Options:
-  # :set ::
+  # :allegro_seek_set ::
   #
-  # :cur ::
+  # :allegro_seek_cur ::
   #
-  # :end_ ::
+  # :allegro_seek_end ::
   #
   #
   # @method _enum_allegro_seek_
   # @return [Symbol]
   # @scope class
   enum :allegro_seek, [
-    :set, 0,
-    :cur, 1,
-    :end_, 2
+    :allegro_seek_set, 0,
+    :allegro_seek_cur, 1,
+    :allegro_seek_end, 2
   ]
 
   # (Not documented)
@@ -2066,38 +2066,38 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_blend_mode).</em>
   #
   # === Options:
-  # :zero ::
+  # :allegro_zero ::
   #
-  # :one ::
+  # :allegro_one ::
   #
-  # :alpha ::
+  # :allegro_alpha ::
   #
-  # :inverse_alpha ::
+  # :allegro_inverse_alpha ::
   #
-  # :src_color ::
+  # :allegro_src_color ::
   #
-  # :dest_color ::
+  # :allegro_dest_color ::
   #
-  # :inverse_src_color ::
+  # :allegro_inverse_src_color ::
   #
-  # :inverse_dest_color ::
+  # :allegro_inverse_dest_color ::
   #
-  # :num_blend_modes ::
+  # :allegro_num_blend_modes ::
   #
   #
   # @method _enum_allegro_blend_mode_
   # @return [Symbol]
   # @scope class
   enum :allegro_blend_mode, [
-    :zero, 0,
-    :one, 1,
-    :alpha, 2,
-    :inverse_alpha, 3,
-    :src_color, 4,
-    :dest_color, 5,
-    :inverse_src_color, 6,
-    :inverse_dest_color, 7,
-    :num_blend_modes, 8
+    :allegro_zero, 0,
+    :allegro_one, 1,
+    :allegro_alpha, 2,
+    :allegro_inverse_alpha, 3,
+    :allegro_src_color, 4,
+    :allegro_dest_color, 5,
+    :allegro_inverse_src_color, 6,
+    :allegro_inverse_dest_color, 7,
+    :allegro_num_blend_modes, 8
   ]
 
   # (Not documented)
@@ -2105,23 +2105,23 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_blend_operations).</em>
   #
   # === Options:
-  # :add ::
+  # :allegro_add ::
   #
-  # :src_minus_dest ::
+  # :allegro_src_minus_dest ::
   #
-  # :dest_minus_src ::
+  # :allegro_dest_minus_src ::
   #
-  # :num_blend_operations ::
+  # :allegro_num_blend_operations ::
   #
   #
   # @method _enum_allegro_blend_operations_
   # @return [Symbol]
   # @scope class
   enum :allegro_blend_operations, [
-    :add, 0,
-    :src_minus_dest, 1,
-    :dest_minus_src, 2,
-    :num_blend_operations, 3
+    :allegro_add, 0,
+    :allegro_src_minus_dest, 1,
+    :allegro_dest_minus_src, 2,
+    :allegro_num_blend_operations, 3
   ]
 
   # (Not documented)
@@ -2794,107 +2794,107 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_display_options).</em>
   #
   # === Options:
-  # :red_size ::
+  # :allegro_red_size ::
   #
-  # :green_size ::
+  # :allegro_green_size ::
   #
-  # :blue_size ::
+  # :allegro_blue_size ::
   #
-  # :alpha_size ::
+  # :allegro_alpha_size ::
   #
-  # :red_shift ::
+  # :allegro_red_shift ::
   #
-  # :green_shift ::
+  # :allegro_green_shift ::
   #
-  # :blue_shift ::
+  # :allegro_blue_shift ::
   #
-  # :alpha_shift ::
+  # :allegro_alpha_shift ::
   #
-  # :acc_red_size ::
+  # :allegro_acc_red_size ::
   #
-  # :acc_green_size ::
+  # :allegro_acc_green_size ::
   #
-  # :acc_blue_size ::
+  # :allegro_acc_blue_size ::
   #
-  # :acc_alpha_size ::
+  # :allegro_acc_alpha_size ::
   #
-  # :stereo ::
+  # :allegro_stereo ::
   #
-  # :aux_buffers ::
+  # :allegro_aux_buffers ::
   #
-  # :color_size ::
+  # :allegro_color_size ::
   #
-  # :depth_size ::
+  # :allegro_depth_size ::
   #
-  # :stencil_size ::
+  # :allegro_stencil_size ::
   #
-  # :sample_buffers ::
+  # :allegro_sample_buffers ::
   #
-  # :samples ::
+  # :allegro_samples ::
   #
-  # :render_method ::
+  # :allegro_render_method ::
   #
-  # :float_color ::
+  # :allegro_float_color ::
   #
-  # :float_depth ::
+  # :allegro_float_depth ::
   #
-  # :single_buffer ::
+  # :allegro_single_buffer ::
   #
-  # :swap_method ::
+  # :allegro_swap_method ::
   #
-  # :compatible_display ::
+  # :allegro_compatible_display ::
   #
-  # :update_display_region ::
+  # :allegro_update_display_region ::
   #
-  # :vsync ::
+  # :allegro_vsync ::
   #
-  # :max_bitmap_size ::
+  # :allegro_max_bitmap_size ::
   #
-  # :support_npot_bitmap ::
+  # :allegro_support_npot_bitmap ::
   #
-  # :can_draw_into_bitmap ::
+  # :allegro_can_draw_into_bitmap ::
   #
-  # :support_separate_alpha ::
+  # :allegro_support_separate_alpha ::
   #
-  # :display_options_count ::
+  # :allegro_display_options_count ::
   #
   #
   # @method _enum_allegro_display_options_
   # @return [Symbol]
   # @scope class
   enum :allegro_display_options, [
-    :red_size, 0,
-    :green_size, 1,
-    :blue_size, 2,
-    :alpha_size, 3,
-    :red_shift, 4,
-    :green_shift, 5,
-    :blue_shift, 6,
-    :alpha_shift, 7,
-    :acc_red_size, 8,
-    :acc_green_size, 9,
-    :acc_blue_size, 10,
-    :acc_alpha_size, 11,
-    :stereo, 12,
-    :aux_buffers, 13,
-    :color_size, 14,
-    :depth_size, 15,
-    :stencil_size, 16,
-    :sample_buffers, 17,
-    :samples, 18,
-    :render_method, 19,
-    :float_color, 20,
-    :float_depth, 21,
-    :single_buffer, 22,
-    :swap_method, 23,
-    :compatible_display, 24,
-    :update_display_region, 25,
-    :vsync, 26,
-    :max_bitmap_size, 27,
-    :support_npot_bitmap, 28,
-    :can_draw_into_bitmap, 29,
-    :support_separate_alpha, 30,
-    :display_options_count, 31
+    :allegro_red_size, 0,
+    :allegro_green_size, 1,
+    :allegro_blue_size, 2,
+    :allegro_alpha_size, 3,
+    :allegro_red_shift, 4,
+    :allegro_green_shift, 5,
+    :allegro_blue_shift, 6,
+    :allegro_alpha_shift, 7,
+    :allegro_acc_red_size, 8,
+    :allegro_acc_green_size, 9,
+    :allegro_acc_blue_size, 10,
+    :allegro_acc_alpha_size, 11,
+    :allegro_stereo, 12,
+    :allegro_aux_buffers, 13,
+    :allegro_color_size, 14,
+    :allegro_depth_size, 15,
+    :allegro_stencil_size, 16,
+    :allegro_sample_buffers, 17,
+    :allegro_samples, 18,
+    :allegro_render_method, 19,
+    :allegro_float_color, 20,
+    :allegro_float_depth, 21,
+    :allegro_single_buffer, 22,
+    :allegro_swap_method, 23,
+    :allegro_compatible_display, 24,
+    :allegro_update_display_region, 25,
+    :allegro_vsync, 26,
+    :allegro_max_bitmap_size, 27,
+    :allegro_support_npot_bitmap, 28,
+    :allegro_can_draw_into_bitmap, 29,
+    :allegro_support_separate_alpha, 30,
+    :allegro_display_options_count, 31
   ]
 
   # (Not documented)
@@ -2902,29 +2902,29 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_display_orientation).</em>
   #
   # === Options:
-  # :_0_degrees ::
+  # :allegro_display_orientation_0_degrees ::
   #
-  # :_90_degrees ::
+  # :allegro_display_orientation_90_degrees ::
   #
-  # :_180_degrees ::
+  # :allegro_display_orientation_180_degrees ::
   #
-  # :_270_degrees ::
+  # :allegro_display_orientation_270_degrees ::
   #
-  # :face_up ::
+  # :allegro_display_orientation_face_up ::
   #
-  # :face_down ::
+  # :allegro_display_orientation_face_down ::
   #
   #
   # @method _enum_allegro_display_orientation_
   # @return [Symbol]
   # @scope class
   enum :allegro_display_orientation, [
-    :_0_degrees, 0,
-    :_90_degrees, 1,
-    :_180_degrees, 2,
-    :_270_degrees, 3,
-    :face_up, 4,
-    :face_down, 5
+    :allegro_display_orientation_0_degrees, 0,
+    :allegro_display_orientation_90_degrees, 1,
+    :allegro_display_orientation_180_degrees, 2,
+    :allegro_display_orientation_270_degrees, 3,
+    :allegro_display_orientation_face_up, 4,
+    :allegro_display_orientation_face_down, 5
   ]
 
   # (Not documented)
@@ -3343,29 +3343,29 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_file_mode).</em>
   #
   # === Options:
-  # :filemode_read ::
+  # :allegro_filemode_read ::
   #
-  # :filemode_write ::
+  # :allegro_filemode_write ::
   #
-  # :filemode_execute ::
+  # :allegro_filemode_execute ::
   #
-  # :filemode_hidden ::
+  # :allegro_filemode_hidden ::
   #
-  # :filemode_isfile ::
+  # :allegro_filemode_isfile ::
   #
-  # :filemode_isdir ::
+  # :allegro_filemode_isdir ::
   #
   #
   # @method _enum_allegro_file_mode_
   # @return [Symbol]
   # @scope class
   enum :allegro_file_mode, [
-    :filemode_read, 1,
-    :filemode_write, 2,
-    :filemode_execute, 4,
-    :filemode_hidden, 8,
-    :filemode_isfile, 16,
-    :filemode_isdir, 32
+    :allegro_filemode_read, 1,
+    :allegro_filemode_write, 2,
+    :allegro_filemode_execute, 4,
+    :allegro_filemode_hidden, 8,
+    :allegro_filemode_isfile, 16,
+    :allegro_filemode_isdir, 32
   ]
 
   # (Not documented)
@@ -3676,17 +3676,17 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_joyflags).</em>
   #
   # === Options:
-  # :joyflag_digital ::
+  # :allegro_joyflag_digital ::
   #
-  # :joyflag_analogue ::
+  # :allegro_joyflag_analogue ::
   #
   #
   # @method _enum_allegro_joyflags_
   # @return [Symbol]
   # @scope class
   enum :allegro_joyflags, [
-    :joyflag_digital, 1,
-    :joyflag_analogue, 2
+    :allegro_joyflag_digital, 1,
+    :allegro_joyflag_analogue, 2
   ]
 
   # (Not documented)
@@ -4184,74 +4184,74 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_system_mouse_cursor).</em>
   #
   # === Options:
-  # :system_mouse_cursor_none ::
+  # :allegro_system_mouse_cursor_none ::
   #
-  # :system_mouse_cursor_default ::
+  # :allegro_system_mouse_cursor_default ::
   #
-  # :system_mouse_cursor_arrow ::
+  # :allegro_system_mouse_cursor_arrow ::
   #
-  # :system_mouse_cursor_busy ::
+  # :allegro_system_mouse_cursor_busy ::
   #
-  # :system_mouse_cursor_question ::
+  # :allegro_system_mouse_cursor_question ::
   #
-  # :system_mouse_cursor_edit ::
+  # :allegro_system_mouse_cursor_edit ::
   #
-  # :system_mouse_cursor_move ::
+  # :allegro_system_mouse_cursor_move ::
   #
-  # :system_mouse_cursor_resize_n ::
+  # :allegro_system_mouse_cursor_resize_n ::
   #
-  # :system_mouse_cursor_resize_w ::
+  # :allegro_system_mouse_cursor_resize_w ::
   #
-  # :system_mouse_cursor_resize_s ::
+  # :allegro_system_mouse_cursor_resize_s ::
   #
-  # :system_mouse_cursor_resize_e ::
+  # :allegro_system_mouse_cursor_resize_e ::
   #
-  # :system_mouse_cursor_resize_nw ::
+  # :allegro_system_mouse_cursor_resize_nw ::
   #
-  # :system_mouse_cursor_resize_sw ::
+  # :allegro_system_mouse_cursor_resize_sw ::
   #
-  # :system_mouse_cursor_resize_se ::
+  # :allegro_system_mouse_cursor_resize_se ::
   #
-  # :system_mouse_cursor_resize_ne ::
+  # :allegro_system_mouse_cursor_resize_ne ::
   #
-  # :system_mouse_cursor_progress ::
+  # :allegro_system_mouse_cursor_progress ::
   #
-  # :system_mouse_cursor_precision ::
+  # :allegro_system_mouse_cursor_precision ::
   #
-  # :system_mouse_cursor_link ::
+  # :allegro_system_mouse_cursor_link ::
   #
-  # :system_mouse_cursor_alt_select ::
+  # :allegro_system_mouse_cursor_alt_select ::
   #
-  # :system_mouse_cursor_unavailable ::
+  # :allegro_system_mouse_cursor_unavailable ::
   #
-  # :num_system_mouse_cursors ::
+  # :allegro_num_system_mouse_cursors ::
   #
   #
   # @method _enum_allegro_system_mouse_cursor_
   # @return [Symbol]
   # @scope class
   enum :allegro_system_mouse_cursor, [
-    :system_mouse_cursor_none, 0,
-    :system_mouse_cursor_default, 1,
-    :system_mouse_cursor_arrow, 2,
-    :system_mouse_cursor_busy, 3,
-    :system_mouse_cursor_question, 4,
-    :system_mouse_cursor_edit, 5,
-    :system_mouse_cursor_move, 6,
-    :system_mouse_cursor_resize_n, 7,
-    :system_mouse_cursor_resize_w, 8,
-    :system_mouse_cursor_resize_s, 9,
-    :system_mouse_cursor_resize_e, 10,
-    :system_mouse_cursor_resize_nw, 11,
-    :system_mouse_cursor_resize_sw, 12,
-    :system_mouse_cursor_resize_se, 13,
-    :system_mouse_cursor_resize_ne, 14,
-    :system_mouse_cursor_progress, 15,
-    :system_mouse_cursor_precision, 16,
-    :system_mouse_cursor_link, 17,
-    :system_mouse_cursor_alt_select, 18,
-    :system_mouse_cursor_unavailable, 19,
-    :num_system_mouse_cursors, 20
+    :allegro_system_mouse_cursor_none, 0,
+    :allegro_system_mouse_cursor_default, 1,
+    :allegro_system_mouse_cursor_arrow, 2,
+    :allegro_system_mouse_cursor_busy, 3,
+    :allegro_system_mouse_cursor_question, 4,
+    :allegro_system_mouse_cursor_edit, 5,
+    :allegro_system_mouse_cursor_move, 6,
+    :allegro_system_mouse_cursor_resize_n, 7,
+    :allegro_system_mouse_cursor_resize_w, 8,
+    :allegro_system_mouse_cursor_resize_s, 9,
+    :allegro_system_mouse_cursor_resize_e, 10,
+    :allegro_system_mouse_cursor_resize_nw, 11,
+    :allegro_system_mouse_cursor_resize_sw, 12,
+    :allegro_system_mouse_cursor_resize_se, 13,
+    :allegro_system_mouse_cursor_resize_ne, 14,
+    :allegro_system_mouse_cursor_progress, 15,
+    :allegro_system_mouse_cursor_precision, 16,
+    :allegro_system_mouse_cursor_link, 17,
+    :allegro_system_mouse_cursor_alt_select, 18,
+    :allegro_system_mouse_cursor_unavailable, 19,
+    :allegro_num_system_mouse_cursors, 20
   ]
 
   # (Not documented)
@@ -4670,35 +4670,35 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_state_flags).</em>
   #
   # === Options:
-  # :new_display_parameters ::
+  # :allegro_state_new_display_parameters ::
   #
-  # :new_bitmap_parameters ::
+  # :allegro_state_new_bitmap_parameters ::
   #
-  # :display ::
+  # :allegro_state_display ::
   #
-  # :target_bitmap ::
+  # :allegro_state_target_bitmap ::
   #
-  # :blender ::
+  # :allegro_state_blender ::
   #
-  # :new_file_interface ::
+  # :allegro_state_new_file_interface ::
   #
-  # :transform ::
+  # :allegro_state_transform ::
   #
-  # :all ::
+  # :allegro_state_all ::
   #
   #
   # @method _enum_allegro_state_flags_
   # @return [Symbol]
   # @scope class
   enum :allegro_state_flags, [
-    :new_display_parameters, 1,
-    :new_bitmap_parameters, 2,
-    :display, 4,
-    :target_bitmap, 8,
-    :blender, 16,
-    :new_file_interface, 32,
-    :transform, 64,
-    :all, 65535
+    :allegro_state_new_display_parameters, 1,
+    :allegro_state_new_bitmap_parameters, 2,
+    :allegro_state_display, 4,
+    :allegro_state_target_bitmap, 8,
+    :allegro_state_blender, 16,
+    :allegro_state_new_file_interface, 32,
+    :allegro_state_transform, 64,
+    :allegro_state_all, 65535
   ]
 
   # (Not documented)
@@ -5145,35 +5145,35 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_prim_type).</em>
   #
   # === Options:
-  # :line_list ::
+  # :allegro_prim_line_list ::
   #
-  # :line_strip ::
+  # :allegro_prim_line_strip ::
   #
-  # :line_loop ::
+  # :allegro_prim_line_loop ::
   #
-  # :triangle_list ::
+  # :allegro_prim_triangle_list ::
   #
-  # :triangle_strip ::
+  # :allegro_prim_triangle_strip ::
   #
-  # :triangle_fan ::
+  # :allegro_prim_triangle_fan ::
   #
-  # :point_list ::
+  # :allegro_prim_point_list ::
   #
-  # :num_types ::
+  # :allegro_prim_num_types ::
   #
   #
   # @method _enum_allegro_prim_type_
   # @return [Symbol]
   # @scope class
   enum :allegro_prim_type, [
-    :line_list, 0,
-    :line_strip, 1,
-    :line_loop, 2,
-    :triangle_list, 3,
-    :triangle_strip, 4,
-    :triangle_fan, 5,
-    :point_list, 6,
-    :num_types, 7
+    :allegro_prim_line_list, 0,
+    :allegro_prim_line_strip, 1,
+    :allegro_prim_line_loop, 2,
+    :allegro_prim_triangle_list, 3,
+    :allegro_prim_triangle_strip, 4,
+    :allegro_prim_triangle_fan, 5,
+    :allegro_prim_point_list, 6,
+    :allegro_prim_num_types, 7
   ]
 
   # Enum: ALLEGRO_PRIM_ATTR
@@ -5181,26 +5181,26 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_prim_attr).</em>
   #
   # === Options:
-  # :position ::
+  # :allegro_prim_position ::
   #
-  # :color_attr ::
+  # :allegro_prim_color_attr ::
   #
-  # :tex_coord ::
+  # :allegro_prim_tex_coord ::
   #
-  # :tex_coord_pixel ::
+  # :allegro_prim_tex_coord_pixel ::
   #
-  # :attr_num ::
+  # :allegro_prim_attr_num ::
   #
   #
   # @method _enum_allegro_prim_attr_
   # @return [Symbol]
   # @scope class
   enum :allegro_prim_attr, [
-    :position, 1,
-    :color_attr, 2,
-    :tex_coord, 3,
-    :tex_coord_pixel, 4,
-    :attr_num, 5
+    :allegro_prim_position, 1,
+    :allegro_prim_color_attr, 2,
+    :allegro_prim_tex_coord, 3,
+    :allegro_prim_tex_coord_pixel, 4,
+    :allegro_prim_attr_num, 5
   ]
 
   # Enum: ALLEGRO_PRIM_STORAGE
@@ -5208,20 +5208,20 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method. The FFI::Enum can be accessed via #enum_type(:allegro_prim_storage).</em>
   #
   # === Options:
-  # :float_2 ::
+  # :allegro_prim_float_2 ::
   #
-  # :float_3 ::
+  # :allegro_prim_float_3 ::
   #
-  # :short_2 ::
+  # :allegro_prim_short_2 ::
   #
   #
   # @method _enum_allegro_prim_storage_
   # @return [Symbol]
   # @scope class
   enum :allegro_prim_storage, [
-    :float_2, 0,
-    :float_3, 1,
-    :short_2, 2
+    :allegro_prim_float_2, 0,
+    :allegro_prim_float_3, 1,
+    :allegro_prim_short_2, 2
   ]
 
   # Type: ALLEGRO_VERTEX_ELEMENT

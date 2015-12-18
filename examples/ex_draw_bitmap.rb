@@ -106,7 +106,7 @@ def change_size(size)
   $example.bitmap = al_create_bitmap(size, size)
   $example.bitmap_size = size
   al_set_target_bitmap($example.bitmap)
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
   al_clear_to_color(al_map_rgba_f(0, 0, 0, 0))
   bw = al_get_bitmap_width($example.mysha)
   bh = al_get_bitmap_height($example.mysha)
@@ -159,16 +159,16 @@ def redraw
 
   case $example.blending
   when 0
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
     tint = $example.half_white
   when 1
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_one)
     tint = $example.dark
   when 2
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
     tint = $example.red
   when 3
-    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO)
+    al_set_blender(:allegro_add, :allegro_one, :allegro_zero)
   end
 
   $example.sprite_count.times do |i|
@@ -176,7 +176,7 @@ def redraw
     al_draw_tinted_bitmap($example.bitmap, tint, s.x, s.y, 0)
   end
 
-  al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA)
+  al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
   if $example.show_help
     TEXT.each_with_index do |text, i|
       al_draw_text($example.font, $example.white, 0, h - 5 * fh + i * fh, 0, text)
