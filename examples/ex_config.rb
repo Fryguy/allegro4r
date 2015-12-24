@@ -21,8 +21,8 @@ def test(name, expr)
 end
 
 def main
-  iterator = ALLEGROCONFIGSECTION.new
-  iterator2 = ALLEGROCONFIGENTRY.new
+  iterator = AllegroConfigSection.new
+  iterator2 = AllegroConfigEntry.new
 
   abort_example("Could not init Allegro.\n") unless al_init
   open_log

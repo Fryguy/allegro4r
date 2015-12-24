@@ -6,7 +6,7 @@ include Allegro4r::API
 require_relative "common"
 
 def main(argc, argv)
-  event = ALLEGROEVENT.new
+  event = AllegroEvent.new
   done = false
   active = true
   fullscreen = false

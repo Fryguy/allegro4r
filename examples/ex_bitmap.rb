@@ -56,7 +56,7 @@ def main(argc, argv)
   al_register_event_source(queue, al_get_timer_event_source(timer))
   al_start_timer(timer)
 
-  event = ALLEGROEVENT.new
+  event = AllegroEvent.new
   loop do
     al_wait_for_event(queue, event)
     case event[:type]

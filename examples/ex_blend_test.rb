@@ -265,7 +265,7 @@ def main(argc, argv)
   log_printf("\nDone\n")
 
   if $test_only_index && $test_display
-    event = ALLEGROEVENT.new
+    event = AllegroEvent.new
     al_flip_display
     al_install_keyboard
     queue = al_create_event_queue

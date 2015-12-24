@@ -13,7 +13,7 @@ end
 
 class SaveState
   def initialize(save = :allegro_state_all)
-    state = ALLEGROSTATE.new
+    state = AllegroState.new
     al_store_state(state, save)
     yield
   ensure
@@ -175,7 +175,7 @@ class Dialog
 
     # XXX this isn't working right in X.  The mouse position is reported as
     # (0,0) initially, until the mouse pointer is moved.
-    mst = ALLEGROMOUSESTATE.new
+    mst = AllegroMouseState.new
     al_get_mouse_state(mst)
     check_mouse_over(mst[:x], mst[:y])
   end
@@ -190,7 +190,7 @@ class Dialog
   end
 
   def run_step(block)
-    event = ALLEGROEVENT.new
+    event = AllegroEvent.new
 
     al_wait_for_event(event_queue, nil) if block
 

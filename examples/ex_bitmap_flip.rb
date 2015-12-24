@@ -91,7 +91,7 @@ def main
 
   al_set_blender(:allegro_add, :allegro_one, :allegro_inverse_alpha)
 
-  event = ALLEGROEVENT.new
+  event = AllegroEvent.new
   until done
     if redraw && al_is_event_queue_empty(queue)
       update(bmp)

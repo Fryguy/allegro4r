@@ -185,7 +185,7 @@ end
 
 # Run our test.
 def run
-  event = ALLEGROEVENT.new
+  event = AllegroEvent.new
   need_draw = true
 
   loop do

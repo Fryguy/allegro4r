@@ -20,8 +20,8 @@ def main
 
   al_flip_display
 
-  ev = ALLEGROEVENT.new
-  timeout = ALLEGROTIMEOUT.new
+  ev = AllegroEvent.new
+  timeout = AllegroTimeout.new
   loop do
     al_init_timeout(timeout, 0.06)
 

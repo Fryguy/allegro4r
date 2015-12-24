@@ -91,7 +91,7 @@ module Allegro4r::API
   #   (Integer)
   # :pad2 ::
   #   (Integer)
-  class ALLEGROTIMEOUT < FFI::Struct
+  class AllegroTimeout < FFI::Struct
     layout :pad1, :ulong_long,
            :pad2, :ulong_long
   end
@@ -114,11 +114,11 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_init_timeout(timeout, seconds)
-  # @param [ALLEGROTIMEOUT] timeout
+  # @param [AllegroTimeout] timeout
   # @param [Float] seconds
   # @return [nil]
   # @scope class
-  attach_function :al_init_timeout, :al_init_timeout, [ALLEGROTIMEOUT, :double], :void
+  attach_function :al_init_timeout, :al_init_timeout, [AllegroTimeout, :double], :void
 
   # (Not documented)
   #
@@ -131,7 +131,7 @@ module Allegro4r::API
   #   (Float)
   # :a ::
   #   (Float)
-  class ALLEGROCOLOR < FFI::Struct
+  class AllegroColor < FFI::Struct
     layout :r, :float,
            :g, :float,
            :b, :float,
@@ -240,9 +240,9 @@ module Allegro4r::API
   # @param [Integer] r
   # @param [Integer] g
   # @param [Integer] b
-  # @return [ALLEGROCOLOR]
+  # @return [AllegroColor]
   # @scope class
-  attach_function :al_map_rgb, :al_map_rgb, [:uchar, :uchar, :uchar], ALLEGROCOLOR.by_value
+  attach_function :al_map_rgb, :al_map_rgb, [:uchar, :uchar, :uchar], AllegroColor.by_value
 
   # (Not documented)
   #
@@ -251,9 +251,9 @@ module Allegro4r::API
   # @param [Integer] g
   # @param [Integer] b
   # @param [Integer] a
-  # @return [ALLEGROCOLOR]
+  # @return [AllegroColor]
   # @scope class
-  attach_function :al_map_rgba, :al_map_rgba, [:uchar, :uchar, :uchar, :uchar], ALLEGROCOLOR.by_value
+  attach_function :al_map_rgba, :al_map_rgba, [:uchar, :uchar, :uchar, :uchar], AllegroColor.by_value
 
   # (Not documented)
   #
@@ -261,9 +261,9 @@ module Allegro4r::API
   # @param [Float] r
   # @param [Float] g
   # @param [Float] b
-  # @return [ALLEGROCOLOR]
+  # @return [AllegroColor]
   # @scope class
-  attach_function :al_map_rgb_f, :al_map_rgb_f, [:float, :float, :float], ALLEGROCOLOR.by_value
+  attach_function :al_map_rgb_f, :al_map_rgb_f, [:float, :float, :float], AllegroColor.by_value
 
   # (Not documented)
   #
@@ -272,55 +272,55 @@ module Allegro4r::API
   # @param [Float] g
   # @param [Float] b
   # @param [Float] a
-  # @return [ALLEGROCOLOR]
+  # @return [AllegroColor]
   # @scope class
-  attach_function :al_map_rgba_f, :al_map_rgba_f, [:float, :float, :float, :float], ALLEGROCOLOR.by_value
+  attach_function :al_map_rgba_f, :al_map_rgba_f, [:float, :float, :float, :float], AllegroColor.by_value
 
   # (Not documented)
   #
   # @method al_unmap_rgb(color, r, g, b)
-  # @param [ALLEGROCOLOR] color
-  # @param [FFI::Pointer(*UChar)] r
-  # @param [FFI::Pointer(*UChar)] g
-  # @param [FFI::Pointer(*UChar)] b
+  # @param [AllegroColor] color
+  # @param [FFI::Pointer(*Uchar)] r
+  # @param [FFI::Pointer(*Uchar)] g
+  # @param [FFI::Pointer(*Uchar)] b
   # @return [nil]
   # @scope class
-  attach_function :al_unmap_rgb, :al_unmap_rgb, [ALLEGROCOLOR.by_value, :pointer, :pointer, :pointer], :void
+  attach_function :al_unmap_rgb, :al_unmap_rgb, [AllegroColor.by_value, :pointer, :pointer, :pointer], :void
 
   # (Not documented)
   #
   # @method al_unmap_rgba(color, r, g, b, a)
-  # @param [ALLEGROCOLOR] color
-  # @param [FFI::Pointer(*UChar)] r
-  # @param [FFI::Pointer(*UChar)] g
-  # @param [FFI::Pointer(*UChar)] b
-  # @param [FFI::Pointer(*UChar)] a
+  # @param [AllegroColor] color
+  # @param [FFI::Pointer(*Uchar)] r
+  # @param [FFI::Pointer(*Uchar)] g
+  # @param [FFI::Pointer(*Uchar)] b
+  # @param [FFI::Pointer(*Uchar)] a
   # @return [nil]
   # @scope class
-  attach_function :al_unmap_rgba, :al_unmap_rgba, [ALLEGROCOLOR.by_value, :pointer, :pointer, :pointer, :pointer], :void
+  attach_function :al_unmap_rgba, :al_unmap_rgba, [AllegroColor.by_value, :pointer, :pointer, :pointer, :pointer], :void
 
   # (Not documented)
   #
   # @method al_unmap_rgb_f(color, r, g, b)
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [FFI::Pointer(*Float)] r
   # @param [FFI::Pointer(*Float)] g
   # @param [FFI::Pointer(*Float)] b
   # @return [nil]
   # @scope class
-  attach_function :al_unmap_rgb_f, :al_unmap_rgb_f, [ALLEGROCOLOR.by_value, :pointer, :pointer, :pointer], :void
+  attach_function :al_unmap_rgb_f, :al_unmap_rgb_f, [AllegroColor.by_value, :pointer, :pointer, :pointer], :void
 
   # (Not documented)
   #
   # @method al_unmap_rgba_f(color, r, g, b, a)
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [FFI::Pointer(*Float)] r
   # @param [FFI::Pointer(*Float)] g
   # @param [FFI::Pointer(*Float)] b
   # @param [FFI::Pointer(*Float)] a
   # @return [nil]
   # @scope class
-  attach_function :al_unmap_rgba_f, :al_unmap_rgba_f, [ALLEGROCOLOR.by_value, :pointer, :pointer, :pointer, :pointer], :void
+  attach_function :al_unmap_rgba_f, :al_unmap_rgba_f, [AllegroColor.by_value, :pointer, :pointer, :pointer, :pointer], :void
 
   # (Not documented)
   #
@@ -379,7 +379,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_bitmap_width(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Integer]
   # @scope class
   attach_function :al_get_bitmap_width, :al_get_bitmap_width, [:pointer], :int
@@ -387,7 +387,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_bitmap_height(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Integer]
   # @scope class
   attach_function :al_get_bitmap_height, :al_get_bitmap_height, [:pointer], :int
@@ -395,7 +395,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_bitmap_format(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Integer]
   # @scope class
   attach_function :al_get_bitmap_format, :al_get_bitmap_format, [:pointer], :int
@@ -403,7 +403,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_bitmap_flags(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Integer]
   # @scope class
   attach_function :al_get_bitmap_flags, :al_get_bitmap_flags, [:pointer], :int
@@ -413,14 +413,14 @@ module Allegro4r::API
   # @method al_create_bitmap(w, h)
   # @param [Integer] w
   # @param [Integer] h
-  # @return [FFI::Pointer(*ALLEGROBITMAP)]
+  # @return [FFI::Pointer(*AllegroBitmap)]
   # @scope class
   attach_function :al_create_bitmap, :al_create_bitmap, [:int, :int], :pointer
 
   # (Not documented)
   #
   # @method al_destroy_bitmap(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [nil]
   # @scope class
   attach_function :al_destroy_bitmap, :al_destroy_bitmap, [:pointer], :void
@@ -430,39 +430,39 @@ module Allegro4r::API
   # @method al_put_pixel(x, y, color)
   # @param [Integer] x
   # @param [Integer] y
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_put_pixel, :al_put_pixel, [:int, :int, ALLEGROCOLOR.by_value], :void
+  attach_function :al_put_pixel, :al_put_pixel, [:int, :int, AllegroColor.by_value], :void
 
   # (Not documented)
   #
   # @method al_put_blended_pixel(x, y, color)
   # @param [Integer] x
   # @param [Integer] y
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_put_blended_pixel, :al_put_blended_pixel, [:int, :int, ALLEGROCOLOR.by_value], :void
+  attach_function :al_put_blended_pixel, :al_put_blended_pixel, [:int, :int, AllegroColor.by_value], :void
 
   # (Not documented)
   #
   # @method al_get_pixel(bitmap, x, y)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Integer] x
   # @param [Integer] y
-  # @return [ALLEGROCOLOR]
+  # @return [AllegroColor]
   # @scope class
-  attach_function :al_get_pixel, :al_get_pixel, [:pointer, :int, :int], ALLEGROCOLOR.by_value
+  attach_function :al_get_pixel, :al_get_pixel, [:pointer, :int, :int], AllegroColor.by_value
 
   # (Not documented)
   #
   # @method al_convert_mask_to_alpha(bitmap, mask_color)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @param [ALLEGROCOLOR] mask_color
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @param [AllegroColor] mask_color
   # @return [nil]
   # @scope class
-  attach_function :al_convert_mask_to_alpha, :al_convert_mask_to_alpha, [:pointer, ALLEGROCOLOR.by_value], :void
+  attach_function :al_convert_mask_to_alpha, :al_convert_mask_to_alpha, [:pointer, AllegroColor.by_value], :void
 
   # (Not documented)
   #
@@ -496,19 +496,19 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_create_sub_bitmap(parent, x, y, w, h)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] parent
+  # @param [FFI::Pointer(*AllegroBitmap)] parent
   # @param [Integer] x
   # @param [Integer] y
   # @param [Integer] w
   # @param [Integer] h
-  # @return [FFI::Pointer(*ALLEGROBITMAP)]
+  # @return [FFI::Pointer(*AllegroBitmap)]
   # @scope class
   attach_function :al_create_sub_bitmap, :al_create_sub_bitmap, [:pointer, :int, :int, :int, :int], :pointer
 
   # (Not documented)
   #
   # @method al_is_sub_bitmap(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Boolean]
   # @scope class
   attach_function :al_is_sub_bitmap, :al_is_sub_bitmap, [:pointer], :bool
@@ -516,23 +516,23 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_parent_bitmap(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @return [FFI::Pointer(*ALLEGROBITMAP)]
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @return [FFI::Pointer(*AllegroBitmap)]
   # @scope class
   attach_function :al_get_parent_bitmap, :al_get_parent_bitmap, [:pointer], :pointer
 
   # (Not documented)
   #
   # @method al_clone_bitmap(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @return [FFI::Pointer(*ALLEGROBITMAP)]
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @return [FFI::Pointer(*AllegroBitmap)]
   # @scope class
   attach_function :al_clone_bitmap, :al_clone_bitmap, [:pointer], :pointer
 
   # (Not documented)
   #
   # @method al_draw_bitmap(bitmap, dx, dy, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Float] dx
   # @param [Float] dy
   # @param [Integer] flags
@@ -543,7 +543,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_draw_bitmap_region(bitmap, sx, sy, sw, sh, dx, dy, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Float] sx
   # @param [Float] sy
   # @param [Float] sw
@@ -558,7 +558,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_draw_scaled_bitmap(bitmap, sx, sy, sw, sh, dx, dy, dw, dh, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Float] sx
   # @param [Float] sy
   # @param [Float] sw
@@ -575,7 +575,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_draw_rotated_bitmap(bitmap, cx, cy, dx, dy, angle, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] dx
@@ -589,7 +589,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_draw_scaled_rotated_bitmap(bitmap, cx, cy, dx, dy, xscale, yscale, angle, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] dx
@@ -605,20 +605,20 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_draw_tinted_bitmap(bitmap, tint, dx, dy, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @param [ALLEGROCOLOR] tint
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @param [AllegroColor] tint
   # @param [Float] dx
   # @param [Float] dy
   # @param [Integer] flags
   # @return [nil]
   # @scope class
-  attach_function :al_draw_tinted_bitmap, :al_draw_tinted_bitmap, [:pointer, ALLEGROCOLOR.by_value, :float, :float, :int], :void
+  attach_function :al_draw_tinted_bitmap, :al_draw_tinted_bitmap, [:pointer, AllegroColor.by_value, :float, :float, :int], :void
 
   # (Not documented)
   #
   # @method al_draw_tinted_bitmap_region(bitmap, tint, sx, sy, sw, sh, dx, dy, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @param [ALLEGROCOLOR] tint
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @param [AllegroColor] tint
   # @param [Float] sx
   # @param [Float] sy
   # @param [Float] sw
@@ -628,13 +628,13 @@ module Allegro4r::API
   # @param [Integer] flags
   # @return [nil]
   # @scope class
-  attach_function :al_draw_tinted_bitmap_region, :al_draw_tinted_bitmap_region, [:pointer, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :float, :float, :int], :void
+  attach_function :al_draw_tinted_bitmap_region, :al_draw_tinted_bitmap_region, [:pointer, AllegroColor.by_value, :float, :float, :float, :float, :float, :float, :int], :void
 
   # (Not documented)
   #
   # @method al_draw_tinted_scaled_bitmap(bitmap, tint, sx, sy, sw, sh, dx, dy, dw, dh, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @param [ALLEGROCOLOR] tint
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @param [AllegroColor] tint
   # @param [Float] sx
   # @param [Float] sy
   # @param [Float] sw
@@ -646,13 +646,13 @@ module Allegro4r::API
   # @param [Integer] flags
   # @return [nil]
   # @scope class
-  attach_function :al_draw_tinted_scaled_bitmap, :al_draw_tinted_scaled_bitmap, [:pointer, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :float, :float, :float, :float, :int], :void
+  attach_function :al_draw_tinted_scaled_bitmap, :al_draw_tinted_scaled_bitmap, [:pointer, AllegroColor.by_value, :float, :float, :float, :float, :float, :float, :float, :float, :int], :void
 
   # (Not documented)
   #
   # @method al_draw_tinted_rotated_bitmap(bitmap, tint, cx, cy, dx, dy, angle, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @param [ALLEGROCOLOR] tint
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @param [AllegroColor] tint
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] dx
@@ -661,13 +661,13 @@ module Allegro4r::API
   # @param [Integer] flags
   # @return [nil]
   # @scope class
-  attach_function :al_draw_tinted_rotated_bitmap, :al_draw_tinted_rotated_bitmap, [:pointer, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :float, :int], :void
+  attach_function :al_draw_tinted_rotated_bitmap, :al_draw_tinted_rotated_bitmap, [:pointer, AllegroColor.by_value, :float, :float, :float, :float, :float, :int], :void
 
   # (Not documented)
   #
   # @method al_draw_tinted_scaled_rotated_bitmap(bitmap, tint, cx, cy, dx, dy, xscale, yscale, angle, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @param [ALLEGROCOLOR] tint
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @param [AllegroColor] tint
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] dx
@@ -678,17 +678,17 @@ module Allegro4r::API
   # @param [Integer] flags
   # @return [nil]
   # @scope class
-  attach_function :al_draw_tinted_scaled_rotated_bitmap, :al_draw_tinted_scaled_rotated_bitmap, [:pointer, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :float, :float, :float, :int], :void
+  attach_function :al_draw_tinted_scaled_rotated_bitmap, :al_draw_tinted_scaled_rotated_bitmap, [:pointer, AllegroColor.by_value, :float, :float, :float, :float, :float, :float, :float, :int], :void
 
   # (Not documented)
   #
   # @method al_draw_tinted_scaled_rotated_bitmap_region(bitmap, sx, sy, sw, sh, tint, cx, cy, dx, dy, xscale, yscale, angle, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Float] sx
   # @param [Float] sy
   # @param [Float] sw
   # @param [Float] sh
-  # @param [ALLEGROCOLOR] tint
+  # @param [AllegroColor] tint
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] dx
@@ -699,10 +699,10 @@ module Allegro4r::API
   # @param [Integer] flags
   # @return [nil]
   # @scope class
-  attach_function :al_draw_tinted_scaled_rotated_bitmap_region, :al_draw_tinted_scaled_rotated_bitmap_region, [:pointer, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :float, :float, :float, :int], :void
+  attach_function :al_draw_tinted_scaled_rotated_bitmap_region, :al_draw_tinted_scaled_rotated_bitmap_region, [:pointer, :float, :float, :float, :float, AllegroColor.by_value, :float, :float, :float, :float, :float, :float, :float, :int], :void
 
   # (Not documented)
-  class ALLEGROPATH < FFI::Struct
+  class AllegroPath < FFI::Struct
     layout :dummy, :char
   end
 
@@ -710,198 +710,198 @@ module Allegro4r::API
   #
   # @method al_create_path(str)
   # @param [String] str
-  # @return [ALLEGROPATH]
+  # @return [AllegroPath]
   # @scope class
-  attach_function :al_create_path, :al_create_path, [:string], ALLEGROPATH
+  attach_function :al_create_path, :al_create_path, [:string], AllegroPath
 
   # (Not documented)
   #
   # @method al_create_path_for_directory(str)
   # @param [String] str
-  # @return [ALLEGROPATH]
+  # @return [AllegroPath]
   # @scope class
-  attach_function :al_create_path_for_directory, :al_create_path_for_directory, [:string], ALLEGROPATH
+  attach_function :al_create_path_for_directory, :al_create_path_for_directory, [:string], AllegroPath
 
   # (Not documented)
   #
   # @method al_clone_path(path)
-  # @param [ALLEGROPATH] path
-  # @return [ALLEGROPATH]
+  # @param [AllegroPath] path
+  # @return [AllegroPath]
   # @scope class
-  attach_function :al_clone_path, :al_clone_path, [ALLEGROPATH], ALLEGROPATH
+  attach_function :al_clone_path, :al_clone_path, [AllegroPath], AllegroPath
 
   # (Not documented)
   #
   # @method al_get_path_num_components(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [Integer]
   # @scope class
-  attach_function :al_get_path_num_components, :al_get_path_num_components, [ALLEGROPATH], :int
+  attach_function :al_get_path_num_components, :al_get_path_num_components, [AllegroPath], :int
 
   # (Not documented)
   #
   # @method al_get_path_component(path, i)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [Integer] i
   # @return [String]
   # @scope class
-  attach_function :al_get_path_component, :al_get_path_component, [ALLEGROPATH, :int], :string
+  attach_function :al_get_path_component, :al_get_path_component, [AllegroPath, :int], :string
 
   # (Not documented)
   #
   # @method al_replace_path_component(path, i, s)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [Integer] i
   # @param [String] s
   # @return [nil]
   # @scope class
-  attach_function :al_replace_path_component, :al_replace_path_component, [ALLEGROPATH, :int, :string], :void
+  attach_function :al_replace_path_component, :al_replace_path_component, [AllegroPath, :int, :string], :void
 
   # (Not documented)
   #
   # @method al_remove_path_component(path, i)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [Integer] i
   # @return [nil]
   # @scope class
-  attach_function :al_remove_path_component, :al_remove_path_component, [ALLEGROPATH, :int], :void
+  attach_function :al_remove_path_component, :al_remove_path_component, [AllegroPath, :int], :void
 
   # (Not documented)
   #
   # @method al_insert_path_component(path, i, s)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [Integer] i
   # @param [String] s
   # @return [nil]
   # @scope class
-  attach_function :al_insert_path_component, :al_insert_path_component, [ALLEGROPATH, :int, :string], :void
+  attach_function :al_insert_path_component, :al_insert_path_component, [AllegroPath, :int, :string], :void
 
   # (Not documented)
   #
   # @method al_get_path_tail(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [String]
   # @scope class
-  attach_function :al_get_path_tail, :al_get_path_tail, [ALLEGROPATH], :string
+  attach_function :al_get_path_tail, :al_get_path_tail, [AllegroPath], :string
 
   # (Not documented)
   #
   # @method al_drop_path_tail(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [nil]
   # @scope class
-  attach_function :al_drop_path_tail, :al_drop_path_tail, [ALLEGROPATH], :void
+  attach_function :al_drop_path_tail, :al_drop_path_tail, [AllegroPath], :void
 
   # (Not documented)
   #
   # @method al_append_path_component(path, s)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [String] s
   # @return [nil]
   # @scope class
-  attach_function :al_append_path_component, :al_append_path_component, [ALLEGROPATH, :string], :void
+  attach_function :al_append_path_component, :al_append_path_component, [AllegroPath, :string], :void
 
   # (Not documented)
   #
   # @method al_join_paths(path, tail)
-  # @param [ALLEGROPATH] path
-  # @param [ALLEGROPATH] tail
+  # @param [AllegroPath] path
+  # @param [AllegroPath] tail
   # @return [Boolean]
   # @scope class
-  attach_function :al_join_paths, :al_join_paths, [ALLEGROPATH, ALLEGROPATH], :bool
+  attach_function :al_join_paths, :al_join_paths, [AllegroPath, AllegroPath], :bool
 
   # (Not documented)
   #
   # @method al_rebase_path(head, tail)
-  # @param [ALLEGROPATH] head
-  # @param [ALLEGROPATH] tail
+  # @param [AllegroPath] head
+  # @param [AllegroPath] tail
   # @return [Boolean]
   # @scope class
-  attach_function :al_rebase_path, :al_rebase_path, [ALLEGROPATH, ALLEGROPATH], :bool
+  attach_function :al_rebase_path, :al_rebase_path, [AllegroPath, AllegroPath], :bool
 
   # (Not documented)
   #
   # @method al_path_cstr(path, delim)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [Integer] delim
   # @return [String]
   # @scope class
-  attach_function :al_path_cstr, :al_path_cstr, [ALLEGROPATH, :char], :string
+  attach_function :al_path_cstr, :al_path_cstr, [AllegroPath, :char], :string
 
   # (Not documented)
   #
   # @method al_destroy_path(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_path, :al_destroy_path, [ALLEGROPATH], :void
+  attach_function :al_destroy_path, :al_destroy_path, [AllegroPath], :void
 
   # (Not documented)
   #
   # @method al_set_path_drive(path, drive)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [String] drive
   # @return [nil]
   # @scope class
-  attach_function :al_set_path_drive, :al_set_path_drive, [ALLEGROPATH, :string], :void
+  attach_function :al_set_path_drive, :al_set_path_drive, [AllegroPath, :string], :void
 
   # (Not documented)
   #
   # @method al_get_path_drive(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [String]
   # @scope class
-  attach_function :al_get_path_drive, :al_get_path_drive, [ALLEGROPATH], :string
+  attach_function :al_get_path_drive, :al_get_path_drive, [AllegroPath], :string
 
   # (Not documented)
   #
   # @method al_set_path_filename(path, filename)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [String] filename
   # @return [nil]
   # @scope class
-  attach_function :al_set_path_filename, :al_set_path_filename, [ALLEGROPATH, :string], :void
+  attach_function :al_set_path_filename, :al_set_path_filename, [AllegroPath, :string], :void
 
   # (Not documented)
   #
   # @method al_get_path_filename(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [String]
   # @scope class
-  attach_function :al_get_path_filename, :al_get_path_filename, [ALLEGROPATH], :string
+  attach_function :al_get_path_filename, :al_get_path_filename, [AllegroPath], :string
 
   # (Not documented)
   #
   # @method al_get_path_extension(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [String]
   # @scope class
-  attach_function :al_get_path_extension, :al_get_path_extension, [ALLEGROPATH], :string
+  attach_function :al_get_path_extension, :al_get_path_extension, [AllegroPath], :string
 
   # (Not documented)
   #
   # @method al_set_path_extension(path, extension)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @param [String] extension
   # @return [Boolean]
   # @scope class
-  attach_function :al_set_path_extension, :al_set_path_extension, [ALLEGROPATH, :string], :bool
+  attach_function :al_set_path_extension, :al_set_path_extension, [AllegroPath, :string], :bool
 
   # (Not documented)
   #
   # @method al_get_path_basename(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [String]
   # @scope class
-  attach_function :al_get_path_basename, :al_get_path_basename, [ALLEGROPATH], :string
+  attach_function :al_get_path_basename, :al_get_path_basename, [AllegroPath], :string
 
   # (Not documented)
   #
   # @method al_make_path_canonical(path)
-  # @param [ALLEGROPATH] path
+  # @param [AllegroPath] path
   # @return [Boolean]
   # @scope class
-  attach_function :al_make_path_canonical, :al_make_path_canonical, [ALLEGROPATH], :bool
+  attach_function :al_make_path_canonical, :al_make_path_canonical, [AllegroPath], :bool
 
   # (Not documented)
   #
@@ -911,7 +911,7 @@ module Allegro4r::API
   # :slen ::
   #   (Integer)
   # :data ::
-  #   (FFI::Pointer(*UChar))
+  #   (FFI::Pointer(*Uchar))
   class AlTagbstring < FFI::Struct
     layout :mlen, :int,
            :slen, :int,
@@ -1527,7 +1527,7 @@ module Allegro4r::API
   attach_function :al_utf16_encode, :al_utf16_encode, [:pointer, :int], :ulong
 
   # (Not documented)
-  class ALLEGROFILE < FFI::Struct
+  class AllegroFile < FFI::Struct
     layout :dummy, :char
   end
 
@@ -1558,7 +1558,7 @@ module Allegro4r::API
   #   (FFI::Pointer(*))
   # :fi_fsize ::
   #   (FFI::Pointer(*))
-  class ALLEGROFILEINTERFACE < FFI::Struct
+  class AllegroFileInterface < FFI::Struct
     layout :fi_fopen, :pointer,
            :fi_fclose, :pointer,
            :fi_fread, :pointer,
@@ -1599,278 +1599,278 @@ module Allegro4r::API
   # @method al_fopen(path, mode)
   # @param [String] path
   # @param [String] mode
-  # @return [ALLEGROFILE]
+  # @return [AllegroFile]
   # @scope class
-  attach_function :al_fopen, :al_fopen, [:string, :string], ALLEGROFILE
+  attach_function :al_fopen, :al_fopen, [:string, :string], AllegroFile
 
   # (Not documented)
   #
   # @method al_fopen_interface(vt, path, mode)
-  # @param [ALLEGROFILEINTERFACE] vt
+  # @param [AllegroFileInterface] vt
   # @param [String] path
   # @param [String] mode
-  # @return [ALLEGROFILE]
+  # @return [AllegroFile]
   # @scope class
-  attach_function :al_fopen_interface, :al_fopen_interface, [ALLEGROFILEINTERFACE, :string, :string], ALLEGROFILE
+  attach_function :al_fopen_interface, :al_fopen_interface, [AllegroFileInterface, :string, :string], AllegroFile
 
   # (Not documented)
   #
   # @method al_create_file_handle(vt, userdata)
-  # @param [ALLEGROFILEINTERFACE] vt
+  # @param [AllegroFileInterface] vt
   # @param [FFI::Pointer(*Void)] userdata
-  # @return [ALLEGROFILE]
+  # @return [AllegroFile]
   # @scope class
-  attach_function :al_create_file_handle, :al_create_file_handle, [ALLEGROFILEINTERFACE, :pointer], ALLEGROFILE
+  attach_function :al_create_file_handle, :al_create_file_handle, [AllegroFileInterface, :pointer], AllegroFile
 
   # (Not documented)
   #
   # @method al_fclose(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [nil]
   # @scope class
-  attach_function :al_fclose, :al_fclose, [ALLEGROFILE], :void
+  attach_function :al_fclose, :al_fclose, [AllegroFile], :void
 
   # (Not documented)
   #
   # @method al_fread(f, ptr, size)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [FFI::Pointer(*Void)] ptr
   # @param [Integer] size
   # @return [Integer]
   # @scope class
-  attach_function :al_fread, :al_fread, [ALLEGROFILE, :pointer, :ulong], :ulong
+  attach_function :al_fread, :al_fread, [AllegroFile, :pointer, :ulong], :ulong
 
   # (Not documented)
   #
   # @method al_fwrite(f, ptr, size)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [FFI::Pointer(*Void)] ptr
   # @param [Integer] size
   # @return [Integer]
   # @scope class
-  attach_function :al_fwrite, :al_fwrite, [ALLEGROFILE, :pointer, :ulong], :ulong
+  attach_function :al_fwrite, :al_fwrite, [AllegroFile, :pointer, :ulong], :ulong
 
   # (Not documented)
   #
   # @method al_fflush(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Boolean]
   # @scope class
-  attach_function :al_fflush, :al_fflush, [ALLEGROFILE], :bool
+  attach_function :al_fflush, :al_fflush, [AllegroFile], :bool
 
   # (Not documented)
   #
   # @method al_ftell(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Integer]
   # @scope class
-  attach_function :al_ftell, :al_ftell, [ALLEGROFILE], :long_long
+  attach_function :al_ftell, :al_ftell, [AllegroFile], :long_long
 
   # (Not documented)
   #
   # @method al_fseek(f, offset, whence)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [Integer] offset
   # @param [Integer] whence
   # @return [Boolean]
   # @scope class
-  attach_function :al_fseek, :al_fseek, [ALLEGROFILE, :long_long, :int], :bool
+  attach_function :al_fseek, :al_fseek, [AllegroFile, :long_long, :int], :bool
 
   # (Not documented)
   #
   # @method al_feof(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Boolean]
   # @scope class
-  attach_function :al_feof, :al_feof, [ALLEGROFILE], :bool
+  attach_function :al_feof, :al_feof, [AllegroFile], :bool
 
   # (Not documented)
   #
   # @method al_ferror(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Boolean]
   # @scope class
-  attach_function :al_ferror, :al_ferror, [ALLEGROFILE], :bool
+  attach_function :al_ferror, :al_ferror, [AllegroFile], :bool
 
   # (Not documented)
   #
   # @method al_fclearerr(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [nil]
   # @scope class
-  attach_function :al_fclearerr, :al_fclearerr, [ALLEGROFILE], :void
+  attach_function :al_fclearerr, :al_fclearerr, [AllegroFile], :void
 
   # (Not documented)
   #
   # @method al_fungetc(f, c)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [Integer] c
   # @return [Integer]
   # @scope class
-  attach_function :al_fungetc, :al_fungetc, [ALLEGROFILE, :int], :int
+  attach_function :al_fungetc, :al_fungetc, [AllegroFile, :int], :int
 
   # (Not documented)
   #
   # @method al_fsize(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Integer]
   # @scope class
-  attach_function :al_fsize, :al_fsize, [ALLEGROFILE], :long_long
+  attach_function :al_fsize, :al_fsize, [AllegroFile], :long_long
 
   # (Not documented)
   #
   # @method al_fgetc(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Integer]
   # @scope class
-  attach_function :al_fgetc, :al_fgetc, [ALLEGROFILE], :int
+  attach_function :al_fgetc, :al_fgetc, [AllegroFile], :int
 
   # (Not documented)
   #
   # @method al_fputc(f, c)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [Integer] c
   # @return [Integer]
   # @scope class
-  attach_function :al_fputc, :al_fputc, [ALLEGROFILE, :int], :int
+  attach_function :al_fputc, :al_fputc, [AllegroFile, :int], :int
 
   # (Not documented)
   #
   # @method al_fread16le(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Integer]
   # @scope class
-  attach_function :al_fread16le, :al_fread16le, [ALLEGROFILE], :short
+  attach_function :al_fread16le, :al_fread16le, [AllegroFile], :short
 
   # (Not documented)
   #
   # @method al_fread16be(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Integer]
   # @scope class
-  attach_function :al_fread16be, :al_fread16be, [ALLEGROFILE], :short
+  attach_function :al_fread16be, :al_fread16be, [AllegroFile], :short
 
   # (Not documented)
   #
   # @method al_fwrite16le(f, w)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [Integer] w
   # @return [Integer]
   # @scope class
-  attach_function :al_fwrite16le, :al_fwrite16le, [ALLEGROFILE, :short], :ulong
+  attach_function :al_fwrite16le, :al_fwrite16le, [AllegroFile, :short], :ulong
 
   # (Not documented)
   #
   # @method al_fwrite16be(f, w)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [Integer] w
   # @return [Integer]
   # @scope class
-  attach_function :al_fwrite16be, :al_fwrite16be, [ALLEGROFILE, :short], :ulong
+  attach_function :al_fwrite16be, :al_fwrite16be, [AllegroFile, :short], :ulong
 
   # (Not documented)
   #
   # @method al_fread32le(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Integer]
   # @scope class
-  attach_function :al_fread32le, :al_fread32le, [ALLEGROFILE], :int
+  attach_function :al_fread32le, :al_fread32le, [AllegroFile], :int
 
   # (Not documented)
   #
   # @method al_fread32be(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [Integer]
   # @scope class
-  attach_function :al_fread32be, :al_fread32be, [ALLEGROFILE], :int
+  attach_function :al_fread32be, :al_fread32be, [AllegroFile], :int
 
   # (Not documented)
   #
   # @method al_fwrite32le(f, l)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [Integer] l
   # @return [Integer]
   # @scope class
-  attach_function :al_fwrite32le, :al_fwrite32le, [ALLEGROFILE, :int], :ulong
+  attach_function :al_fwrite32le, :al_fwrite32le, [AllegroFile, :int], :ulong
 
   # (Not documented)
   #
   # @method al_fwrite32be(f, l)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [Integer] l
   # @return [Integer]
   # @scope class
-  attach_function :al_fwrite32be, :al_fwrite32be, [ALLEGROFILE, :int], :ulong
+  attach_function :al_fwrite32be, :al_fwrite32be, [AllegroFile, :int], :ulong
 
   # (Not documented)
   #
   # @method al_fgets(f, p, max)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [String] p
   # @param [Integer] max
   # @return [String]
   # @scope class
-  attach_function :al_fgets, :al_fgets, [ALLEGROFILE, :string, :ulong], :string
+  attach_function :al_fgets, :al_fgets, [AllegroFile, :string, :ulong], :string
 
   # (Not documented)
   #
   # @method al_fget_ustr(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [AlTagbstring]
   # @scope class
-  attach_function :al_fget_ustr, :al_fget_ustr, [ALLEGROFILE], AlTagbstring
+  attach_function :al_fget_ustr, :al_fget_ustr, [AllegroFile], AlTagbstring
 
   # (Not documented)
   #
   # @method al_fputs(f, p)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @param [String] p
   # @return [Integer]
   # @scope class
-  attach_function :al_fputs, :al_fputs, [ALLEGROFILE, :string], :int
+  attach_function :al_fputs, :al_fputs, [AllegroFile, :string], :int
 
   # (Not documented)
   #
   # @method al_fopen_fd(fd, mode)
   # @param [Integer] fd
   # @param [String] mode
-  # @return [ALLEGROFILE]
+  # @return [AllegroFile]
   # @scope class
-  attach_function :al_fopen_fd, :al_fopen_fd, [:int, :string], ALLEGROFILE
+  attach_function :al_fopen_fd, :al_fopen_fd, [:int, :string], AllegroFile
 
   # (Not documented)
   #
   # @method al_make_temp_file(tmpl, ret_path)
   # @param [String] tmpl
-  # @param [FFI::Pointer(**ALLEGROPATH)] ret_path
-  # @return [ALLEGROFILE]
+  # @param [FFI::Pointer(**AllegroPath)] ret_path
+  # @return [AllegroFile]
   # @scope class
-  attach_function :al_make_temp_file, :al_make_temp_file, [:string, :pointer], ALLEGROFILE
+  attach_function :al_make_temp_file, :al_make_temp_file, [:string, :pointer], AllegroFile
 
   # (Not documented)
   #
   # @method al_fopen_slice(fp, initial_size, mode)
-  # @param [ALLEGROFILE] fp
+  # @param [AllegroFile] fp
   # @param [Integer] initial_size
   # @param [String] mode
-  # @return [ALLEGROFILE]
+  # @return [AllegroFile]
   # @scope class
-  attach_function :al_fopen_slice, :al_fopen_slice, [ALLEGROFILE, :ulong, :string], ALLEGROFILE
+  attach_function :al_fopen_slice, :al_fopen_slice, [AllegroFile, :ulong, :string], AllegroFile
 
   # (Not documented)
   #
   # @method al_get_new_file_interface()
-  # @return [ALLEGROFILEINTERFACE]
+  # @return [AllegroFileInterface]
   # @scope class
-  attach_function :al_get_new_file_interface, :al_get_new_file_interface, [], ALLEGROFILEINTERFACE
+  attach_function :al_get_new_file_interface, :al_get_new_file_interface, [], AllegroFileInterface
 
   # (Not documented)
   #
   # @method al_set_new_file_interface(file_interface)
-  # @param [ALLEGROFILEINTERFACE] file_interface
+  # @param [AllegroFileInterface] file_interface
   # @return [nil]
   # @scope class
-  attach_function :al_set_new_file_interface, :al_set_new_file_interface, [ALLEGROFILEINTERFACE], :void
+  attach_function :al_set_new_file_interface, :al_set_new_file_interface, [AllegroFileInterface], :void
 
   # (Not documented)
   #
@@ -1882,19 +1882,19 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_file_userdata(f)
-  # @param [ALLEGROFILE] f
+  # @param [AllegroFile] f
   # @return [FFI::Pointer(*Void)]
   # @scope class
-  attach_function :al_get_file_userdata, :al_get_file_userdata, [ALLEGROFILE], :pointer
+  attach_function :al_get_file_userdata, :al_get_file_userdata, [AllegroFile], :pointer
 
   # (Not documented)
   #
   # <em>This entry is only for documentation and no real method.</em>
   #
   # @method _callback_allegro_iio_loader_function_(allegro_bitmap, filename)
-  # @param [ALLEGROBITMAP] allegro_bitmap
+  # @param [AllegroBitmap] allegro_bitmap
   # @param [String] filename
-  # @return [ALLEGROBITMAP]
+  # @return [AllegroBitmap]
   # @scope class
   callback :allegro_iio_loader_function, [:pointer, :string], :pointer
 
@@ -1903,11 +1903,11 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method.</em>
   #
   # @method _callback_allegro_iio_fs_loader_function_(allegro_bitmap, fp)
-  # @param [ALLEGROBITMAP] allegro_bitmap
-  # @param [ALLEGROFILE] fp
-  # @return [ALLEGROBITMAP]
+  # @param [AllegroBitmap] allegro_bitmap
+  # @param [AllegroFile] fp
+  # @return [AllegroBitmap]
   # @scope class
-  callback :allegro_iio_fs_loader_function, [:pointer, ALLEGROFILE], :pointer
+  callback :allegro_iio_fs_loader_function, [:pointer, AllegroFile], :pointer
 
   # (Not documented)
   #
@@ -1915,7 +1915,7 @@ module Allegro4r::API
   #
   # @method _callback_allegro_iio_saver_function_(filename, bitmap)
   # @param [String] filename
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [String]
   # @scope class
   callback :allegro_iio_saver_function, [:string, :pointer], :string
@@ -1925,11 +1925,11 @@ module Allegro4r::API
   # <em>This entry is only for documentation and no real method.</em>
   #
   # @method _callback_allegro_iio_fs_saver_function_(fp, bitmap)
-  # @param [ALLEGROFILE] fp
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
-  # @return [ALLEGROFILE]
+  # @param [AllegroFile] fp
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
+  # @return [AllegroFile]
   # @scope class
-  callback :allegro_iio_fs_saver_function, [ALLEGROFILE, :pointer], ALLEGROFILE
+  callback :allegro_iio_fs_saver_function, [AllegroFile, :pointer], AllegroFile
 
   # (Not documented)
   #
@@ -1971,24 +1971,24 @@ module Allegro4r::API
   #
   # @method al_load_bitmap(filename)
   # @param [String] filename
-  # @return [FFI::Pointer(*ALLEGROBITMAP)]
+  # @return [FFI::Pointer(*AllegroBitmap)]
   # @scope class
   attach_function :al_load_bitmap, :al_load_bitmap, [:string], :pointer
 
   # (Not documented)
   #
   # @method al_load_bitmap_f(fp, ident)
-  # @param [ALLEGROFILE] fp
+  # @param [AllegroFile] fp
   # @param [String] ident
-  # @return [FFI::Pointer(*ALLEGROBITMAP)]
+  # @return [FFI::Pointer(*AllegroBitmap)]
   # @scope class
-  attach_function :al_load_bitmap_f, :al_load_bitmap_f, [ALLEGROFILE, :string], :pointer
+  attach_function :al_load_bitmap_f, :al_load_bitmap_f, [AllegroFile, :string], :pointer
 
   # (Not documented)
   #
   # @method al_save_bitmap(filename, bitmap)
   # @param [String] filename
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Boolean]
   # @scope class
   attach_function :al_save_bitmap, :al_save_bitmap, [:string, :pointer], :bool
@@ -1996,12 +1996,12 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_save_bitmap_f(fp, ident, bitmap)
-  # @param [ALLEGROFILE] fp
+  # @param [AllegroFile] fp
   # @param [String] ident
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Boolean]
   # @scope class
-  attach_function :al_save_bitmap_f, :al_save_bitmap_f, [ALLEGROFILE, :string, :pointer], :bool
+  attach_function :al_save_bitmap_f, :al_save_bitmap_f, [AllegroFile, :string, :pointer], :bool
 
   # (Not documented)
   #
@@ -2014,7 +2014,7 @@ module Allegro4r::API
   #   (Integer)
   # :pixel_size ::
   #   (Integer)
-  class ALLEGROLOCKEDREGION < FFI::Struct
+  class AllegroLockedRegion < FFI::Struct
     layout :data, :pointer,
            :format, :int,
            :pitch, :int,
@@ -2024,31 +2024,31 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_lock_bitmap(bitmap, format, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Integer] format
   # @param [Integer] flags
-  # @return [ALLEGROLOCKEDREGION]
+  # @return [AllegroLockedRegion]
   # @scope class
-  attach_function :al_lock_bitmap, :al_lock_bitmap, [:pointer, :int, :int], ALLEGROLOCKEDREGION.by_ref
+  attach_function :al_lock_bitmap, :al_lock_bitmap, [:pointer, :int, :int], AllegroLockedRegion.by_ref
 
   # (Not documented)
   #
   # @method al_lock_bitmap_region(bitmap, x, y, width, height, format, flags)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @param [Integer] x
   # @param [Integer] y
   # @param [Integer] width
   # @param [Integer] height
   # @param [Integer] format
   # @param [Integer] flags
-  # @return [ALLEGROLOCKEDREGION]
+  # @return [AllegroLockedRegion]
   # @scope class
-  attach_function :al_lock_bitmap_region, :al_lock_bitmap_region, [:pointer, :int, :int, :int, :int, :int, :int], ALLEGROLOCKEDREGION.by_ref
+  attach_function :al_lock_bitmap_region, :al_lock_bitmap_region, [:pointer, :int, :int, :int, :int, :int, :int], AllegroLockedRegion.by_ref
 
   # (Not documented)
   #
   # @method al_unlock_bitmap(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [nil]
   # @scope class
   attach_function :al_unlock_bitmap, :al_unlock_bitmap, [:pointer], :void
@@ -2056,7 +2056,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_is_bitmap_locked(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Boolean]
   # @scope class
   attach_function :al_is_bitmap_locked, :al_is_bitmap_locked, [:pointer], :bool
@@ -2171,140 +2171,140 @@ module Allegro4r::API
   attach_function :al_get_separate_blender, :al_get_separate_blender, [:pointer, :pointer, :pointer, :pointer, :pointer, :pointer], :void
 
   # (Not documented)
-  class ALLEGROCONFIG < FFI::Struct
+  class AllegroConfig < FFI::Struct
     layout :dummy, :char
   end
 
   # (Not documented)
-  class ALLEGROCONFIGSECTION < FFI::Struct
+  class AllegroConfigSection < FFI::Struct
     layout :dummy, :char
   end
 
   # (Not documented)
-  class ALLEGROCONFIGENTRY < FFI::Struct
+  class AllegroConfigEntry < FFI::Struct
     layout :dummy, :char
   end
 
   # (Not documented)
   #
   # @method al_create_config()
-  # @return [ALLEGROCONFIG]
+  # @return [AllegroConfig]
   # @scope class
-  attach_function :al_create_config, :al_create_config, [], ALLEGROCONFIG
+  attach_function :al_create_config, :al_create_config, [], AllegroConfig
 
   # (Not documented)
   #
   # @method al_add_config_section(config, name)
-  # @param [ALLEGROCONFIG] config
+  # @param [AllegroConfig] config
   # @param [String] name
   # @return [nil]
   # @scope class
-  attach_function :al_add_config_section, :al_add_config_section, [ALLEGROCONFIG, :string], :void
+  attach_function :al_add_config_section, :al_add_config_section, [AllegroConfig, :string], :void
 
   # (Not documented)
   #
   # @method al_set_config_value(config, section, key, value)
-  # @param [ALLEGROCONFIG] config
+  # @param [AllegroConfig] config
   # @param [String] section
   # @param [String] key
   # @param [String] value
   # @return [nil]
   # @scope class
-  attach_function :al_set_config_value, :al_set_config_value, [ALLEGROCONFIG, :string, :string, :string], :void
+  attach_function :al_set_config_value, :al_set_config_value, [AllegroConfig, :string, :string, :string], :void
 
   # (Not documented)
   #
   # @method al_add_config_comment(config, section, comment)
-  # @param [ALLEGROCONFIG] config
+  # @param [AllegroConfig] config
   # @param [String] section
   # @param [String] comment
   # @return [nil]
   # @scope class
-  attach_function :al_add_config_comment, :al_add_config_comment, [ALLEGROCONFIG, :string, :string], :void
+  attach_function :al_add_config_comment, :al_add_config_comment, [AllegroConfig, :string, :string], :void
 
   # (Not documented)
   #
   # @method al_get_config_value(config, section, key)
-  # @param [ALLEGROCONFIG] config
+  # @param [AllegroConfig] config
   # @param [String] section
   # @param [String] key
   # @return [String]
   # @scope class
-  attach_function :al_get_config_value, :al_get_config_value, [ALLEGROCONFIG, :string, :string], :string
+  attach_function :al_get_config_value, :al_get_config_value, [AllegroConfig, :string, :string], :string
 
   # (Not documented)
   #
   # @method al_load_config_file(filename)
   # @param [String] filename
-  # @return [ALLEGROCONFIG]
+  # @return [AllegroConfig]
   # @scope class
-  attach_function :al_load_config_file, :al_load_config_file, [:string], ALLEGROCONFIG
+  attach_function :al_load_config_file, :al_load_config_file, [:string], AllegroConfig
 
   # (Not documented)
   #
   # @method al_load_config_file_f(filename)
-  # @param [ALLEGROFILE] filename
-  # @return [ALLEGROCONFIG]
+  # @param [AllegroFile] filename
+  # @return [AllegroConfig]
   # @scope class
-  attach_function :al_load_config_file_f, :al_load_config_file_f, [ALLEGROFILE], ALLEGROCONFIG
+  attach_function :al_load_config_file_f, :al_load_config_file_f, [AllegroFile], AllegroConfig
 
   # (Not documented)
   #
   # @method al_save_config_file(filename, config)
   # @param [String] filename
-  # @param [ALLEGROCONFIG] config
+  # @param [AllegroConfig] config
   # @return [Boolean]
   # @scope class
-  attach_function :al_save_config_file, :al_save_config_file, [:string, ALLEGROCONFIG], :bool
+  attach_function :al_save_config_file, :al_save_config_file, [:string, AllegroConfig], :bool
 
   # (Not documented)
   #
   # @method al_save_config_file_f(file, config)
-  # @param [ALLEGROFILE] file
-  # @param [ALLEGROCONFIG] config
+  # @param [AllegroFile] file
+  # @param [AllegroConfig] config
   # @return [Boolean]
   # @scope class
-  attach_function :al_save_config_file_f, :al_save_config_file_f, [ALLEGROFILE, ALLEGROCONFIG], :bool
+  attach_function :al_save_config_file_f, :al_save_config_file_f, [AllegroFile, AllegroConfig], :bool
 
   # (Not documented)
   #
   # @method al_merge_config_into(master, add)
-  # @param [ALLEGROCONFIG] master
-  # @param [ALLEGROCONFIG] add
+  # @param [AllegroConfig] master
+  # @param [AllegroConfig] add
   # @return [nil]
   # @scope class
-  attach_function :al_merge_config_into, :al_merge_config_into, [ALLEGROCONFIG, ALLEGROCONFIG], :void
+  attach_function :al_merge_config_into, :al_merge_config_into, [AllegroConfig, AllegroConfig], :void
 
   # (Not documented)
   #
   # @method al_merge_config(cfg1, cfg2)
-  # @param [ALLEGROCONFIG] cfg1
-  # @param [ALLEGROCONFIG] cfg2
-  # @return [ALLEGROCONFIG]
+  # @param [AllegroConfig] cfg1
+  # @param [AllegroConfig] cfg2
+  # @return [AllegroConfig]
   # @scope class
-  attach_function :al_merge_config, :al_merge_config, [ALLEGROCONFIG, ALLEGROCONFIG], ALLEGROCONFIG
+  attach_function :al_merge_config, :al_merge_config, [AllegroConfig, AllegroConfig], AllegroConfig
 
   # (Not documented)
   #
   # @method al_destroy_config(config)
-  # @param [ALLEGROCONFIG] config
+  # @param [AllegroConfig] config
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_config, :al_destroy_config, [ALLEGROCONFIG], :void
+  attach_function :al_destroy_config, :al_destroy_config, [AllegroConfig], :void
 
   # (Not documented)
   #
   # @method al_get_first_config_section(config, iterator)
-  # @param [ALLEGROCONFIG] config
-  # @param [FFI::Pointer(**ALLEGROCONFIGSECTION)] iterator
+  # @param [AllegroConfig] config
+  # @param [FFI::Pointer(**AllegroConfigSection)] iterator
   # @return [String]
   # @scope class
-  attach_function :al_get_first_config_section, :al_get_first_config_section, [ALLEGROCONFIG, :pointer], :string
+  attach_function :al_get_first_config_section, :al_get_first_config_section, [AllegroConfig, :pointer], :string
 
   # (Not documented)
   #
   # @method al_get_next_config_section(iterator)
-  # @param [FFI::Pointer(**ALLEGROCONFIGSECTION)] iterator
+  # @param [FFI::Pointer(**AllegroConfigSection)] iterator
   # @return [String]
   # @scope class
   attach_function :al_get_next_config_section, :al_get_next_config_section, [:pointer], :string
@@ -2312,17 +2312,17 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_first_config_entry(config, section, iterator)
-  # @param [ALLEGROCONFIG] config
+  # @param [AllegroConfig] config
   # @param [String] section
-  # @param [FFI::Pointer(**ALLEGROCONFIGENTRY)] iterator
+  # @param [FFI::Pointer(**AllegroConfigEntry)] iterator
   # @return [String]
   # @scope class
-  attach_function :al_get_first_config_entry, :al_get_first_config_entry, [ALLEGROCONFIG, :string, :pointer], :string
+  attach_function :al_get_first_config_entry, :al_get_first_config_entry, [AllegroConfig, :string, :pointer], :string
 
   # (Not documented)
   #
   # @method al_get_next_config_entry(iterator)
-  # @param [FFI::Pointer(**ALLEGROCONFIGENTRY)] iterator
+  # @param [FFI::Pointer(**AllegroConfigEntry)] iterator
   # @return [String]
   # @scope class
   attach_function :al_get_next_config_entry, :al_get_next_config_entry, [:pointer], :string
@@ -2360,7 +2360,7 @@ module Allegro4r::API
   # = Fields:
   # :pad ::
   #   (Array<Integer>)
-  class ALLEGROEVENTSOURCE < FFI::Struct
+  class AllegroEventSource < FFI::Struct
     layout :pad, [:int, 32]
   end
 
@@ -2370,12 +2370,12 @@ module Allegro4r::API
   # :type ::
   #   (Integer)
   # :source ::
-  #   (ALLEGROEVENTSOURCE)
+  #   (AllegroEventSource)
   # :timestamp ::
   #   (Float)
-  class ALLEGROANYEVENT < FFI::Struct
+  class AllegroAnyEvent < FFI::Struct
     layout :type, :uint,
-           :source, ALLEGROEVENTSOURCE.by_ref,
+           :source, AllegroEventSource.by_ref,
            :timestamp, :double
   end
 
@@ -2385,7 +2385,7 @@ module Allegro4r::API
   # :type ::
   #   (Integer)
   # :source ::
-  #   (FFI::Pointer(*ALLEGRODISPLAY))
+  #   (FFI::Pointer(*AllegroDisplay))
   # :timestamp ::
   #   (Float)
   # :x ::
@@ -2398,7 +2398,7 @@ module Allegro4r::API
   #   (Integer)
   # :orientation ::
   #   (Integer)
-  class ALLEGRODISPLAYEVENT < FFI::Struct
+  class AllegroDisplayEvent < FFI::Struct
     layout :type, :uint,
            :source, :pointer,
            :timestamp, :double,
@@ -2410,7 +2410,7 @@ module Allegro4r::API
   end
 
   # (Not documented)
-  class ALLEGROJOYSTICK < FFI::Struct
+  class AllegroJoystick < FFI::Struct
     layout :dummy, :char
   end
 
@@ -2420,11 +2420,11 @@ module Allegro4r::API
   # :type ::
   #   (Integer)
   # :source ::
-  #   (ALLEGROJOYSTICK)
+  #   (AllegroJoystick)
   # :timestamp ::
   #   (Float)
   # :id ::
-  #   (ALLEGROJOYSTICK)
+  #   (AllegroJoystick)
   # :stick ::
   #   (Integer)
   # :axis ::
@@ -2433,11 +2433,11 @@ module Allegro4r::API
   #   (Float)
   # :button ::
   #   (Integer)
-  class ALLEGROJOYSTICKEVENT < FFI::Struct
+  class AllegroJoystickEvent < FFI::Struct
     layout :type, :uint,
-           :source, ALLEGROJOYSTICK.by_ref,
+           :source, AllegroJoystick.by_ref,
            :timestamp, :double,
-           :id, ALLEGROJOYSTICK.by_ref,
+           :id, AllegroJoystick.by_ref,
            :stick, :int,
            :axis, :int,
            :pos, :float,
@@ -2445,7 +2445,7 @@ module Allegro4r::API
   end
 
   # (Not documented)
-  class ALLEGROKEYBOARD < FFI::Struct
+  class AllegroKeyboard < FFI::Struct
     layout :dummy, :char
   end
 
@@ -2455,11 +2455,11 @@ module Allegro4r::API
   # :type ::
   #   (Integer)
   # :source ::
-  #   (ALLEGROKEYBOARD)
+  #   (AllegroKeyboard)
   # :timestamp ::
   #   (Float)
   # :display ::
-  #   (FFI::Pointer(*ALLEGRODISPLAY)) the window the key was pressed in
+  #   (FFI::Pointer(*AllegroDisplay)) the window the key was pressed in
   # :keycode ::
   #   (Integer) the physical key pressed
   # :unichar ::
@@ -2468,9 +2468,9 @@ module Allegro4r::API
   #   (Integer) bitfield
   # :repeat ::
   #   (Boolean) auto-repeated or not
-  class ALLEGROKEYBOARDEVENT < FFI::Struct
+  class AllegroKeyboardEvent < FFI::Struct
     layout :type, :uint,
-           :source, ALLEGROKEYBOARD.by_ref,
+           :source, AllegroKeyboard.by_ref,
            :timestamp, :double,
            :display, :pointer,
            :keycode, :int,
@@ -2480,7 +2480,7 @@ module Allegro4r::API
   end
 
   # (Not documented)
-  class ALLEGROMOUSE < FFI::Struct
+  class AllegroMouse < FFI::Struct
     layout :dummy, :char
   end
 
@@ -2490,11 +2490,11 @@ module Allegro4r::API
   # :type ::
   #   (Integer)
   # :source ::
-  #   (ALLEGROMOUSE)
+  #   (AllegroMouse)
   # :timestamp ::
   #   (Float)
   # :display ::
-  #   (FFI::Pointer(*ALLEGRODISPLAY))
+  #   (FFI::Pointer(*AllegroDisplay))
   # :x ::
   #   (Integer) (display) Window the event originate from
   #   (x, y) Primary mouse position
@@ -2519,9 +2519,9 @@ module Allegro4r::API
   #   (Integer)
   # :pressure ::
   #   (Float)
-  class ALLEGROMOUSEEVENT < FFI::Struct
+  class AllegroMouseEvent < FFI::Struct
     layout :type, :uint,
-           :source, ALLEGROMOUSE.by_ref,
+           :source, AllegroMouse.by_ref,
            :timestamp, :double,
            :display, :pointer,
            :x, :int,
@@ -2537,7 +2537,7 @@ module Allegro4r::API
   end
 
   # (Not documented)
-  class ALLEGROTIMER < FFI::Struct
+  class AllegroTimer < FFI::Struct
     layout :dummy, :char
   end
 
@@ -2547,23 +2547,23 @@ module Allegro4r::API
   # :type ::
   #   (Integer)
   # :source ::
-  #   (ALLEGROTIMER)
+  #   (AllegroTimer)
   # :timestamp ::
   #   (Float)
   # :count ::
   #   (Integer)
   # :error ::
   #   (Float)
-  class ALLEGROTIMEREVENT < FFI::Struct
+  class AllegroTimerEvent < FFI::Struct
     layout :type, :uint,
-           :source, ALLEGROTIMER.by_ref,
+           :source, AllegroTimer.by_ref,
            :timestamp, :double,
            :count, :long_long,
            :error, :double
   end
 
   # (Not documented)
-  class ALLEGROUSEREVENTDESCRIPTOR < FFI::Struct
+  class AllegroUserEventDescriptor < FFI::Struct
     layout :dummy, :char
   end
 
@@ -2573,11 +2573,11 @@ module Allegro4r::API
   # :type ::
   #   (Integer)
   # :source ::
-  #   (ALLEGROEVENTSOURCE)
+  #   (AllegroEventSource)
   # :timestamp ::
   #   (Float)
   # :internal_descr ::
-  #   (ALLEGROUSEREVENTDESCRIPTOR)
+  #   (AllegroUserEventDescriptor)
   # :data1 ::
   #   (Integer)
   # :data2 ::
@@ -2586,11 +2586,11 @@ module Allegro4r::API
   #   (Integer)
   # :data4 ::
   #   (Integer)
-  class ALLEGROUSEREVENT < FFI::Struct
+  class AllegroUserEvent < FFI::Struct
     layout :type, :uint,
-           :source, ALLEGROEVENTSOURCE.by_ref,
+           :source, AllegroEventSource.by_ref,
            :timestamp, :double,
-           :internal_descr, ALLEGROUSEREVENTDESCRIPTOR,
+           :internal_descr, AllegroUserEventDescriptor,
            :data1, :long,
            :data2, :long,
            :data3, :long,
@@ -2603,191 +2603,191 @@ module Allegro4r::API
   # :type ::
   #   (Integer) This must be the same as the first field of _AL_EVENT_HEADER.
   # :any ::
-  #   (ALLEGROANYEVENT) `any' is to allow the user to access the other fields which are
+  #   (AllegroAnyEvent) `any' is to allow the user to access the other fields which are
   #   common to all event types, without using some specific type
   #   structure.
   # :display ::
-  #   (ALLEGRODISPLAYEVENT)
+  #   (AllegroDisplayEvent)
   # :joystick ::
-  #   (ALLEGROJOYSTICKEVENT)
+  #   (AllegroJoystickEvent)
   # :keyboard ::
-  #   (ALLEGROKEYBOARDEVENT)
+  #   (AllegroKeyboardEvent)
   # :mouse ::
-  #   (ALLEGROMOUSEEVENT)
+  #   (AllegroMouseEvent)
   # :timer ::
-  #   (ALLEGROTIMEREVENT)
+  #   (AllegroTimerEvent)
   # :user ::
-  #   (ALLEGROUSEREVENT)
-  class ALLEGROEVENT < FFI::Union
+  #   (AllegroUserEvent)
+  class AllegroEvent < FFI::Union
     layout :type, :uint,
-           :any, ALLEGROANYEVENT.by_value,
-           :display, ALLEGRODISPLAYEVENT.by_value,
-           :joystick, ALLEGROJOYSTICKEVENT.by_value,
-           :keyboard, ALLEGROKEYBOARDEVENT.by_value,
-           :mouse, ALLEGROMOUSEEVENT.by_value,
-           :timer, ALLEGROTIMEREVENT.by_value,
-           :user, ALLEGROUSEREVENT.by_value
+           :any, AllegroAnyEvent.by_value,
+           :display, AllegroDisplayEvent.by_value,
+           :joystick, AllegroJoystickEvent.by_value,
+           :keyboard, AllegroKeyboardEvent.by_value,
+           :mouse, AllegroMouseEvent.by_value,
+           :timer, AllegroTimerEvent.by_value,
+           :user, AllegroUserEvent.by_value
   end
 
   # (Not documented)
   #
   # @method al_init_user_event_source(allegro_event_source)
-  # @param [ALLEGROEVENTSOURCE] allegro_event_source
+  # @param [AllegroEventSource] allegro_event_source
   # @return [nil]
   # @scope class
-  attach_function :al_init_user_event_source, :al_init_user_event_source, [ALLEGROEVENTSOURCE], :void
+  attach_function :al_init_user_event_source, :al_init_user_event_source, [AllegroEventSource], :void
 
   # (Not documented)
   #
   # @method al_destroy_user_event_source(allegro_event_source)
-  # @param [ALLEGROEVENTSOURCE] allegro_event_source
+  # @param [AllegroEventSource] allegro_event_source
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_user_event_source, :al_destroy_user_event_source, [ALLEGROEVENTSOURCE], :void
+  attach_function :al_destroy_user_event_source, :al_destroy_user_event_source, [AllegroEventSource], :void
 
   # (Not documented)
   #
   # @method al_emit_user_event(allegro_event_source, allegro_event, dtor)
-  # @param [ALLEGROEVENTSOURCE] allegro_event_source
-  # @param [ALLEGROEVENT] allegro_event
+  # @param [AllegroEventSource] allegro_event_source
+  # @param [AllegroEvent] allegro_event
   # @param [FFI::Pointer(*)] dtor
   # @return [Boolean]
   # @scope class
-  attach_function :al_emit_user_event, :al_emit_user_event, [ALLEGROEVENTSOURCE, ALLEGROEVENT, :pointer], :bool
+  attach_function :al_emit_user_event, :al_emit_user_event, [AllegroEventSource, AllegroEvent, :pointer], :bool
 
   # (Not documented)
   #
   # @method al_unref_user_event(allegro_user_event)
-  # @param [ALLEGROUSEREVENT] allegro_user_event
+  # @param [AllegroUserEvent] allegro_user_event
   # @return [nil]
   # @scope class
-  attach_function :al_unref_user_event, :al_unref_user_event, [ALLEGROUSEREVENT], :void
+  attach_function :al_unref_user_event, :al_unref_user_event, [AllegroUserEvent], :void
 
   # (Not documented)
   #
   # @method al_set_event_source_data(allegro_event_source, data)
-  # @param [ALLEGROEVENTSOURCE] allegro_event_source
+  # @param [AllegroEventSource] allegro_event_source
   # @param [Integer] data
   # @return [nil]
   # @scope class
-  attach_function :al_set_event_source_data, :al_set_event_source_data, [ALLEGROEVENTSOURCE, :long], :void
+  attach_function :al_set_event_source_data, :al_set_event_source_data, [AllegroEventSource, :long], :void
 
   # (Not documented)
   #
   # @method al_get_event_source_data(allegro_event_source)
-  # @param [ALLEGROEVENTSOURCE] allegro_event_source
+  # @param [AllegroEventSource] allegro_event_source
   # @return [Integer]
   # @scope class
-  attach_function :al_get_event_source_data, :al_get_event_source_data, [ALLEGROEVENTSOURCE], :long
+  attach_function :al_get_event_source_data, :al_get_event_source_data, [AllegroEventSource], :long
 
   # (Not documented)
-  class ALLEGROEVENTQUEUE < FFI::Struct
+  class AllegroEventQueue < FFI::Struct
     layout :dummy, :char
   end
 
   # (Not documented)
   #
   # @method al_create_event_queue()
-  # @return [ALLEGROEVENTQUEUE]
+  # @return [AllegroEventQueue]
   # @scope class
-  attach_function :al_create_event_queue, :al_create_event_queue, [], ALLEGROEVENTQUEUE
+  attach_function :al_create_event_queue, :al_create_event_queue, [], AllegroEventQueue
 
   # (Not documented)
   #
   # @method al_destroy_event_queue(allegro_event_queue)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
+  # @param [AllegroEventQueue] allegro_event_queue
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_event_queue, :al_destroy_event_queue, [ALLEGROEVENTQUEUE], :void
+  attach_function :al_destroy_event_queue, :al_destroy_event_queue, [AllegroEventQueue], :void
 
   # (Not documented)
   #
   # @method al_register_event_source(allegro_event_queue, allegro_event_source)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
-  # @param [ALLEGROEVENTSOURCE] allegro_event_source
+  # @param [AllegroEventQueue] allegro_event_queue
+  # @param [AllegroEventSource] allegro_event_source
   # @return [nil]
   # @scope class
-  attach_function :al_register_event_source, :al_register_event_source, [ALLEGROEVENTQUEUE, ALLEGROEVENTSOURCE], :void
+  attach_function :al_register_event_source, :al_register_event_source, [AllegroEventQueue, AllegroEventSource], :void
 
   # (Not documented)
   #
   # @method al_unregister_event_source(allegro_event_queue, allegro_event_source)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
-  # @param [ALLEGROEVENTSOURCE] allegro_event_source
+  # @param [AllegroEventQueue] allegro_event_queue
+  # @param [AllegroEventSource] allegro_event_source
   # @return [nil]
   # @scope class
-  attach_function :al_unregister_event_source, :al_unregister_event_source, [ALLEGROEVENTQUEUE, ALLEGROEVENTSOURCE], :void
+  attach_function :al_unregister_event_source, :al_unregister_event_source, [AllegroEventQueue, AllegroEventSource], :void
 
   # (Not documented)
   #
   # @method al_is_event_queue_empty(allegro_event_queue)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
+  # @param [AllegroEventQueue] allegro_event_queue
   # @return [Boolean]
   # @scope class
-  attach_function :al_is_event_queue_empty, :al_is_event_queue_empty, [ALLEGROEVENTQUEUE], :bool
+  attach_function :al_is_event_queue_empty, :al_is_event_queue_empty, [AllegroEventQueue], :bool
 
   # (Not documented)
   #
   # @method al_get_next_event(allegro_event_queue, ret_event)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
-  # @param [ALLEGROEVENT] ret_event
+  # @param [AllegroEventQueue] allegro_event_queue
+  # @param [AllegroEvent] ret_event
   # @return [Boolean]
   # @scope class
-  attach_function :al_get_next_event, :al_get_next_event, [ALLEGROEVENTQUEUE, ALLEGROEVENT], :bool
+  attach_function :al_get_next_event, :al_get_next_event, [AllegroEventQueue, AllegroEvent], :bool
 
   # (Not documented)
   #
   # @method al_peek_next_event(allegro_event_queue, ret_event)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
-  # @param [ALLEGROEVENT] ret_event
+  # @param [AllegroEventQueue] allegro_event_queue
+  # @param [AllegroEvent] ret_event
   # @return [Boolean]
   # @scope class
-  attach_function :al_peek_next_event, :al_peek_next_event, [ALLEGROEVENTQUEUE, ALLEGROEVENT], :bool
+  attach_function :al_peek_next_event, :al_peek_next_event, [AllegroEventQueue, AllegroEvent], :bool
 
   # (Not documented)
   #
   # @method al_drop_next_event(allegro_event_queue)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
+  # @param [AllegroEventQueue] allegro_event_queue
   # @return [Boolean]
   # @scope class
-  attach_function :al_drop_next_event, :al_drop_next_event, [ALLEGROEVENTQUEUE], :bool
+  attach_function :al_drop_next_event, :al_drop_next_event, [AllegroEventQueue], :bool
 
   # (Not documented)
   #
   # @method al_flush_event_queue(allegro_event_queue)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
+  # @param [AllegroEventQueue] allegro_event_queue
   # @return [nil]
   # @scope class
-  attach_function :al_flush_event_queue, :al_flush_event_queue, [ALLEGROEVENTQUEUE], :void
+  attach_function :al_flush_event_queue, :al_flush_event_queue, [AllegroEventQueue], :void
 
   # (Not documented)
   #
   # @method al_wait_for_event(allegro_event_queue, ret_event)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
-  # @param [ALLEGROEVENT] ret_event
+  # @param [AllegroEventQueue] allegro_event_queue
+  # @param [AllegroEvent] ret_event
   # @return [nil]
   # @scope class
-  attach_function :al_wait_for_event, :al_wait_for_event, [ALLEGROEVENTQUEUE, ALLEGROEVENT], :void
+  attach_function :al_wait_for_event, :al_wait_for_event, [AllegroEventQueue, AllegroEvent], :void
 
   # (Not documented)
   #
   # @method al_wait_for_event_timed(allegro_event_queue, ret_event, secs)
-  # @param [ALLEGROEVENTQUEUE] allegro_event_queue
-  # @param [ALLEGROEVENT] ret_event
+  # @param [AllegroEventQueue] allegro_event_queue
+  # @param [AllegroEvent] ret_event
   # @param [Float] secs
   # @return [Boolean]
   # @scope class
-  attach_function :al_wait_for_event_timed, :al_wait_for_event_timed, [ALLEGROEVENTQUEUE, ALLEGROEVENT, :float], :bool
+  attach_function :al_wait_for_event_timed, :al_wait_for_event_timed, [AllegroEventQueue, AllegroEvent, :float], :bool
 
   # (Not documented)
   #
   # @method al_wait_for_event_until(queue, ret_event, timeout)
-  # @param [ALLEGROEVENTQUEUE] queue
-  # @param [ALLEGROEVENT] ret_event
-  # @param [ALLEGROTIMEOUT] timeout
+  # @param [AllegroEventQueue] queue
+  # @param [AllegroEvent] ret_event
+  # @param [AllegroTimeout] timeout
   # @return [Boolean]
   # @scope class
-  attach_function :al_wait_for_event_until, :al_wait_for_event_until, [ALLEGROEVENTQUEUE, ALLEGROEVENT, ALLEGROTIMEOUT], :bool
+  attach_function :al_wait_for_event_until, :al_wait_for_event_until, [AllegroEventQueue, AllegroEvent, AllegroTimeout], :bool
 
   # (Not documented)
   #
@@ -2960,7 +2960,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_display_width(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [Integer]
   # @scope class
   attach_function :al_get_display_width, :al_get_display_width, [:pointer], :int
@@ -2968,7 +2968,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_display_height(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [Integer]
   # @scope class
   attach_function :al_get_display_height, :al_get_display_height, [:pointer], :int
@@ -2976,7 +2976,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_display_format(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [Integer]
   # @scope class
   attach_function :al_get_display_format, :al_get_display_format, [:pointer], :allegro_pixel_format
@@ -2984,7 +2984,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_display_refresh_rate(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [Integer]
   # @scope class
   attach_function :al_get_display_refresh_rate, :al_get_display_refresh_rate, [:pointer], :int
@@ -2992,7 +2992,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_display_flags(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [Integer]
   # @scope class
   attach_function :al_get_display_flags, :al_get_display_flags, [:pointer], :int
@@ -3000,7 +3000,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_set_display_flag(display, flag, onoff)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [Integer] flag
   # @param [Boolean] onoff
   # @return [Boolean]
@@ -3010,7 +3010,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_toggle_display_flag(display, flag, onoff)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [Integer] flag
   # @param [Boolean] onoff
   # @return [Boolean]
@@ -3022,14 +3022,14 @@ module Allegro4r::API
   # @method al_create_display(w, h)
   # @param [Integer] w
   # @param [Integer] h
-  # @return [FFI::Pointer(*ALLEGRODISPLAY)]
+  # @return [FFI::Pointer(*AllegroDisplay)]
   # @scope class
   attach_function :al_create_display, :al_create_display, [:int, :int], :pointer
 
   # (Not documented)
   #
   # @method al_destroy_display(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [nil]
   # @scope class
   attach_function :al_destroy_display, :al_destroy_display, [:pointer], :void
@@ -3037,14 +3037,14 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_current_display()
-  # @return [FFI::Pointer(*ALLEGRODISPLAY)]
+  # @return [FFI::Pointer(*AllegroDisplay)]
   # @scope class
   attach_function :al_get_current_display, :al_get_current_display, [], :pointer
 
   # (Not documented)
   #
   # @method al_set_target_bitmap(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [nil]
   # @scope class
   attach_function :al_set_target_bitmap, :al_set_target_bitmap, [:pointer], :void
@@ -3052,7 +3052,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_set_target_backbuffer(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [nil]
   # @scope class
   attach_function :al_set_target_backbuffer, :al_set_target_backbuffer, [:pointer], :void
@@ -3060,22 +3060,22 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_backbuffer(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
-  # @return [FFI::Pointer(*ALLEGROBITMAP)]
+  # @param [FFI::Pointer(*AllegroDisplay)] display
+  # @return [FFI::Pointer(*AllegroBitmap)]
   # @scope class
   attach_function :al_get_backbuffer, :al_get_backbuffer, [:pointer], :pointer
 
   # (Not documented)
   #
   # @method al_get_target_bitmap()
-  # @return [FFI::Pointer(*ALLEGROBITMAP)]
+  # @return [FFI::Pointer(*AllegroBitmap)]
   # @scope class
   attach_function :al_get_target_bitmap, :al_get_target_bitmap, [], :pointer
 
   # (Not documented)
   #
   # @method al_acknowledge_resize(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [Boolean]
   # @scope class
   attach_function :al_acknowledge_resize, :al_acknowledge_resize, [:pointer], :bool
@@ -3083,7 +3083,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_resize_display(display, width, height)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [Integer] width
   # @param [Integer] height
   # @return [Boolean]
@@ -3111,7 +3111,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_is_compatible_bitmap(bitmap)
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] bitmap
+  # @param [FFI::Pointer(*AllegroBitmap)] bitmap
   # @return [Boolean]
   # @scope class
   attach_function :al_is_compatible_bitmap, :al_is_compatible_bitmap, [:pointer], :bool
@@ -3126,16 +3126,16 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_display_event_source(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
-  # @return [ALLEGROEVENTSOURCE]
+  # @param [FFI::Pointer(*AllegroDisplay)] display
+  # @return [AllegroEventSource]
   # @scope class
-  attach_function :al_get_display_event_source, :al_get_display_event_source, [:pointer], ALLEGROEVENTSOURCE
+  attach_function :al_get_display_event_source, :al_get_display_event_source, [:pointer], AllegroEventSource
 
   # (Not documented)
   #
   # @method al_set_display_icon(display, icon)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] icon
+  # @param [FFI::Pointer(*AllegroDisplay)] display
+  # @param [FFI::Pointer(*AllegroBitmap)] icon
   # @return [nil]
   # @scope class
   attach_function :al_set_display_icon, :al_set_display_icon, [:pointer, :pointer], :void
@@ -3143,9 +3143,9 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_set_display_icons(display, num_icons, icons)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [Integer] num_icons
-  # @param [FFI::Pointer(*ALLEGROBITMAP)] icons
+  # @param [FFI::Pointer(*AllegroBitmap)] icons
   # @return [nil]
   # @scope class
   attach_function :al_set_display_icons, :al_set_display_icons, [:pointer, :int, :pointer], :void
@@ -3186,7 +3186,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_set_window_position(display, x, y)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [Integer] x
   # @param [Integer] y
   # @return [nil]
@@ -3196,7 +3196,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_window_position(display, x, y)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [FFI::Pointer(*Int)] x
   # @param [FFI::Pointer(*Int)] y
   # @return [nil]
@@ -3206,7 +3206,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_set_window_title(display, title)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [String] title
   # @return [nil]
   # @scope class
@@ -3241,7 +3241,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_display_option(display, option)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [Integer] option
   # @return [Integer]
   # @scope class
@@ -3265,20 +3265,20 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_clear_to_color(color)
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_clear_to_color, :al_clear_to_color, [ALLEGROCOLOR.by_value], :void
+  attach_function :al_clear_to_color, :al_clear_to_color, [AllegroColor.by_value], :void
 
   # (Not documented)
   #
   # @method al_draw_pixel(x, y, color)
   # @param [Float] x
   # @param [Float] y
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_pixel, :al_draw_pixel, [:float, :float, ALLEGROCOLOR.by_value], :void
+  attach_function :al_draw_pixel, :al_draw_pixel, [:float, :float, AllegroColor.by_value], :void
 
   # (Not documented)
   #
@@ -3333,8 +3333,8 @@ module Allegro4r::API
   #
   # = Fields:
   # :vtable ::
-  #   (FFI::Pointer(*ALLEGROFSINTERFACE))
-  class ALLEGROFSENTRY < FFI::Struct
+  #   (FFI::Pointer(*AllegroFsInterface))
+  class AllegroFsEntry < FFI::Struct
     layout :vtable, :pointer
   end
 
@@ -3411,7 +3411,7 @@ module Allegro4r::API
   #   (FFI::Pointer(*))
   # :fs_open_file ::
   #   (FFI::Pointer(*))
-  class ALLEGROFSINTERFACE < FFI::Struct
+  class AllegroFsInterface < FFI::Struct
     layout :fs_create_entry, :pointer,
            :fs_destroy_entry, :pointer,
            :fs_entry_name, :pointer,
@@ -3438,113 +3438,113 @@ module Allegro4r::API
   #
   # @method al_create_fs_entry(path)
   # @param [String] path
-  # @return [ALLEGROFSENTRY]
+  # @return [AllegroFsEntry]
   # @scope class
-  attach_function :al_create_fs_entry, :al_create_fs_entry, [:string], ALLEGROFSENTRY
+  attach_function :al_create_fs_entry, :al_create_fs_entry, [:string], AllegroFsEntry
 
   # (Not documented)
   #
   # @method al_destroy_fs_entry(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_fs_entry, :al_destroy_fs_entry, [ALLEGROFSENTRY], :void
+  attach_function :al_destroy_fs_entry, :al_destroy_fs_entry, [AllegroFsEntry], :void
 
   # (Not documented)
   #
   # @method al_get_fs_entry_name(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [String]
   # @scope class
-  attach_function :al_get_fs_entry_name, :al_get_fs_entry_name, [ALLEGROFSENTRY], :string
+  attach_function :al_get_fs_entry_name, :al_get_fs_entry_name, [AllegroFsEntry], :string
 
   # (Not documented)
   #
   # @method al_update_fs_entry(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Boolean]
   # @scope class
-  attach_function :al_update_fs_entry, :al_update_fs_entry, [ALLEGROFSENTRY], :bool
+  attach_function :al_update_fs_entry, :al_update_fs_entry, [AllegroFsEntry], :bool
 
   # (Not documented)
   #
   # @method al_get_fs_entry_mode(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Integer]
   # @scope class
-  attach_function :al_get_fs_entry_mode, :al_get_fs_entry_mode, [ALLEGROFSENTRY], :uint
+  attach_function :al_get_fs_entry_mode, :al_get_fs_entry_mode, [AllegroFsEntry], :uint
 
   # (Not documented)
   #
   # @method al_get_fs_entry_atime(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Integer]
   # @scope class
-  attach_function :al_get_fs_entry_atime, :al_get_fs_entry_atime, [ALLEGROFSENTRY], :long
+  attach_function :al_get_fs_entry_atime, :al_get_fs_entry_atime, [AllegroFsEntry], :long
 
   # (Not documented)
   #
   # @method al_get_fs_entry_mtime(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Integer]
   # @scope class
-  attach_function :al_get_fs_entry_mtime, :al_get_fs_entry_mtime, [ALLEGROFSENTRY], :long
+  attach_function :al_get_fs_entry_mtime, :al_get_fs_entry_mtime, [AllegroFsEntry], :long
 
   # (Not documented)
   #
   # @method al_get_fs_entry_ctime(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Integer]
   # @scope class
-  attach_function :al_get_fs_entry_ctime, :al_get_fs_entry_ctime, [ALLEGROFSENTRY], :long
+  attach_function :al_get_fs_entry_ctime, :al_get_fs_entry_ctime, [AllegroFsEntry], :long
 
   # (Not documented)
   #
   # @method al_get_fs_entry_size(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Integer]
   # @scope class
-  attach_function :al_get_fs_entry_size, :al_get_fs_entry_size, [ALLEGROFSENTRY], :long_long
+  attach_function :al_get_fs_entry_size, :al_get_fs_entry_size, [AllegroFsEntry], :long_long
 
   # (Not documented)
   #
   # @method al_fs_entry_exists(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Boolean]
   # @scope class
-  attach_function :al_fs_entry_exists, :al_fs_entry_exists, [ALLEGROFSENTRY], :bool
+  attach_function :al_fs_entry_exists, :al_fs_entry_exists, [AllegroFsEntry], :bool
 
   # (Not documented)
   #
   # @method al_remove_fs_entry(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Boolean]
   # @scope class
-  attach_function :al_remove_fs_entry, :al_remove_fs_entry, [ALLEGROFSENTRY], :bool
+  attach_function :al_remove_fs_entry, :al_remove_fs_entry, [AllegroFsEntry], :bool
 
   # (Not documented)
   #
   # @method al_open_directory(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Boolean]
   # @scope class
-  attach_function :al_open_directory, :al_open_directory, [ALLEGROFSENTRY], :bool
+  attach_function :al_open_directory, :al_open_directory, [AllegroFsEntry], :bool
 
   # (Not documented)
   #
   # @method al_read_directory(e)
-  # @param [ALLEGROFSENTRY] e
-  # @return [ALLEGROFSENTRY]
+  # @param [AllegroFsEntry] e
+  # @return [AllegroFsEntry]
   # @scope class
-  attach_function :al_read_directory, :al_read_directory, [ALLEGROFSENTRY], ALLEGROFSENTRY
+  attach_function :al_read_directory, :al_read_directory, [AllegroFsEntry], AllegroFsEntry
 
   # (Not documented)
   #
   # @method al_close_directory(e)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @return [Boolean]
   # @scope class
-  attach_function :al_close_directory, :al_close_directory, [ALLEGROFSENTRY], :bool
+  attach_function :al_close_directory, :al_close_directory, [AllegroFsEntry], :bool
 
   # (Not documented)
   #
@@ -3588,26 +3588,26 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_open_fs_entry(e, mode)
-  # @param [ALLEGROFSENTRY] e
+  # @param [AllegroFsEntry] e
   # @param [String] mode
-  # @return [ALLEGROFILE]
+  # @return [AllegroFile]
   # @scope class
-  attach_function :al_open_fs_entry, :al_open_fs_entry, [ALLEGROFSENTRY, :string], ALLEGROFILE
+  attach_function :al_open_fs_entry, :al_open_fs_entry, [AllegroFsEntry, :string], AllegroFile
 
   # (Not documented)
   #
   # @method al_get_fs_interface()
-  # @return [ALLEGROFSINTERFACE]
+  # @return [AllegroFsInterface]
   # @scope class
-  attach_function :al_get_fs_interface, :al_get_fs_interface, [], ALLEGROFSINTERFACE
+  attach_function :al_get_fs_interface, :al_get_fs_interface, [], AllegroFsInterface
 
   # (Not documented)
   #
   # @method al_set_fs_interface(vtable)
-  # @param [ALLEGROFSINTERFACE] vtable
+  # @param [AllegroFsInterface] vtable
   # @return [nil]
   # @scope class
-  attach_function :al_set_fs_interface, :al_set_fs_interface, [ALLEGROFSINTERFACE], :void
+  attach_function :al_set_fs_interface, :al_set_fs_interface, [AllegroFsInterface], :void
 
   # (Not documented)
   #
@@ -3627,7 +3627,7 @@ module Allegro4r::API
   #   (Integer)
   # :refresh_rate ::
   #   (Integer)
-  class ALLEGRODISPLAYMODE < FFI::Struct
+  class AllegroDisplayMode < FFI::Struct
     layout :width, :int,
            :height, :int,
            :format, :int,
@@ -3645,17 +3645,17 @@ module Allegro4r::API
   #
   # @method al_get_display_mode(index, mode)
   # @param [Integer] index
-  # @param [ALLEGRODISPLAYMODE] mode
-  # @return [ALLEGRODISPLAYMODE]
+  # @param [AllegroDisplayMode] mode
+  # @return [AllegroDisplayMode]
   # @scope class
-  attach_function :al_get_display_mode, :al_get_display_mode, [:int, ALLEGRODISPLAYMODE], ALLEGRODISPLAYMODE
+  attach_function :al_get_display_mode, :al_get_display_mode, [:int, AllegroDisplayMode], AllegroDisplayMode
 
   # (Not documented)
   #
   # = Fields:
   # :axis ::
   #   (Array<Float>) -1.0 to 1.0
-  class ALLEGROJOYSTICKSTATEStick < FFI::Struct
+  class AllegroJoystickStateStick < FFI::Struct
     layout :axis, [:float, 3]
   end
 
@@ -3663,11 +3663,11 @@ module Allegro4r::API
   #
   # = Fields:
   # :stick ::
-  #   (Array<ALLEGROJOYSTICKSTATEStick>)
+  #   (Array<AllegroJoystickStateStick>)
   # :button ::
   #   (Array<Integer>) 0 to 32767
-  class ALLEGROJOYSTICKSTATE < FFI::Struct
-    layout :stick, [ALLEGROJOYSTICKSTATEStick.by_value, 8],
+  class AllegroJoystickState < FFI::Struct
+    layout :stick, [AllegroJoystickStateStick.by_value, 8],
            :button, [:int, 32]
   end
 
@@ -3728,120 +3728,120 @@ module Allegro4r::API
   #
   # @method al_get_joystick(joyn)
   # @param [Integer] joyn
-  # @return [ALLEGROJOYSTICK]
+  # @return [AllegroJoystick]
   # @scope class
-  attach_function :al_get_joystick, :al_get_joystick, [:int], ALLEGROJOYSTICK
+  attach_function :al_get_joystick, :al_get_joystick, [:int], AllegroJoystick
 
   # (Not documented)
   #
   # @method al_release_joystick(allegro_joystick)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @return [nil]
   # @scope class
-  attach_function :al_release_joystick, :al_release_joystick, [ALLEGROJOYSTICK], :void
+  attach_function :al_release_joystick, :al_release_joystick, [AllegroJoystick], :void
 
   # (Not documented)
   #
   # @method al_get_joystick_active(allegro_joystick)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @return [Boolean]
   # @scope class
-  attach_function :al_get_joystick_active, :al_get_joystick_active, [ALLEGROJOYSTICK], :bool
+  attach_function :al_get_joystick_active, :al_get_joystick_active, [AllegroJoystick], :bool
 
   # (Not documented)
   #
   # @method al_get_joystick_name(allegro_joystick)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @return [String]
   # @scope class
-  attach_function :al_get_joystick_name, :al_get_joystick_name, [ALLEGROJOYSTICK], :string
+  attach_function :al_get_joystick_name, :al_get_joystick_name, [AllegroJoystick], :string
 
   # (Not documented)
   #
   # @method al_get_joystick_num_sticks(allegro_joystick)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @return [Integer]
   # @scope class
-  attach_function :al_get_joystick_num_sticks, :al_get_joystick_num_sticks, [ALLEGROJOYSTICK], :int
+  attach_function :al_get_joystick_num_sticks, :al_get_joystick_num_sticks, [AllegroJoystick], :int
 
   # (Not documented)
   #
   # @method al_get_joystick_stick_flags(allegro_joystick, stick)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @param [Integer] stick
   # @return [Integer]
   # @scope class
-  attach_function :al_get_joystick_stick_flags, :al_get_joystick_stick_flags, [ALLEGROJOYSTICK, :int], :int
+  attach_function :al_get_joystick_stick_flags, :al_get_joystick_stick_flags, [AllegroJoystick, :int], :int
 
   # (Not documented)
   #
   # @method al_get_joystick_stick_name(allegro_joystick, stick)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @param [Integer] stick
   # @return [String]
   # @scope class
-  attach_function :al_get_joystick_stick_name, :al_get_joystick_stick_name, [ALLEGROJOYSTICK, :int], :string
+  attach_function :al_get_joystick_stick_name, :al_get_joystick_stick_name, [AllegroJoystick, :int], :string
 
   # (Not documented)
   #
   # @method al_get_joystick_num_axes(allegro_joystick, stick)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @param [Integer] stick
   # @return [Integer]
   # @scope class
-  attach_function :al_get_joystick_num_axes, :al_get_joystick_num_axes, [ALLEGROJOYSTICK, :int], :int
+  attach_function :al_get_joystick_num_axes, :al_get_joystick_num_axes, [AllegroJoystick, :int], :int
 
   # (Not documented)
   #
   # @method al_get_joystick_axis_name(allegro_joystick, stick, axis)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @param [Integer] stick
   # @param [Integer] axis
   # @return [String]
   # @scope class
-  attach_function :al_get_joystick_axis_name, :al_get_joystick_axis_name, [ALLEGROJOYSTICK, :int, :int], :string
+  attach_function :al_get_joystick_axis_name, :al_get_joystick_axis_name, [AllegroJoystick, :int, :int], :string
 
   # (Not documented)
   #
   # @method al_get_joystick_num_buttons(allegro_joystick)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @return [Integer]
   # @scope class
-  attach_function :al_get_joystick_num_buttons, :al_get_joystick_num_buttons, [ALLEGROJOYSTICK], :int
+  attach_function :al_get_joystick_num_buttons, :al_get_joystick_num_buttons, [AllegroJoystick], :int
 
   # (Not documented)
   #
   # @method al_get_joystick_button_name(allegro_joystick, buttonn)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
+  # @param [AllegroJoystick] allegro_joystick
   # @param [Integer] buttonn
   # @return [String]
   # @scope class
-  attach_function :al_get_joystick_button_name, :al_get_joystick_button_name, [ALLEGROJOYSTICK, :int], :string
+  attach_function :al_get_joystick_button_name, :al_get_joystick_button_name, [AllegroJoystick, :int], :string
 
   # (Not documented)
   #
   # @method al_get_joystick_state(allegro_joystick, ret_state)
-  # @param [ALLEGROJOYSTICK] allegro_joystick
-  # @param [ALLEGROJOYSTICKSTATE] ret_state
+  # @param [AllegroJoystick] allegro_joystick
+  # @param [AllegroJoystickState] ret_state
   # @return [nil]
   # @scope class
-  attach_function :al_get_joystick_state, :al_get_joystick_state, [ALLEGROJOYSTICK, ALLEGROJOYSTICKSTATE], :void
+  attach_function :al_get_joystick_state, :al_get_joystick_state, [AllegroJoystick, AllegroJoystickState], :void
 
   # (Not documented)
   #
   # @method al_get_joystick_event_source()
-  # @return [ALLEGROEVENTSOURCE]
+  # @return [AllegroEventSource]
   # @scope class
-  attach_function :al_get_joystick_event_source, :al_get_joystick_event_source, [], ALLEGROEVENTSOURCE
+  attach_function :al_get_joystick_event_source, :al_get_joystick_event_source, [], AllegroEventSource
 
   # (Not documented)
   #
   # = Fields:
   # :display ::
-  #   (FFI::Pointer(*ALLEGRODISPLAY)) public
+  #   (FFI::Pointer(*AllegroDisplay)) public
   # :key_down_internal ::
   #   (Array<Integer>) internal
-  class ALLEGROKEYBOARDSTATE < FFI::Struct
+  class AllegroKeyboardState < FFI::Struct
     layout :display, :pointer,
            :key_down_internal, [:uint, 8]
   end
@@ -3886,26 +3886,26 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_keyboard_state(ret_state)
-  # @param [ALLEGROKEYBOARDSTATE] ret_state
+  # @param [AllegroKeyboardState] ret_state
   # @return [nil]
   # @scope class
-  attach_function :al_get_keyboard_state, :al_get_keyboard_state, [ALLEGROKEYBOARDSTATE], :void
+  attach_function :al_get_keyboard_state, :al_get_keyboard_state, [AllegroKeyboardState], :void
 
   # (Not documented)
   #
   # @method al_key_down(allegro_keyboard_state, keycode)
-  # @param [ALLEGROKEYBOARDSTATE] allegro_keyboard_state
+  # @param [AllegroKeyboardState] allegro_keyboard_state
   # @param [Integer] keycode
   # @return [Boolean]
   # @scope class
-  attach_function :al_key_down, :al_key_down, [ALLEGROKEYBOARDSTATE, :int], :bool
+  attach_function :al_key_down, :al_key_down, [AllegroKeyboardState, :int], :bool
 
   # (Not documented)
   #
   # @method al_get_keyboard_event_source()
-  # @return [ALLEGROEVENTSOURCE]
+  # @return [AllegroEventSource]
   # @scope class
-  attach_function :al_get_keyboard_event_source, :al_get_keyboard_event_source, [], ALLEGROEVENTSOURCE
+  attach_function :al_get_keyboard_event_source, :al_get_keyboard_event_source, [], AllegroEventSource
 
   # (Not documented)
   #
@@ -3918,7 +3918,7 @@ module Allegro4r::API
   #   (FFI::Pointer(*))
   # :mi_calloc ::
   #   (FFI::Pointer(*))
-  class ALLEGROMEMORYINTERFACE < FFI::Struct
+  class AllegroMemoryInterface < FFI::Struct
     layout :mi_malloc, :pointer,
            :mi_free, :pointer,
            :mi_realloc, :pointer,
@@ -3928,10 +3928,10 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_set_memory_interface(iface)
-  # @param [ALLEGROMEMORYINTERFACE] iface
+  # @param [AllegroMemoryInterface] iface
   # @return [nil]
   # @scope class
-  attach_function :al_set_memory_interface, :al_set_memory_interface, [ALLEGROMEMORYINTERFACE], :void
+  attach_function :al_set_memory_interface, :al_set_memory_interface, [AllegroMemoryInterface], :void
 
   # (Not documented)
   #
@@ -3990,7 +3990,7 @@ module Allegro4r::API
   #   (Integer)
   # :y2 ::
   #   (Integer)
-  class ALLEGROMONITORINFO < FFI::Struct
+  class AllegroMonitorInfo < FFI::Struct
     layout :x1, :int,
            :y1, :int,
            :x2, :int,
@@ -4008,10 +4008,10 @@ module Allegro4r::API
   #
   # @method al_get_monitor_info(adapter, info)
   # @param [Integer] adapter
-  # @param [ALLEGROMONITORINFO] info
+  # @param [AllegroMonitorInfo] info
   # @return [Boolean]
   # @scope class
-  attach_function :al_get_monitor_info, :al_get_monitor_info, [:int, ALLEGROMONITORINFO], :bool
+  attach_function :al_get_monitor_info, :al_get_monitor_info, [:int, AllegroMonitorInfo], :bool
 
   # (Not documented)
   #
@@ -4035,8 +4035,8 @@ module Allegro4r::API
   # :pressure ::
   #   (Float)
   # :display ::
-  #   (FFI::Pointer(*ALLEGRODISPLAY))
-  class ALLEGROMOUSESTATE < FFI::Struct
+  #   (FFI::Pointer(*AllegroDisplay))
+  class AllegroMouseState < FFI::Struct
     layout :x, :int,
            :y, :int,
            :z, :int,
@@ -4085,7 +4085,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_set_mouse_xy(display, x, y)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @param [Integer] x
   # @param [Integer] y
   # @return [Boolean]
@@ -4120,28 +4120,28 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_mouse_state(ret_state)
-  # @param [ALLEGROMOUSESTATE] ret_state
+  # @param [AllegroMouseState] ret_state
   # @return [nil]
   # @scope class
-  attach_function :al_get_mouse_state, :al_get_mouse_state, [ALLEGROMOUSESTATE], :void
+  attach_function :al_get_mouse_state, :al_get_mouse_state, [AllegroMouseState], :void
 
   # (Not documented)
   #
   # @method al_mouse_button_down(state, button)
-  # @param [ALLEGROMOUSESTATE] state
+  # @param [AllegroMouseState] state
   # @param [Integer] button
   # @return [Boolean]
   # @scope class
-  attach_function :al_mouse_button_down, :al_mouse_button_down, [ALLEGROMOUSESTATE, :int], :bool
+  attach_function :al_mouse_button_down, :al_mouse_button_down, [AllegroMouseState, :int], :bool
 
   # (Not documented)
   #
   # @method al_get_mouse_state_axis(state, axis)
-  # @param [ALLEGROMOUSESTATE] state
+  # @param [AllegroMouseState] state
   # @param [Integer] axis
   # @return [Integer]
   # @scope class
-  attach_function :al_get_mouse_state_axis, :al_get_mouse_state_axis, [ALLEGROMOUSESTATE, :int], :int
+  attach_function :al_get_mouse_state_axis, :al_get_mouse_state_axis, [AllegroMouseState, :int], :int
 
   # (Not documented)
   #
@@ -4155,7 +4155,7 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_grab_mouse(display)
-  # @param [FFI::Pointer(*ALLEGRODISPLAY)] display
+  # @param [FFI::Pointer(*AllegroDisplay)] display
   # @return [Boolean]
   # @scope class
   attach_function :al_grab_mouse, :al_grab_mouse, [:pointer], :bool
@@ -4170,12 +4170,12 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_mouse_event_source()
-  # @return [ALLEGROEVENTSOURCE]
+  # @return [AllegroEventSource]
   # @scope class
-  attach_function :al_get_mouse_event_source, :al_get_mouse_event_source, [], ALLEGROEVENTSOURCE
+  attach_function :al_get_mouse_event_source, :al_get_mouse_event_source, [], AllegroEventSource
 
   # (Not documented)
-  class ALLEGROMOUSECURSOR < FFI::Struct
+  class AllegroMouseCursor < FFI::Struct
     layout :dummy, :char
   end
 
@@ -4255,69 +4255,69 @@ module Allegro4r::API
   ]
 
   # (Not documented)
-  class ALLEGROBITMAP < FFI::Struct
+  class AllegroBitmap < FFI::Struct
     layout :dummy, :char
   end
 
   # (Not documented)
-  class ALLEGRODISPLAY < FFI::Struct
+  class AllegroDisplay < FFI::Struct
     layout :dummy, :char
   end
 
   # (Not documented)
   #
   # @method al_create_mouse_cursor(sprite, xfocus, yfocus)
-  # @param [ALLEGROBITMAP] sprite
+  # @param [AllegroBitmap] sprite
   # @param [Integer] xfocus
   # @param [Integer] yfocus
-  # @return [ALLEGROMOUSECURSOR]
+  # @return [AllegroMouseCursor]
   # @scope class
-  attach_function :al_create_mouse_cursor, :al_create_mouse_cursor, [ALLEGROBITMAP, :int, :int], ALLEGROMOUSECURSOR
+  attach_function :al_create_mouse_cursor, :al_create_mouse_cursor, [AllegroBitmap, :int, :int], AllegroMouseCursor
 
   # (Not documented)
   #
   # @method al_destroy_mouse_cursor(allegro_mouse_cursor)
-  # @param [ALLEGROMOUSECURSOR] allegro_mouse_cursor
+  # @param [AllegroMouseCursor] allegro_mouse_cursor
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_mouse_cursor, :al_destroy_mouse_cursor, [ALLEGROMOUSECURSOR], :void
+  attach_function :al_destroy_mouse_cursor, :al_destroy_mouse_cursor, [AllegroMouseCursor], :void
 
   # (Not documented)
   #
   # @method al_set_mouse_cursor(display, cursor)
-  # @param [ALLEGRODISPLAY] display
-  # @param [ALLEGROMOUSECURSOR] cursor
+  # @param [AllegroDisplay] display
+  # @param [AllegroMouseCursor] cursor
   # @return [Boolean]
   # @scope class
-  attach_function :al_set_mouse_cursor, :al_set_mouse_cursor, [ALLEGRODISPLAY, ALLEGROMOUSECURSOR], :bool
+  attach_function :al_set_mouse_cursor, :al_set_mouse_cursor, [AllegroDisplay, AllegroMouseCursor], :bool
 
   # (Not documented)
   #
   # @method al_set_system_mouse_cursor(display, cursor_id)
-  # @param [ALLEGRODISPLAY] display
+  # @param [AllegroDisplay] display
   # @param [Symbol from _enum_allegro_system_mouse_cursor_] cursor_id
   # @return [Boolean]
   # @scope class
-  attach_function :al_set_system_mouse_cursor, :al_set_system_mouse_cursor, [ALLEGRODISPLAY, :allegro_system_mouse_cursor], :bool
+  attach_function :al_set_system_mouse_cursor, :al_set_system_mouse_cursor, [AllegroDisplay, :allegro_system_mouse_cursor], :bool
 
   # (Not documented)
   #
   # @method al_show_mouse_cursor(display)
-  # @param [ALLEGRODISPLAY] display
+  # @param [AllegroDisplay] display
   # @return [Boolean]
   # @scope class
-  attach_function :al_show_mouse_cursor, :al_show_mouse_cursor, [ALLEGRODISPLAY], :bool
+  attach_function :al_show_mouse_cursor, :al_show_mouse_cursor, [AllegroDisplay], :bool
 
   # (Not documented)
   #
   # @method al_hide_mouse_cursor(display)
-  # @param [ALLEGRODISPLAY] display
+  # @param [AllegroDisplay] display
   # @return [Boolean]
   # @scope class
-  attach_function :al_hide_mouse_cursor, :al_hide_mouse_cursor, [ALLEGRODISPLAY], :bool
+  attach_function :al_hide_mouse_cursor, :al_hide_mouse_cursor, [AllegroDisplay], :bool
 
   # (Not documented)
-  class ALLEGROSYSTEM < FFI::Struct
+  class AllegroSystem < FFI::Struct
     layout :dummy, :char
   end
 
@@ -4347,24 +4347,24 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_get_system_driver()
-  # @return [ALLEGROSYSTEM]
+  # @return [AllegroSystem]
   # @scope class
-  attach_function :al_get_system_driver, :al_get_system_driver, [], ALLEGROSYSTEM
+  attach_function :al_get_system_driver, :al_get_system_driver, [], AllegroSystem
 
   # (Not documented)
   #
   # @method al_get_system_config()
-  # @return [ALLEGROCONFIG]
+  # @return [AllegroConfig]
   # @scope class
-  attach_function :al_get_system_config, :al_get_system_config, [], ALLEGROCONFIG
+  attach_function :al_get_system_config, :al_get_system_config, [], AllegroConfig
 
   # (Not documented)
   #
   # @method al_get_standard_path(id)
   # @param [Integer] id
-  # @return [ALLEGROPATH]
+  # @return [AllegroPath]
   # @scope class
-  attach_function :al_get_standard_path, :al_get_standard_path, [:int], ALLEGROPATH
+  attach_function :al_get_standard_path, :al_get_standard_path, [:int], AllegroPath
 
   # (Not documented)
   #
@@ -4413,17 +4413,17 @@ module Allegro4r::API
   attach_function :al_inhibit_screensaver, :al_inhibit_screensaver, [:bool], :bool
 
   # (Not documented)
-  class ALLEGROTHREAD < FFI::Struct
+  class AllegroThread < FFI::Struct
     layout :dummy, :char
   end
 
   # (Not documented)
-  class ALLEGROMUTEX < FFI::Struct
+  class AllegroMutex < FFI::Struct
     layout :dummy, :char
   end
 
   # (Not documented)
-  class ALLEGROCOND < FFI::Struct
+  class AllegroCond < FFI::Struct
     layout :dummy, :char
   end
 
@@ -4432,50 +4432,50 @@ module Allegro4r::API
   # @method al_create_thread(proc, arg)
   # @param [FFI::Pointer(*)] proc
   # @param [FFI::Pointer(*Void)] arg
-  # @return [ALLEGROTHREAD]
+  # @return [AllegroThread]
   # @scope class
-  attach_function :al_create_thread, :al_create_thread, [:pointer, :pointer], ALLEGROTHREAD
+  attach_function :al_create_thread, :al_create_thread, [:pointer, :pointer], AllegroThread
 
   # (Not documented)
   #
   # @method al_start_thread(outer)
-  # @param [ALLEGROTHREAD] outer
+  # @param [AllegroThread] outer
   # @return [nil]
   # @scope class
-  attach_function :al_start_thread, :al_start_thread, [ALLEGROTHREAD], :void
+  attach_function :al_start_thread, :al_start_thread, [AllegroThread], :void
 
   # (Not documented)
   #
   # @method al_join_thread(outer, ret_value)
-  # @param [ALLEGROTHREAD] outer
+  # @param [AllegroThread] outer
   # @param [FFI::Pointer(**Void)] ret_value
   # @return [nil]
   # @scope class
-  attach_function :al_join_thread, :al_join_thread, [ALLEGROTHREAD, :pointer], :void
+  attach_function :al_join_thread, :al_join_thread, [AllegroThread, :pointer], :void
 
   # (Not documented)
   #
   # @method al_set_thread_should_stop(outer)
-  # @param [ALLEGROTHREAD] outer
+  # @param [AllegroThread] outer
   # @return [nil]
   # @scope class
-  attach_function :al_set_thread_should_stop, :al_set_thread_should_stop, [ALLEGROTHREAD], :void
+  attach_function :al_set_thread_should_stop, :al_set_thread_should_stop, [AllegroThread], :void
 
   # (Not documented)
   #
   # @method al_get_thread_should_stop(outer)
-  # @param [ALLEGROTHREAD] outer
+  # @param [AllegroThread] outer
   # @return [Boolean]
   # @scope class
-  attach_function :al_get_thread_should_stop, :al_get_thread_should_stop, [ALLEGROTHREAD], :bool
+  attach_function :al_get_thread_should_stop, :al_get_thread_should_stop, [AllegroThread], :bool
 
   # (Not documented)
   #
   # @method al_destroy_thread(thread)
-  # @param [ALLEGROTHREAD] thread
+  # @param [AllegroThread] thread
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_thread, :al_destroy_thread, [ALLEGROTHREAD], :void
+  attach_function :al_destroy_thread, :al_destroy_thread, [AllegroThread], :void
 
   # (Not documented)
   #
@@ -4489,181 +4489,181 @@ module Allegro4r::API
   # (Not documented)
   #
   # @method al_create_mutex()
-  # @return [ALLEGROMUTEX]
+  # @return [AllegroMutex]
   # @scope class
-  attach_function :al_create_mutex, :al_create_mutex, [], ALLEGROMUTEX
+  attach_function :al_create_mutex, :al_create_mutex, [], AllegroMutex
 
   # (Not documented)
   #
   # @method al_create_mutex_recursive()
-  # @return [ALLEGROMUTEX]
+  # @return [AllegroMutex]
   # @scope class
-  attach_function :al_create_mutex_recursive, :al_create_mutex_recursive, [], ALLEGROMUTEX
+  attach_function :al_create_mutex_recursive, :al_create_mutex_recursive, [], AllegroMutex
 
   # (Not documented)
   #
   # @method al_lock_mutex(mutex)
-  # @param [ALLEGROMUTEX] mutex
+  # @param [AllegroMutex] mutex
   # @return [nil]
   # @scope class
-  attach_function :al_lock_mutex, :al_lock_mutex, [ALLEGROMUTEX], :void
+  attach_function :al_lock_mutex, :al_lock_mutex, [AllegroMutex], :void
 
   # (Not documented)
   #
   # @method al_unlock_mutex(mutex)
-  # @param [ALLEGROMUTEX] mutex
+  # @param [AllegroMutex] mutex
   # @return [nil]
   # @scope class
-  attach_function :al_unlock_mutex, :al_unlock_mutex, [ALLEGROMUTEX], :void
+  attach_function :al_unlock_mutex, :al_unlock_mutex, [AllegroMutex], :void
 
   # (Not documented)
   #
   # @method al_destroy_mutex(mutex)
-  # @param [ALLEGROMUTEX] mutex
+  # @param [AllegroMutex] mutex
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_mutex, :al_destroy_mutex, [ALLEGROMUTEX], :void
+  attach_function :al_destroy_mutex, :al_destroy_mutex, [AllegroMutex], :void
 
   # (Not documented)
   #
   # @method al_create_cond()
-  # @return [ALLEGROCOND]
+  # @return [AllegroCond]
   # @scope class
-  attach_function :al_create_cond, :al_create_cond, [], ALLEGROCOND
+  attach_function :al_create_cond, :al_create_cond, [], AllegroCond
 
   # (Not documented)
   #
   # @method al_destroy_cond(cond)
-  # @param [ALLEGROCOND] cond
+  # @param [AllegroCond] cond
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_cond, :al_destroy_cond, [ALLEGROCOND], :void
+  attach_function :al_destroy_cond, :al_destroy_cond, [AllegroCond], :void
 
   # (Not documented)
   #
   # @method al_wait_cond(cond, mutex)
-  # @param [ALLEGROCOND] cond
-  # @param [ALLEGROMUTEX] mutex
+  # @param [AllegroCond] cond
+  # @param [AllegroMutex] mutex
   # @return [nil]
   # @scope class
-  attach_function :al_wait_cond, :al_wait_cond, [ALLEGROCOND, ALLEGROMUTEX], :void
+  attach_function :al_wait_cond, :al_wait_cond, [AllegroCond, AllegroMutex], :void
 
   # (Not documented)
   #
   # @method al_wait_cond_until(cond, mutex, timeout)
-  # @param [ALLEGROCOND] cond
-  # @param [ALLEGROMUTEX] mutex
-  # @param [ALLEGROTIMEOUT] timeout
+  # @param [AllegroCond] cond
+  # @param [AllegroMutex] mutex
+  # @param [AllegroTimeout] timeout
   # @return [Integer]
   # @scope class
-  attach_function :al_wait_cond_until, :al_wait_cond_until, [ALLEGROCOND, ALLEGROMUTEX, ALLEGROTIMEOUT], :int
+  attach_function :al_wait_cond_until, :al_wait_cond_until, [AllegroCond, AllegroMutex, AllegroTimeout], :int
 
   # (Not documented)
   #
   # @method al_broadcast_cond(cond)
-  # @param [ALLEGROCOND] cond
+  # @param [AllegroCond] cond
   # @return [nil]
   # @scope class
-  attach_function :al_broadcast_cond, :al_broadcast_cond, [ALLEGROCOND], :void
+  attach_function :al_broadcast_cond, :al_broadcast_cond, [AllegroCond], :void
 
   # (Not documented)
   #
   # @method al_signal_cond(cond)
-  # @param [ALLEGROCOND] cond
+  # @param [AllegroCond] cond
   # @return [nil]
   # @scope class
-  attach_function :al_signal_cond, :al_signal_cond, [ALLEGROCOND], :void
+  attach_function :al_signal_cond, :al_signal_cond, [AllegroCond], :void
 
   # (Not documented)
   #
   # @method al_create_timer(speed_secs)
   # @param [Float] speed_secs
-  # @return [ALLEGROTIMER]
+  # @return [AllegroTimer]
   # @scope class
-  attach_function :al_create_timer, :al_create_timer, [:double], ALLEGROTIMER
+  attach_function :al_create_timer, :al_create_timer, [:double], AllegroTimer
 
   # (Not documented)
   #
   # @method al_destroy_timer(timer)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_timer, :al_destroy_timer, [ALLEGROTIMER], :void
+  attach_function :al_destroy_timer, :al_destroy_timer, [AllegroTimer], :void
 
   # (Not documented)
   #
   # @method al_start_timer(timer)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @return [nil]
   # @scope class
-  attach_function :al_start_timer, :al_start_timer, [ALLEGROTIMER], :void
+  attach_function :al_start_timer, :al_start_timer, [AllegroTimer], :void
 
   # (Not documented)
   #
   # @method al_stop_timer(timer)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @return [nil]
   # @scope class
-  attach_function :al_stop_timer, :al_stop_timer, [ALLEGROTIMER], :void
+  attach_function :al_stop_timer, :al_stop_timer, [AllegroTimer], :void
 
   # (Not documented)
   #
   # @method al_get_timer_started(timer)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @return [Boolean]
   # @scope class
-  attach_function :al_get_timer_started, :al_get_timer_started, [ALLEGROTIMER], :bool
+  attach_function :al_get_timer_started, :al_get_timer_started, [AllegroTimer], :bool
 
   # (Not documented)
   #
   # @method al_get_timer_speed(timer)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @return [Float]
   # @scope class
-  attach_function :al_get_timer_speed, :al_get_timer_speed, [ALLEGROTIMER], :double
+  attach_function :al_get_timer_speed, :al_get_timer_speed, [AllegroTimer], :double
 
   # (Not documented)
   #
   # @method al_set_timer_speed(timer, speed_secs)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @param [Float] speed_secs
   # @return [nil]
   # @scope class
-  attach_function :al_set_timer_speed, :al_set_timer_speed, [ALLEGROTIMER, :double], :void
+  attach_function :al_set_timer_speed, :al_set_timer_speed, [AllegroTimer, :double], :void
 
   # (Not documented)
   #
   # @method al_get_timer_count(timer)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @return [Integer]
   # @scope class
-  attach_function :al_get_timer_count, :al_get_timer_count, [ALLEGROTIMER], :long_long
+  attach_function :al_get_timer_count, :al_get_timer_count, [AllegroTimer], :long_long
 
   # (Not documented)
   #
   # @method al_set_timer_count(timer, count)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @param [Integer] count
   # @return [nil]
   # @scope class
-  attach_function :al_set_timer_count, :al_set_timer_count, [ALLEGROTIMER, :long_long], :void
+  attach_function :al_set_timer_count, :al_set_timer_count, [AllegroTimer, :long_long], :void
 
   # (Not documented)
   #
   # @method al_add_timer_count(timer, diff)
-  # @param [ALLEGROTIMER] timer
+  # @param [AllegroTimer] timer
   # @param [Integer] diff
   # @return [nil]
   # @scope class
-  attach_function :al_add_timer_count, :al_add_timer_count, [ALLEGROTIMER, :long_long], :void
+  attach_function :al_add_timer_count, :al_add_timer_count, [AllegroTimer, :long_long], :void
 
   # (Not documented)
   #
   # @method al_get_timer_event_source(timer)
-  # @param [ALLEGROTIMER] timer
-  # @return [ALLEGROEVENTSOURCE]
+  # @param [AllegroTimer] timer
+  # @return [AllegroEventSource]
   # @scope class
-  attach_function :al_get_timer_event_source, :al_get_timer_event_source, [ALLEGROTIMER], ALLEGROEVENTSOURCE
+  attach_function :al_get_timer_event_source, :al_get_timer_event_source, [AllegroTimer], AllegroEventSource
 
   # (Not documented)
   #
@@ -4706,65 +4706,65 @@ module Allegro4r::API
   # = Fields:
   # :tls ::
   #   (Array<Integer>) Internally, a thread_local_state structure is placed here.
-  class ALLEGROSTATE < FFI::Struct
+  class AllegroState < FFI::Struct
     layout :tls, [:char, 1024]
   end
 
   # (Not documented)
   #
   # @method al_store_state(state, flags)
-  # @param [ALLEGROSTATE] state
+  # @param [AllegroState] state
   # @param [Integer] flags
   # @return [nil]
   # @scope class
-  attach_function :al_store_state, :al_store_state, [ALLEGROSTATE, :int], :void
+  attach_function :al_store_state, :al_store_state, [AllegroState, :int], :void
 
   # (Not documented)
   #
   # @method al_restore_state(state)
-  # @param [ALLEGROSTATE] state
+  # @param [AllegroState] state
   # @return [nil]
   # @scope class
-  attach_function :al_restore_state, :al_restore_state, [ALLEGROSTATE], :void
+  attach_function :al_restore_state, :al_restore_state, [AllegroState], :void
 
   # (Not documented)
   #
   # = Fields:
   # :m ::
   #   (Array<Array<Float>>)
-  class ALLEGROTRANSFORM < FFI::Struct
+  class AllegroTransform < FFI::Struct
     layout :m, [[:float, 4], 4]
   end
 
   # Transformations
   #
   # @method al_use_transform(trans)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @return [nil]
   # @scope class
-  attach_function :al_use_transform, :al_use_transform, [ALLEGROTRANSFORM], :void
+  attach_function :al_use_transform, :al_use_transform, [AllegroTransform], :void
 
   # (Not documented)
   #
   # @method al_copy_transform(dest, src)
-  # @param [ALLEGROTRANSFORM] dest
-  # @param [ALLEGROTRANSFORM] src
+  # @param [AllegroTransform] dest
+  # @param [AllegroTransform] src
   # @return [nil]
   # @scope class
-  attach_function :al_copy_transform, :al_copy_transform, [ALLEGROTRANSFORM, ALLEGROTRANSFORM], :void
+  attach_function :al_copy_transform, :al_copy_transform, [AllegroTransform, AllegroTransform], :void
 
   # (Not documented)
   #
   # @method al_identity_transform(trans)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @return [nil]
   # @scope class
-  attach_function :al_identity_transform, :al_identity_transform, [ALLEGROTRANSFORM], :void
+  attach_function :al_identity_transform, :al_identity_transform, [AllegroTransform], :void
 
   # (Not documented)
   #
   # @method al_build_transform(trans, x, y, sx, sy, theta)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @param [Float] x
   # @param [Float] y
   # @param [Float] sx
@@ -4772,79 +4772,79 @@ module Allegro4r::API
   # @param [Float] theta
   # @return [nil]
   # @scope class
-  attach_function :al_build_transform, :al_build_transform, [ALLEGROTRANSFORM, :float, :float, :float, :float, :float], :void
+  attach_function :al_build_transform, :al_build_transform, [AllegroTransform, :float, :float, :float, :float, :float], :void
 
   # (Not documented)
   #
   # @method al_translate_transform(trans, x, y)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @param [Float] x
   # @param [Float] y
   # @return [nil]
   # @scope class
-  attach_function :al_translate_transform, :al_translate_transform, [ALLEGROTRANSFORM, :float, :float], :void
+  attach_function :al_translate_transform, :al_translate_transform, [AllegroTransform, :float, :float], :void
 
   # (Not documented)
   #
   # @method al_rotate_transform(trans, theta)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @param [Float] theta
   # @return [nil]
   # @scope class
-  attach_function :al_rotate_transform, :al_rotate_transform, [ALLEGROTRANSFORM, :float], :void
+  attach_function :al_rotate_transform, :al_rotate_transform, [AllegroTransform, :float], :void
 
   # (Not documented)
   #
   # @method al_scale_transform(trans, sx, sy)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @param [Float] sx
   # @param [Float] sy
   # @return [nil]
   # @scope class
-  attach_function :al_scale_transform, :al_scale_transform, [ALLEGROTRANSFORM, :float, :float], :void
+  attach_function :al_scale_transform, :al_scale_transform, [AllegroTransform, :float, :float], :void
 
   # (Not documented)
   #
   # @method al_transform_coordinates(trans, x, y)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @param [FFI::Pointer(*Float)] x
   # @param [FFI::Pointer(*Float)] y
   # @return [nil]
   # @scope class
-  attach_function :al_transform_coordinates, :al_transform_coordinates, [ALLEGROTRANSFORM, :pointer, :pointer], :void
+  attach_function :al_transform_coordinates, :al_transform_coordinates, [AllegroTransform, :pointer, :pointer], :void
 
   # (Not documented)
   #
   # @method al_compose_transform(trans, other)
-  # @param [ALLEGROTRANSFORM] trans
-  # @param [ALLEGROTRANSFORM] other
+  # @param [AllegroTransform] trans
+  # @param [AllegroTransform] other
   # @return [nil]
   # @scope class
-  attach_function :al_compose_transform, :al_compose_transform, [ALLEGROTRANSFORM, ALLEGROTRANSFORM], :void
+  attach_function :al_compose_transform, :al_compose_transform, [AllegroTransform, AllegroTransform], :void
 
   # (Not documented)
   #
   # @method al_get_current_transform()
-  # @return [ALLEGROTRANSFORM]
+  # @return [AllegroTransform]
   # @scope class
-  attach_function :al_get_current_transform, :al_get_current_transform, [], ALLEGROTRANSFORM
+  attach_function :al_get_current_transform, :al_get_current_transform, [], AllegroTransform
 
   # (Not documented)
   #
   # @method al_invert_transform(trans)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @return [nil]
   # @scope class
-  attach_function :al_invert_transform, :al_invert_transform, [ALLEGROTRANSFORM], :void
+  attach_function :al_invert_transform, :al_invert_transform, [AllegroTransform], :void
 
   # (Not documented)
   #
   # @method al_check_inverse(trans, tol)
-  # @param [ALLEGROTRANSFORM] trans
+  # @param [AllegroTransform] trans
   # @param [Float] tol
   # @return [Integer]
   # @scope class
-  attach_function :al_check_inverse, :al_check_inverse, [ALLEGROTRANSFORM, :float], :int
+  attach_function :al_check_inverse, :al_check_inverse, [AllegroTransform, :float], :int
 
   # (Not documented)
   #
@@ -4854,8 +4854,8 @@ module Allegro4r::API
   # :height ::
   #   (Integer)
   # :vtable ::
-  #   (FFI::Pointer(*ALLEGROFONTVTABLE))
-  class ALLEGROFONT < FFI::Struct
+  #   (FFI::Pointer(*AllegroFontVtable))
+  class AllegroFont < FFI::Struct
     layout :data, :pointer,
            :height, :int,
            :vtable, :pointer
@@ -4882,7 +4882,7 @@ module Allegro4r::API
   #   (FFI::Pointer(*))
   # :get_text_dimensions ::
   #   (FFI::Pointer(*))
-  class ALLEGROFONTVTABLE < FFI::Struct
+  class AllegroFontVtable < FFI::Struct
     layout :font_height, :pointer,
            :font_ascent, :pointer,
            :font_descent, :pointer,
@@ -4907,9 +4907,9 @@ module Allegro4r::API
   #
   # @method al_load_bitmap_font(filename)
   # @param [String] filename
-  # @return [ALLEGROFONT]
+  # @return [AllegroFont]
   # @scope class
-  attach_function :al_load_bitmap_font, :al_load_bitmap_font, [:string], ALLEGROFONT
+  attach_function :al_load_bitmap_font, :al_load_bitmap_font, [:string], AllegroFont
 
   # (Not documented)
   #
@@ -4917,58 +4917,58 @@ module Allegro4r::API
   # @param [String] filename
   # @param [Integer] size
   # @param [Integer] flags
-  # @return [ALLEGROFONT]
+  # @return [AllegroFont]
   # @scope class
-  attach_function :al_load_font, :al_load_font, [:string, :int, :int], ALLEGROFONT
+  attach_function :al_load_font, :al_load_font, [:string, :int, :int], AllegroFont
 
   # (Not documented)
   #
   # @method al_grab_font_from_bitmap(bmp, n, ranges)
-  # @param [ALLEGROBITMAP] bmp
+  # @param [AllegroBitmap] bmp
   # @param [Integer] n
   # @param [FFI::Pointer(*Int)] ranges
-  # @return [ALLEGROFONT]
+  # @return [AllegroFont]
   # @scope class
-  attach_function :al_grab_font_from_bitmap, :al_grab_font_from_bitmap, [ALLEGROBITMAP, :int, :pointer], ALLEGROFONT
+  attach_function :al_grab_font_from_bitmap, :al_grab_font_from_bitmap, [AllegroBitmap, :int, :pointer], AllegroFont
 
   # (Not documented)
   #
   # @method al_create_builtin_font()
-  # @return [ALLEGROFONT]
+  # @return [AllegroFont]
   # @scope class
-  attach_function :al_create_builtin_font, :al_create_builtin_font, [], ALLEGROFONT
+  attach_function :al_create_builtin_font, :al_create_builtin_font, [], AllegroFont
 
   # (Not documented)
   #
   # @method al_draw_ustr(font, color, x, y, flags, ustr)
-  # @param [ALLEGROFONT] font
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroFont] font
+  # @param [AllegroColor] color
   # @param [Float] x
   # @param [Float] y
   # @param [Integer] flags
   # @param [AlTagbstring] ustr
   # @return [nil]
   # @scope class
-  attach_function :al_draw_ustr, :al_draw_ustr, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :int, AlTagbstring], :void
+  attach_function :al_draw_ustr, :al_draw_ustr, [AllegroFont, AllegroColor.by_value, :float, :float, :int, AlTagbstring], :void
 
   # (Not documented)
   #
   # @method al_draw_text(font, color, x, y, flags, text)
-  # @param [ALLEGROFONT] font
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroFont] font
+  # @param [AllegroColor] color
   # @param [Float] x
   # @param [Float] y
   # @param [Integer] flags
   # @param [String] text
   # @return [nil]
   # @scope class
-  attach_function :al_draw_text, :al_draw_text, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :int, :string], :void
+  attach_function :al_draw_text, :al_draw_text, [AllegroFont, AllegroColor.by_value, :float, :float, :int, :string], :void
 
   # (Not documented)
   #
   # @method al_draw_justified_text(font, color, x1, x2, y, diff, flags, text)
-  # @param [ALLEGROFONT] font
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroFont] font
+  # @param [AllegroColor] color
   # @param [Float] x1
   # @param [Float] x2
   # @param [Float] y
@@ -4977,13 +4977,13 @@ module Allegro4r::API
   # @param [String] text
   # @return [nil]
   # @scope class
-  attach_function :al_draw_justified_text, :al_draw_justified_text, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :int, :string], :void
+  attach_function :al_draw_justified_text, :al_draw_justified_text, [AllegroFont, AllegroColor.by_value, :float, :float, :float, :float, :int, :string], :void
 
   # (Not documented)
   #
   # @method al_draw_justified_ustr(font, color, x1, x2, y, diff, flags, text)
-  # @param [ALLEGROFONT] font
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroFont] font
+  # @param [AllegroColor] color
   # @param [Float] x1
   # @param [Float] x2
   # @param [Float] y
@@ -4992,26 +4992,26 @@ module Allegro4r::API
   # @param [AlTagbstring] text
   # @return [nil]
   # @scope class
-  attach_function :al_draw_justified_ustr, :al_draw_justified_ustr, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :int, AlTagbstring], :void
+  attach_function :al_draw_justified_ustr, :al_draw_justified_ustr, [AllegroFont, AllegroColor.by_value, :float, :float, :float, :float, :int, AlTagbstring], :void
 
   # (Not documented)
   #
   # @method al_draw_textf(font, color, x, y, flags, format)
-  # @param [ALLEGROFONT] font
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroFont] font
+  # @param [AllegroColor] color
   # @param [Float] x
   # @param [Float] y
   # @param [Integer] flags
   # @param [String] format
   # @return [nil]
   # @scope class
-  attach_function :al_draw_textf, :al_draw_textf, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :int, :string], :void
+  attach_function :al_draw_textf, :al_draw_textf, [AllegroFont, AllegroColor.by_value, :float, :float, :int, :string], :void
 
   # (Not documented)
   #
   # @method al_draw_justified_textf(font, color, x1, x2, y, diff, flags, format)
-  # @param [ALLEGROFONT] font
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroFont] font
+  # @param [AllegroColor] color
   # @param [Float] x1
   # @param [Float] x2
   # @param [Float] y
@@ -5020,62 +5020,62 @@ module Allegro4r::API
   # @param [String] format
   # @return [nil]
   # @scope class
-  attach_function :al_draw_justified_textf, :al_draw_justified_textf, [ALLEGROFONT, ALLEGROCOLOR.by_value, :float, :float, :float, :float, :int, :string], :void
+  attach_function :al_draw_justified_textf, :al_draw_justified_textf, [AllegroFont, AllegroColor.by_value, :float, :float, :float, :float, :int, :string], :void
 
   # (Not documented)
   #
   # @method al_get_text_width(f, str)
-  # @param [ALLEGROFONT] f
+  # @param [AllegroFont] f
   # @param [String] str
   # @return [Integer]
   # @scope class
-  attach_function :al_get_text_width, :al_get_text_width, [ALLEGROFONT, :string], :int
+  attach_function :al_get_text_width, :al_get_text_width, [AllegroFont, :string], :int
 
   # (Not documented)
   #
   # @method al_get_ustr_width(f, ustr)
-  # @param [ALLEGROFONT] f
+  # @param [AllegroFont] f
   # @param [AlTagbstring] ustr
   # @return [Integer]
   # @scope class
-  attach_function :al_get_ustr_width, :al_get_ustr_width, [ALLEGROFONT, AlTagbstring], :int
+  attach_function :al_get_ustr_width, :al_get_ustr_width, [AllegroFont, AlTagbstring], :int
 
   # (Not documented)
   #
   # @method al_get_font_line_height(f)
-  # @param [ALLEGROFONT] f
+  # @param [AllegroFont] f
   # @return [Integer]
   # @scope class
-  attach_function :al_get_font_line_height, :al_get_font_line_height, [ALLEGROFONT], :int
+  attach_function :al_get_font_line_height, :al_get_font_line_height, [AllegroFont], :int
 
   # (Not documented)
   #
   # @method al_get_font_ascent(f)
-  # @param [ALLEGROFONT] f
+  # @param [AllegroFont] f
   # @return [Integer]
   # @scope class
-  attach_function :al_get_font_ascent, :al_get_font_ascent, [ALLEGROFONT], :int
+  attach_function :al_get_font_ascent, :al_get_font_ascent, [AllegroFont], :int
 
   # (Not documented)
   #
   # @method al_get_font_descent(f)
-  # @param [ALLEGROFONT] f
+  # @param [AllegroFont] f
   # @return [Integer]
   # @scope class
-  attach_function :al_get_font_descent, :al_get_font_descent, [ALLEGROFONT], :int
+  attach_function :al_get_font_descent, :al_get_font_descent, [AllegroFont], :int
 
   # (Not documented)
   #
   # @method al_destroy_font(f)
-  # @param [ALLEGROFONT] f
+  # @param [AllegroFont] f
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_font, :al_destroy_font, [ALLEGROFONT], :void
+  attach_function :al_destroy_font, :al_destroy_font, [AllegroFont], :void
 
   # (Not documented)
   #
   # @method al_get_ustr_dimensions(f, text, bbx, bby, bbw, bbh)
-  # @param [ALLEGROFONT] f
+  # @param [AllegroFont] f
   # @param [AlTagbstring] text
   # @param [FFI::Pointer(*Int)] bbx
   # @param [FFI::Pointer(*Int)] bby
@@ -5083,12 +5083,12 @@ module Allegro4r::API
   # @param [FFI::Pointer(*Int)] bbh
   # @return [nil]
   # @scope class
-  attach_function :al_get_ustr_dimensions, :al_get_ustr_dimensions, [ALLEGROFONT, AlTagbstring, :pointer, :pointer, :pointer, :pointer], :void
+  attach_function :al_get_ustr_dimensions, :al_get_ustr_dimensions, [AllegroFont, AlTagbstring, :pointer, :pointer, :pointer, :pointer], :void
 
   # (Not documented)
   #
   # @method al_get_text_dimensions(f, text, bbx, bby, bbw, bbh)
-  # @param [ALLEGROFONT] f
+  # @param [AllegroFont] f
   # @param [String] text
   # @param [FFI::Pointer(*Int)] bbx
   # @param [FFI::Pointer(*Int)] bby
@@ -5096,7 +5096,7 @@ module Allegro4r::API
   # @param [FFI::Pointer(*Int)] bbh
   # @return [nil]
   # @scope class
-  attach_function :al_get_text_dimensions, :al_get_text_dimensions, [ALLEGROFONT, :string, :pointer, :pointer, :pointer, :pointer], :void
+  attach_function :al_get_text_dimensions, :al_get_text_dimensions, [AllegroFont, :string, :pointer, :pointer, :pointer, :pointer], :void
 
   # (Not documented)
   #
@@ -5233,14 +5233,14 @@ module Allegro4r::API
   #   (Integer)
   # :offset ::
   #   (Integer)
-  class ALLEGROVERTEXELEMENT < FFI::Struct
+  class AllegroVertexElement < FFI::Struct
     layout :attribute, :int,
            :storage, :int,
            :offset, :int
   end
 
   # Type: ALLEGRO_VERTEX_DECL
-  class ALLEGROVERTEXDECL < FFI::Struct
+  class AllegroVertexDecl < FFI::Struct
     layout :dummy, :char
   end
 
@@ -5258,14 +5258,14 @@ module Allegro4r::API
   # :v ::
   #   (Float)
   # :color ::
-  #   (ALLEGROCOLOR)
-  class ALLEGROVERTEX < FFI::Struct
+  #   (AllegroColor)
+  class AllegroVertex < FFI::Struct
     layout :x, :float,
            :y, :float,
            :z, :float,
            :u, :float,
            :v, :float,
-           :color, ALLEGROCOLOR.by_value
+           :color, AllegroColor.by_value
   end
 
   # (Not documented)
@@ -5293,51 +5293,51 @@ module Allegro4r::API
   #
   # @method al_draw_prim(vtxs, decl, texture, start, end_, type)
   # @param [FFI::Pointer(*Void)] vtxs
-  # @param [ALLEGROVERTEXDECL] decl
-  # @param [ALLEGROBITMAP] texture
+  # @param [AllegroVertexDecl] decl
+  # @param [AllegroBitmap] texture
   # @param [Integer] start
   # @param [Integer] end_
   # @param [Integer] type
   # @return [Integer]
   # @scope class
-  attach_function :al_draw_prim, :al_draw_prim, [:pointer, ALLEGROVERTEXDECL, ALLEGROBITMAP, :int, :int, :int], :int
+  attach_function :al_draw_prim, :al_draw_prim, [:pointer, AllegroVertexDecl, AllegroBitmap, :int, :int, :int], :int
 
   # (Not documented)
   #
   # @method al_draw_indexed_prim(vtxs, decl, texture, indices, num_vtx, type)
   # @param [FFI::Pointer(*Void)] vtxs
-  # @param [ALLEGROVERTEXDECL] decl
-  # @param [ALLEGROBITMAP] texture
+  # @param [AllegroVertexDecl] decl
+  # @param [AllegroBitmap] texture
   # @param [FFI::Pointer(*Int)] indices
   # @param [Integer] num_vtx
   # @param [Integer] type
   # @return [Integer]
   # @scope class
-  attach_function :al_draw_indexed_prim, :al_draw_indexed_prim, [:pointer, ALLEGROVERTEXDECL, ALLEGROBITMAP, :pointer, :int, :int], :int
+  attach_function :al_draw_indexed_prim, :al_draw_indexed_prim, [:pointer, AllegroVertexDecl, AllegroBitmap, :pointer, :int, :int], :int
 
   # (Not documented)
   #
   # @method al_create_vertex_decl(elements, stride)
-  # @param [ALLEGROVERTEXELEMENT] elements
+  # @param [AllegroVertexElement] elements
   # @param [Integer] stride
-  # @return [ALLEGROVERTEXDECL]
+  # @return [AllegroVertexDecl]
   # @scope class
-  attach_function :al_create_vertex_decl, :al_create_vertex_decl, [ALLEGROVERTEXELEMENT, :int], ALLEGROVERTEXDECL
+  attach_function :al_create_vertex_decl, :al_create_vertex_decl, [AllegroVertexElement, :int], AllegroVertexDecl
 
   # (Not documented)
   #
   # @method al_destroy_vertex_decl(decl)
-  # @param [ALLEGROVERTEXDECL] decl
+  # @param [AllegroVertexDecl] decl
   # @return [nil]
   # @scope class
-  attach_function :al_destroy_vertex_decl, :al_destroy_vertex_decl, [ALLEGROVERTEXDECL], :void
+  attach_function :al_destroy_vertex_decl, :al_destroy_vertex_decl, [AllegroVertexDecl], :void
 
   # Custom primitives
   #
   # @method al_draw_soft_triangle(v1, v2, v3, state, init, first, step, draw)
-  # @param [ALLEGROVERTEX] v1
-  # @param [ALLEGROVERTEX] v2
-  # @param [ALLEGROVERTEX] v3
+  # @param [AllegroVertex] v1
+  # @param [AllegroVertex] v2
+  # @param [AllegroVertex] v3
   # @param [Integer] state
   # @param [FFI::Pointer(*)] init
   # @param [FFI::Pointer(*)] first
@@ -5345,20 +5345,20 @@ module Allegro4r::API
   # @param [FFI::Pointer(*)] draw
   # @return [nil]
   # @scope class
-  attach_function :al_draw_soft_triangle, :al_draw_soft_triangle, [ALLEGROVERTEX, ALLEGROVERTEX, ALLEGROVERTEX, :ulong, :pointer, :pointer, :pointer, :pointer], :void
+  attach_function :al_draw_soft_triangle, :al_draw_soft_triangle, [AllegroVertex, AllegroVertex, AllegroVertex, :ulong, :pointer, :pointer, :pointer, :pointer], :void
 
   # (Not documented)
   #
   # @method al_draw_soft_line(v1, v2, state, first, step, draw)
-  # @param [ALLEGROVERTEX] v1
-  # @param [ALLEGROVERTEX] v2
+  # @param [AllegroVertex] v1
+  # @param [AllegroVertex] v2
   # @param [Integer] state
   # @param [FFI::Pointer(*)] first
   # @param [FFI::Pointer(*)] step
   # @param [FFI::Pointer(*)] draw
   # @return [nil]
   # @scope class
-  attach_function :al_draw_soft_line, :al_draw_soft_line, [ALLEGROVERTEX, ALLEGROVERTEX, :ulong, :pointer, :pointer, :pointer], :void
+  attach_function :al_draw_soft_line, :al_draw_soft_line, [AllegroVertex, AllegroVertex, :ulong, :pointer, :pointer, :pointer], :void
 
   # High level primitives
   #
@@ -5367,11 +5367,11 @@ module Allegro4r::API
   # @param [Float] y1
   # @param [Float] x2
   # @param [Float] y2
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_line, :al_draw_line, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_line, :al_draw_line, [:float, :float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5382,11 +5382,11 @@ module Allegro4r::API
   # @param [Float] y2
   # @param [Float] x3
   # @param [Float] y3
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_triangle, :al_draw_triangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_triangle, :al_draw_triangle, [:float, :float, :float, :float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5395,11 +5395,11 @@ module Allegro4r::API
   # @param [Float] y1
   # @param [Float] x2
   # @param [Float] y2
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_rectangle, :al_draw_rectangle, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_rectangle, :al_draw_rectangle, [:float, :float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5410,11 +5410,11 @@ module Allegro4r::API
   # @param [Float] y2
   # @param [Float] rx
   # @param [Float] ry
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_rounded_rectangle, :al_draw_rounded_rectangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_rounded_rectangle, :al_draw_rounded_rectangle, [:float, :float, :float, :float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5439,11 +5439,11 @@ module Allegro4r::API
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] r
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_circle, :al_draw_circle, [:float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_circle, :al_draw_circle, [:float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5452,11 +5452,11 @@ module Allegro4r::API
   # @param [Float] cy
   # @param [Float] rx
   # @param [Float] ry
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_ellipse, :al_draw_ellipse, [:float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_ellipse, :al_draw_ellipse, [:float, :float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5466,11 +5466,11 @@ module Allegro4r::API
   # @param [Float] r
   # @param [Float] start_theta
   # @param [Float] delta_theta
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_arc, :al_draw_arc, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_arc, :al_draw_arc, [:float, :float, :float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5481,11 +5481,11 @@ module Allegro4r::API
   # @param [Float] ry
   # @param [Float] start_theta
   # @param [Float] delta_theta
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_elliptical_arc, :al_draw_elliptical_arc, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_elliptical_arc, :al_draw_elliptical_arc, [:float, :float, :float, :float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5495,11 +5495,11 @@ module Allegro4r::API
   # @param [Float] r
   # @param [Float] start_theta
   # @param [Float] delta_theta
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_pieslice, :al_draw_pieslice, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_pieslice, :al_draw_pieslice, [:float, :float, :float, :float, :float, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5517,11 +5517,11 @@ module Allegro4r::API
   #
   # @method al_draw_spline(points, color, thickness)
   # @param [Array<Float>] points
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @return [nil]
   # @scope class
-  attach_function :al_draw_spline, :al_draw_spline, [:pointer, ALLEGROCOLOR.by_value, :float], :void
+  attach_function :al_draw_spline, :al_draw_spline, [:pointer, AllegroColor.by_value, :float], :void
 
   # (Not documented)
   #
@@ -5541,12 +5541,12 @@ module Allegro4r::API
   # @method al_draw_ribbon(points, points_stride, color, thickness, num_segments)
   # @param [FFI::Pointer(*Float)] points
   # @param [Integer] points_stride
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @param [Float] thickness
   # @param [Integer] num_segments
   # @return [nil]
   # @scope class
-  attach_function :al_draw_ribbon, :al_draw_ribbon, [:pointer, :int, ALLEGROCOLOR.by_value, :float, :int], :void
+  attach_function :al_draw_ribbon, :al_draw_ribbon, [:pointer, :int, AllegroColor.by_value, :float, :int], :void
 
   # (Not documented)
   #
@@ -5557,10 +5557,10 @@ module Allegro4r::API
   # @param [Float] y2
   # @param [Float] x3
   # @param [Float] y3
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_triangle, :al_draw_filled_triangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+  attach_function :al_draw_filled_triangle, :al_draw_filled_triangle, [:float, :float, :float, :float, :float, :float, AllegroColor.by_value], :void
 
   # (Not documented)
   #
@@ -5569,10 +5569,10 @@ module Allegro4r::API
   # @param [Float] y1
   # @param [Float] x2
   # @param [Float] y2
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_rectangle, :al_draw_filled_rectangle, [:float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+  attach_function :al_draw_filled_rectangle, :al_draw_filled_rectangle, [:float, :float, :float, :float, AllegroColor.by_value], :void
 
   # (Not documented)
   #
@@ -5581,10 +5581,10 @@ module Allegro4r::API
   # @param [Float] cy
   # @param [Float] rx
   # @param [Float] ry
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_ellipse, :al_draw_filled_ellipse, [:float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+  attach_function :al_draw_filled_ellipse, :al_draw_filled_ellipse, [:float, :float, :float, :float, AllegroColor.by_value], :void
 
   # (Not documented)
   #
@@ -5592,10 +5592,10 @@ module Allegro4r::API
   # @param [Float] cx
   # @param [Float] cy
   # @param [Float] r
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_circle, :al_draw_filled_circle, [:float, :float, :float, ALLEGROCOLOR.by_value], :void
+  attach_function :al_draw_filled_circle, :al_draw_filled_circle, [:float, :float, :float, AllegroColor.by_value], :void
 
   # (Not documented)
   #
@@ -5605,10 +5605,10 @@ module Allegro4r::API
   # @param [Float] r
   # @param [Float] start_theta
   # @param [Float] delta_theta
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_pieslice, :al_draw_filled_pieslice, [:float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+  attach_function :al_draw_filled_pieslice, :al_draw_filled_pieslice, [:float, :float, :float, :float, :float, AllegroColor.by_value], :void
 
   # (Not documented)
   #
@@ -5619,9 +5619,9 @@ module Allegro4r::API
   # @param [Float] y2
   # @param [Float] rx
   # @param [Float] ry
-  # @param [ALLEGROCOLOR] color
+  # @param [AllegroColor] color
   # @return [nil]
   # @scope class
-  attach_function :al_draw_filled_rounded_rectangle, :al_draw_filled_rounded_rectangle, [:float, :float, :float, :float, :float, :float, ALLEGROCOLOR.by_value], :void
+  attach_function :al_draw_filled_rounded_rectangle, :al_draw_filled_rounded_rectangle, [:float, :float, :float, :float, :float, :float, AllegroColor.by_value], :void
 
 end

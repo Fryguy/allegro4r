@@ -8,6 +8,17 @@ class FFIGen::Enum
   end
 end
 
+class FFIGen::Name
+  # Override initialize to downcase the parts.  This allows
+  #   camelcase to work properly with UPPERCASE parts.  This
+  #   is technically a bug with `format` with :camelcase, but the
+  #   patch to initialize is simpler.
+  def initialize(parts, raw = nil)
+    @parts = parts.map(&:downcase)
+    @raw = raw
+  end
+end
+
 output = File.expand_path("../lib/allegro4r/api.rb", __dir__)
 
 FFIGen.generate(
@@ -80,18 +91,18 @@ contents.gsub!("[:float, 8]", ":pointer")
 contents.gsub!(":pointer.by_value", ":pointer")
 
 # Fix issues with Unions with nested structures...they need to be by_ref
-contents.sub!(/class ALLEGROANYEVENT.+?:source, ALLEGROEVENTSOURCE/m,   '\0.by_ref')
-contents.sub!(/class ALLEGROJOYSTICKEVENT.+?:source, ALLEGROJOYSTICK/m, '\0.by_ref')
-contents.sub!(/class ALLEGROJOYSTICKEVENT.+?:id, ALLEGROJOYSTICK/m,     '\0.by_ref')
-contents.sub!(/class ALLEGROKEYBOARDEVENT.+?:source, ALLEGROKEYBOARD/m, '\0.by_ref')
-contents.sub!(/class ALLEGROMOUSEEVENT.+?:source, ALLEGROMOUSE/m,       '\0.by_ref')
-contents.sub!(/class ALLEGROTIMEREVENT.+?:source, ALLEGROTIMER/m,       '\0.by_ref')
-contents.sub!(/class ALLEGROUSEREVENT.+?:source, ALLEGROEVENTSOURCE/m,  '\0.by_ref')
-contents.sub!(/class ALLEGROUSEREVENT.+?:source, ALLEGROUSEREVENTDESCRIPTOR/m, '\0.by_ref')
+contents.sub!(/class AllegroAnyEvent.+?:source, AllegroEventSource/m,   '\0.by_ref')
+contents.sub!(/class AllegroJoystickEvent.+?:source, AllegroJoystick/m, '\0.by_ref')
+contents.sub!(/class AllegroJoystickEvent.+?:id, AllegroJoystick/m,     '\0.by_ref')
+contents.sub!(/class AllegroKeyboardEvent.+?:source, AllegroKeyboard/m, '\0.by_ref')
+contents.sub!(/class AllegroMouseEvent.+?:source, AllegroMouse/m,       '\0.by_ref')
+contents.sub!(/class AllegroTimerEvent.+?:source, AllegroTimer/m,       '\0.by_ref')
+contents.sub!(/class AllegroUserEvent.+?:source, AllegroEventSource/m,  '\0.by_ref')
+contents.sub!(/class AllegroUserEvent.+?:source, AllegroUserEventDescriptor/m, '\0.by_ref')
 
 # Fix issues with return pointers not marked as such
-contents.sub!(/(attach_function :al_lock_bitmap.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
-contents.sub!(/(attach_function :al_lock_bitmap_region.+ALLEGROLOCKEDREGION)$/, '\1.by_ref')
+contents.sub!(/(attach_function :al_lock_bitmap.+AllegroLockedRegion)$/, '\1.by_ref')
+contents.sub!(/(attach_function :al_lock_bitmap_region.+AllegroLockedRegion)$/, '\1.by_ref')
 
 # Fix issues with return enums not marked as such
 contents.sub!(/(attach_function :al_get_display_format.+), :int$/, '\1, :allegro_pixel_format')

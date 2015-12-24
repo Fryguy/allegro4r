@@ -73,7 +73,7 @@ end
 
 # Run the FPS test.
 def run
-  event = ALLEGROEVENT.new
+  event = AllegroEvent.new
   frames = 0
 
   $target = al_create_bitmap(W, H)

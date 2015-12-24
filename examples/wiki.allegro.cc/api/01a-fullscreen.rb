@@ -3,7 +3,7 @@ require 'allegro4r'
 include Allegro4r::API
 
 def main
-  disp_data = ALLEGRODISPLAYMODE.new
+  disp_data = AllegroDisplayMode.new
 
   al_init # I'm not checking the return value for simplicity.
   al_init_image_addon

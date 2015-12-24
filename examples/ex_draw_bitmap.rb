@@ -201,7 +201,7 @@ def redraw
 end
 
 def main
-  info = ALLEGROMONITORINFO.new
+  info = AllegroMonitorInfo.new
   w, h = 640, 480
   done = false
   need_redraw = true
@@ -249,7 +249,7 @@ def main
 
   al_start_timer(timer)
 
-  event = ALLEGROEVENT.new
+  event = AllegroEvent.new
   while (!done) do
     if need_redraw && al_is_event_queue_empty(queue)
       t = -al_get_time

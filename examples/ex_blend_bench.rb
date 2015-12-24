@@ -48,7 +48,7 @@ def current_clock
 end
 
 def do_test(mode)
-  state = ALLEGROSTATE.new
+  state = AllegroState.new
 
   al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP)
 

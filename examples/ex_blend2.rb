@@ -241,7 +241,7 @@ class Prog
   end
 
   def draw_samples
-    state = ALLEGROSTATE.new
+    state = AllegroState.new
     al_store_state(state, Allegro4r::API.enum_value(:allegro_state_target_bitmap) |
       Allegro4r::API.enum_value(:allegro_state_blender))
 

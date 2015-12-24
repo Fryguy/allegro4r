@@ -6,8 +6,8 @@ module Allegro4r::API
     ((ALLEGRO_VERSION << 24) | (ALLEGRO_SUB_VERSION << 16) |
     (ALLEGRO_WIP_VERSION << 8) | ALLEGRO_RELEASE_NUMBER)
 
-  ALLEGRO_USTR = AlTagbstring
-  ALLEGRO_USTR_INFO = AlTagbstring
+  AllegroUstr = AlTagbstring
+  AllegroUstrInfo = AlTagbstring
 
   # enums not copied in yet by ffi_gen
   ALLEGRO_WINDOWED                    = 1 << 0

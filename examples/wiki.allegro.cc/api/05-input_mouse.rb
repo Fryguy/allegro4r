@@ -58,7 +58,7 @@ def main
 
   al_start_timer(timer)
 
-  ev = ALLEGROEVENT.new
+  ev = AllegroEvent.new
   loop do
     al_wait_for_event(event_queue, ev)
 
