@@ -36,7 +36,7 @@ class Example
                 :direct_speed_measure, :ftpos, :frame_times
 
   def initialize
-    @sprites = MAX_SPRITES.times.map { Sprite.new }
+    @sprites = Array.new(MAX_SPRITES) { Sprite.new }
     @blending = @bitmap_size = @sprite_count = @ftpos = 0
     @direct_speed_measure = 0.0
     @frame_times = [0.0] * FPS
