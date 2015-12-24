@@ -42,9 +42,9 @@ def print(x, y, vertical, format, *args)
     end
 
     if vertical
-      ui = ALLEGRO_USTR_INFO.new
+      ui = AllegroUstrInfo.new
       us = al_ref_cstr(ui, message)
-      letter = ALLEGRO_USTR_INFO.new
+      letter = AllegroUstrInfo.new
       al_ustr_length(us).to_i.times do |i|
         al_draw_ustr($ex.myfont, color, x + 1 - j, y + 1 - j + h * i, 0,
           al_ref_ustr(letter, us, al_ustr_offset(us, i),

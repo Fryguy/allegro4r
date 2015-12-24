@@ -29,7 +29,7 @@ class UString
   public
 
   def initialize(s, first, last = -1)
-    self.info = ALLEGRO_USTR_INFO.new
+    self.info = AllegroUstrInfo.new
     last = al_ustr_size(s) if last == -1
     self.ustr = al_ref_ustr(info, s, first, last)
   end
