@@ -248,6 +248,10 @@ module Allegro4r::API
   ALLEGRO_LOCK_READONLY   = 1
   ALLEGRO_LOCK_WRITEONLY  = 2
 
+  ALLEGRO_DONTCARE = 0
+  ALLEGRO_REQUIRE  = 1
+  ALLEGRO_SUGGEST  = 2
+
   def self.run_main(real_main, *args)
     argc = 0
     argv = FFI::MemoryPointer.new(:pointer)
