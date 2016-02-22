@@ -252,6 +252,15 @@ module Allegro4r::API
   ALLEGRO_REQUIRE  = 1
   ALLEGRO_SUGGEST  = 2
 
+  ALLEGRO_RESOURCES_PATH      = 0
+  ALLEGRO_TEMP_PATH           = 1
+  ALLEGRO_USER_DATA_PATH      = 2
+  ALLEGRO_USER_HOME_PATH      = 3
+  ALLEGRO_USER_SETTINGS_PATH  = 4
+  ALLEGRO_USER_DOCUMENTS_PATH = 5
+  ALLEGRO_EXENAME_PATH        = 6
+  ALLEGRO_LAST_PATH           = 7 # must be last
+
   def self.run_main(real_main, *args)
     argc = 0
     argv = FFI::MemoryPointer.new(:pointer)

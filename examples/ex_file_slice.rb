@@ -72,7 +72,7 @@ def main
 
   al_fclose(master)
 
-  al_remove_filename(al_path_cstr(tmp_path, '/'.ord))
+  al_remove_filename(al_path_cstr(tmp_path, '/'))
 
   close_log(true)
 end

@@ -21,6 +21,11 @@ module Allegro4r
         args.drop(1).map(&:read_float)
       end
 
+      def al_path_cstr(path, delim)
+        delim = delim.ord if delim.kind_of?(String)
+        super
+      end
+
       def al_grab_font_from_bitmap(bmp, n, ranges)
         if ranges.kind_of?(Array)
           ranges = FFI::MemoryPointer.new(:int, ranges.length).write_array_of_int(ranges)
