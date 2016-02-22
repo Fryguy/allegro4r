@@ -69,10 +69,10 @@ def create_example_bitmap
       r = Math.sqrt(x * x + y * y)
       rc = 1 - r / 50.0
       rc = 0.0 if rc < 0
-      data.put_uint8(i * 4 + 0, i * 255 / 100)
-      data.put_uint8(i * 4 + 1, j * 255 / 100)
-      data.put_uint8(i * 4 + 2, rc * 255)
-      data.put_uint8(i * 4 + 3, rc * 255)
+      data.put_uchar(i * 4 + 0, i * 255 / 100)
+      data.put_uchar(i * 4 + 1, j * 255 / 100)
+      data.put_uchar(i * 4 + 2, rc * 255)
+      data.put_uchar(i * 4 + 3, rc * 255)
     end
     data = FFI::Pointer.new(:void, data.address + locked[:pitch])
   end
