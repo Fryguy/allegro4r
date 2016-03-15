@@ -8,7 +8,7 @@ module Allegro4r
       def al_get_clipping_rectangle(*args)
         return super unless args.length == 0
 
-        args = 4.times.map { FFI::MemoryPointer.new(:int) }
+        args = Array.new(4) { FFI::MemoryPointer.new(:int) }
         super(*args)
         args.map(&:read_int32)
       end
@@ -16,7 +16,7 @@ module Allegro4r
       def al_unmap_rgba_f(*args)
         return super unless args.length == 1
 
-        args += 4.times.map { FFI::MemoryPointer.new(:float) }
+        args += Array.new(4) { FFI::MemoryPointer.new(:float) }
         super(*args)
         args.drop(1).map(&:read_float)
       end
